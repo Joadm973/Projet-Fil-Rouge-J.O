@@ -1,0 +1,8 @@
+# Dossier des données traitées
+# Fichiers générés automatiquement par les scripts :
+#
+# - olympics_cleaned.csv : Dataset nettoyé (sans doublons, valeurs manquantes traitées)
+# - medals_by_country.csv : Agrégation des médailles par pays et par année
+# - medals_by_sport.csv : Agrégation des médailles par sport et par année
+# - athletes_stats.csv : Statistiques des athlètes (nombre de participations, médailles, etc.)
+# - predictions_2028.csv : Prédictions pour les JO 2028
