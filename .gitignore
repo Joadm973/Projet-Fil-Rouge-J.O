@@ -54,7 +54,6 @@ Thumbs.db
 logs/
 
 # Data files (keep structure, ignore large files)
-data/processed/*.csv
 data/processed/*.pkl
 !data/raw/.gitkeep
 !data/processed/.gitkeep
