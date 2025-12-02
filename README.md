@@ -124,8 +124,8 @@ Le dataset `olympics_dataset.csv` contient les données historiques des Jeux Oly
 
 ## 👥 Équipe
 
-- **Auteur 1** - [GitHub](https://github.com/)
-- **Auteur 2** - [GitHub](https://github.com/)
+- **Josué Adami** - [GitHub](https://github.com/Joadm973)
+- **Nicolas Gouy** - [GitHub](https://github.com/gonicolas12)
 
 ## 📝 License
 
