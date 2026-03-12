@@ -1,16 +1,20 @@
-import streamlit as st
+"""Module principal de l'application Streamlit YPerf."""
 import sys
 from pathlib import Path
+
+import streamlit as st
 
 _ROOT = Path(__file__).parent.parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
+# pylint: disable=wrong-import-position
 from config import APP_CONFIG
-from src.data.data_loader import load_raw_data
-from src.data.data_cleaner import clean_data
-from src.app.views import home, exploration, athletes, predictions
 from src.app.components.style import CSS
+from src.app.views import athletes, exploration, home, predictions
+from src.data.data_cleaner import clean_data
+from src.data.data_loader import load_raw_data
+# pylint: enable=wrong-import-position
 
 st.set_page_config(**APP_CONFIG)
 
@@ -20,8 +24,9 @@ st.markdown(CSS, unsafe_allow_html=True)
 
 @st.cache_data
 def get_data():
-    df = load_raw_data()
-    return clean_data(df)
+    """Charge et nettoie les données brutes, avec mise en cache pour optimiser les performances."""
+    raw_df = load_raw_data()
+    return clean_data(raw_df)
 
 
 df = get_data()
@@ -35,6 +40,7 @@ PAGES = {
 }
 
 with st.sidebar:
+    # pylint: disable=line-too-long
     st.markdown(
         """
         <div style="text-align:center; padding: 12px 0 6px 0;">
@@ -45,6 +51,7 @@ with st.sidebar:
         """,
         unsafe_allow_html=True,
     )
+    # pylint: enable=line-too-long
     st.divider()
 
     page = st.radio(
@@ -72,10 +79,11 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     st.divider()
-    st.markdown(
-        "<div style='font-size:0.72rem; opacity:0.55; text-align:center;'>Ynov Bachelor 3 · Data & IA · 2026</div>",
-        unsafe_allow_html=True,
+    footer_html = (
+        "<div style='font-size:0.72rem; opacity:0.55; text-align:center;'>"
+        "Ynov Bachelor 3 · Data &amp; IA · 2026</div>"
     )
+    st.markdown(footer_html, unsafe_allow_html=True)
 
 # ── Page routing ──────────────────────────────────────────────────────────
 key = PAGES[page]
