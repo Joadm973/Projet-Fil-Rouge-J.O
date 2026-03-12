@@ -59,7 +59,7 @@ Assurez-vous que le fichier olympics_dataset.csv est dans data/raw/
 ### Lancer l'application Streamlit
 
 ```bash
-streamlit run src/app/app.py
+python -m streamlit run src/app/app.py
 ```
 
 L'application sera accessible à l'adresse : `http://localhost:8501`
@@ -80,7 +80,7 @@ Projet-Fil-Rouge-J.O/
 │   ├── models/                   # Modèles de machine learning
 │   ├── visualization/            # Graphiques et cartes
 │   └── app/                      # Application Streamlit
-│       ├── pages/                # Pages de l'application
+│       ├── views/                # Pages de l'application (home, exploration, athletes, predictions)
 │       └── components/           # Composants réutilisables
 ├── notebooks/                    # Jupyter Notebooks
 ├── data/
