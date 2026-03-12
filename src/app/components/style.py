@@ -34,6 +34,8 @@ section[data-testid="stSidebar"] .stRadio > div > label {
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 section[data-testid="stSidebar"] .stRadio > div > label:hover {
     background: rgba(255,255,255,0.18);

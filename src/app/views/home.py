@@ -1,3 +1,4 @@
+"""Page d'accueil de l'application YPerf, présentant les KPIs globaux, les visualisations historiques et les insights clés sur les performances olympiques."""
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
@@ -18,6 +19,7 @@ CHART_H = 380
 
 
 def show(df: pd.DataFrame):
+    """Affiche la page d'accueil avec les KPIs globaux, les visualisations historiques et les insights clés."""
     # ── Hero ──────────────────────────────────────────────────────────────
     hero_banner(
         "YPerf — Performances Olympiques",
@@ -74,9 +76,9 @@ def show(df: pd.DataFrame):
         st.plotly_chart(fig2, use_container_width=True)
 
     insight(
-        f"Les JO 2020 (Tokyo) ont enregistré le plus grand nombre d'athlètes. "
-        f"La parité hommes/femmes a spectaculairement progressé : les femmes représentent "
-        f"aujourd'hui près de <strong>50 %</strong> des participations."
+        "Les JO 2020 (Tokyo) ont enregistré le plus grand nombre d'athlètes. "
+        "La parité hommes/femmes a spectaculairement progressé : les femmes représentent "
+        "aujourd'hui près de <strong>50 %</strong> des participations."
     )
 
     # ── Row 2 : Carte mondiale + Top 10 pays ──────────────────────────────
@@ -110,7 +112,7 @@ def show(df: pd.DataFrame):
         fig_top = px.bar(
             top10, y="Team", x="Médailles", orientation="h",
             color="Médailles", color_continuous_scale="Blues",
-            title="Top 10 pays toutes médailles",
+            title="Top 10 pays toutes médailles (1896-2024)",
             labels={"Team": ""},
         )
         fig_top.update_layout(
@@ -164,4 +166,3 @@ def show(df: pd.DataFrame):
         '<div class="footer">YPerf · Projet fil rouge Bachelor 3 · Ynov Informatique · 2026</div>',
         unsafe_allow_html=True,
     )
-
