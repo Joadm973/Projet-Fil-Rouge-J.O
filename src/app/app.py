@@ -79,11 +79,11 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     st.divider()
-    footer_html = (
+    st.markdown(
         "<div style='font-size:0.72rem; opacity:0.55; text-align:center;'>"
-        "Ynov Bachelor 3 · Data &amp; IA · 2026</div>"
+        "Ynov Bachelor 3 \u00b7 Data &amp; IA \u00b7 2026</div>",
+        unsafe_allow_html=True,
     )
-    st.markdown(footer_html, unsafe_allow_html=True)
 
 # ── Page routing ──────────────────────────────────────────────────────────
 key = PAGES[page]
