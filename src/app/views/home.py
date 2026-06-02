@@ -59,7 +59,7 @@ def show(df: pd.DataFrame):
         fig.update_layout(**PLOTLY_THEME, height=CHART_H, legend_title_text="",
                           title_font_size=14)
         fig.update_traces(marker_line_width=0)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
     with col_r:
         # Gender participation evolution (area chart, not simple pie)
@@ -73,7 +73,7 @@ def show(df: pd.DataFrame):
         )
         fig2.update_layout(**PLOTLY_THEME, height=CHART_H, legend_title_text="",
                            title_font_size=14)
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width='stretch')
 
     insight(
         "Les JO 2020 (Tokyo) ont enregistré le plus grand nombre d'athlètes. "
@@ -102,7 +102,7 @@ def show(df: pd.DataFrame):
             title_font_size=14,
             margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_map, use_container_width=True)
+        st.plotly_chart(fig_map, width='stretch')
 
     with col_bar:
         top10 = (
@@ -120,7 +120,7 @@ def show(df: pd.DataFrame):
             coloraxis_showscale=False, title_font_size=14,
         )
         fig_top.update_traces(marker_line_width=0)
-        st.plotly_chart(fig_top, use_container_width=True)
+        st.plotly_chart(fig_top, width='stretch')
 
     # ── Row 3 : Participation + Treemap sports ─────────────────────────────
     section_header("📈 Tendances & Sports")
@@ -138,7 +138,7 @@ def show(df: pd.DataFrame):
         fig3.update_layout(**PLOTLY_THEME, height=360, title_font_size=14,
                            legend=dict(orientation="h", yanchor="bottom", y=1.02))
         fig3.update_traces(line_width=2.5)
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, width='stretch')
 
     with col_tree:
         sport_medals = medals_df.groupby("Sport").size().reset_index(name="Médailles")
@@ -151,7 +151,7 @@ def show(df: pd.DataFrame):
             **PLOTLY_THEME, height=360, title_font_size=14,
             margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_tree, use_container_width=True)
+        st.plotly_chart(fig_tree, width='stretch')
 
     insight(
         f"Le pays le plus lauréat en médailles d'or toutes éditions confondues est "
