@@ -55,6 +55,7 @@ logs/
 
 # Data files (keep structure, ignore large files)
 data/processed/*.pkl
+data/processed/*.csv
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
