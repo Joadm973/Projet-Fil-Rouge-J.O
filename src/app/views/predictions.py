@@ -15,7 +15,7 @@ _ROOT = Path(__file__).parent.parent.parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from src.models.predictor import predict_medals_2028, get_country_trend
+from src.models.predictor import get_active_nocs
 from src.app.components.cards import (
     section_header, insight, warning_insight, prediction_card,
     MEDAL_COLORS, PLOTLY_THEME,
@@ -48,8 +48,14 @@ def _predict_all_models(df: pd.DataFrame, top_n: int, model_name: str):
     models = _build_models()
     model = models[model_name]
 
+    # Ne prédire que les nations encore actives (présentes depuis 2016) :
+    # sinon des pays disparus (URSS, RDA...) dominent le classement 2028.
+    active = get_active_nocs(df)
+
     predictions = []
     for noc, group in medal_counts.groupby("NOC"):
+        if noc not in active:
+            continue
         group = group.sort_values("Year")
         if len(group) < 3:
             continue
@@ -100,7 +106,6 @@ def _country_trend_with_ci(df: pd.DataFrame, team_name: str):
     ci_low = max(0.0, pred - 1.96 * std)
     ci_high = pred + 1.96 * std
 
-    r2 = float(r2_score(y, model.predict(X)))
     return hist, round(pred), round(ci_low), round(ci_high)
 
 
@@ -123,7 +128,7 @@ def show(df: pd.DataFrame):
         top_n = st.slider("Nombre de pays", 5, 30, 20, key="pred_top_n")
 
     # ── Bouton lancer ─────────────────────────────────────────────────────
-    run = st.button("🚀 Calculer les prédictions", type="primary", use_container_width=True)
+    run = st.button("🚀 Calculer les prédictions", type="primary", width='stretch')
 
     if "pred_df" not in st.session_state or run:
         if run:
@@ -166,7 +171,7 @@ def show(df: pd.DataFrame):
             coloraxis_showscale=False,
             title_font_size=13,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Podium top 3
         podium_cols = st.columns(3)
@@ -178,7 +183,7 @@ def show(df: pd.DataFrame):
 
         st.markdown("<br>", unsafe_allow_html=True)
         with st.expander("📋 Tableau complet des prédictions"):
-            st.dataframe(pred_df, use_container_width=True)
+            st.dataframe(pred_df, width='stretch')
 
         insight(
             f"Le modèle <strong>{model_used}</strong> prédit "
@@ -239,7 +244,7 @@ def show(df: pd.DataFrame):
                 legend=dict(orientation="h"),
                 title_font_size=13,
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width='stretch')
 
             c1, c2, c3 = st.columns(3)
             c1.metric("Prédiction 2028", f"{pred_2028} 🏅")
@@ -307,9 +312,9 @@ def show(df: pd.DataFrame):
                 legend=dict(orientation="h", y=-0.15),
                 title_font_size=13,
             )
-            st.plotly_chart(fig_cmp, use_container_width=True)
+            st.plotly_chart(fig_cmp, width='stretch')
 
-            st.dataframe(pd.DataFrame(results), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(results), width='stretch', hide_index=True)
 
             insight(
                 "Un <strong>R² proche de 1</strong> indique un bon ajustement aux données historiques. "
@@ -349,7 +354,7 @@ def show(df: pd.DataFrame):
             title_font_size=13,
             margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_map, use_container_width=True)
+        st.plotly_chart(fig_map, width='stretch')
 
         warning_insight(
             "Ces prédictions sont basées sur des tendances historiques et ne prennent pas en compte "

@@ -27,9 +27,10 @@ La barre latérale gauche contient le menu de navigation. Cliquez sur une option
 
 Affiche une vue synthétique :
 
-- **Indicateurs clés** : nombre d'éditions, athlètes uniques, pays participants, disciplines
+- **Indicateurs clés** : nombre d'éditions, athlètes uniques, pays participants, disciplines, médailles d'or
 - **Médailles par édition** : histogramme empilé or/argent/bronze
-- **Répartition par genre** : camembert hommes/femmes
+- **Évolution de la parité** : graphique en aires hommes/femmes
+- **Rayonnement mondial** : carte choroplèthe + top 10 pays
 - **Évolution de la participation** : courbe athlètes, pays et sports par année
 
 ---
@@ -42,14 +43,16 @@ Permet d'explorer les données en filtrant par période.
 
 | Filtre | Description |
 |---|---|
-| Fourchette d'années | Glissière pour sélectionner une plage d'éditions |
+| Période | Glissière pour sélectionner une plage d'éditions |
+| Saison | Été / Hiver / Toutes |
+| Genre | Hommes / Femmes / Tous |
 
-### Visualisations
+### Visualisations (onglets Pays · Sports · Tendances · Heatmap)
 
-- **Top 15 pays** : médailles empilées par type
-- **Top 10 sports** : barres horizontales
-- **Évolution médailles d'or** : courbe pour les 5 premiers pays
-- **Carte mondiale** : choroplèthe colorée par total de médailles
+- **Top pays** : médailles empilées par type + carte mondiale + sunburst
+- **Top sports** : barres horizontales, répartition par genre, treemap
+- **Tendances** : évolution des médailles d'or et de la parité
+- **Heatmap** : médailles d'or par pays et par édition
 
 ---
 
@@ -79,19 +82,22 @@ Génère des prévisions de médailles pour les JO de Los Angeles 2028.
 
 ### Utilisation
 
-1. Choisir le **nombre de pays** à afficher (glissière 5–30)
-2. Cliquer sur **🚀 Lancer les prédictions**
-3. Consulter :
-   - Le classement prédit sous forme de barres horizontales
-   - Le tableau détaillé
-   - La courbe historique + projection pour un pays sélectionné
+1. Choisir l'**algorithme** (Linéaire, Ridge, Gradient Boosting, Polynomiale)
+2. Choisir le **nombre de pays** à afficher (glissière 5–30)
+3. Cliquer sur **🚀 Calculer les prédictions**
+4. Consulter les onglets :
+   - **Classement 2028** : barres horizontales + podium
+   - **Historique pays** : courbe historique + projection + intervalle de confiance
+   - **Comparaison modèles** : métriques MAE / R² par algorithme
+   - **Carte prédite** : choroplèthe des médailles 2028
 
 ### Interprétation
 
-Le modèle est une **régression linéaire** entraînée sur l'historique de chaque pays.  
+Plusieurs **modèles de régression** sont entraînés sur l'historique de chaque pays.  
 Les résultats représentent une **tendance statistique**, pas une certitude.
 
-> ⚠️ Les pays dont l'équipe nationale a changé de nom (ex. URSS → Russie) peuvent apparaître avec des valeurs atypiques.
+> ⚠️ Seules les **nations encore actives** (présentes depuis 2016) sont prédites :
+> les pays disparus (URSS, RDA…) sont exclus pour ne pas fausser le classement.
 
 ---
 

@@ -76,9 +76,8 @@ jupyter notebook notebooks/
 Projet-Fil-Rouge-J.O/
 ├── src/                          # Code source
 │   ├── data/                     # Chargement et nettoyage des données
-│   ├── analysis/                 # Analyses exploratoires et statistiques
-│   ├── models/                   # Modèles de machine learning
-│   ├── visualization/            # Graphiques et cartes
+│   ├── analysis/                 # Analyses exploratoires et statistiques (χ², Gini, Pearson)
+│   ├── models/                   # Modèles ML (prédiction + évaluation)
 │   └── app/                      # Application Streamlit
 │       ├── views/                # Pages de l'application (home, exploration, athletes, predictions)
 │       └── components/           # Composants réutilisables

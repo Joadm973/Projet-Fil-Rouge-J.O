@@ -15,13 +15,10 @@ Projet-Fil-Rouge-J.O/
 │   │   └── data_cleaner.py       # Nettoyage et feature engineering
 │   ├── analysis/
 │   │   ├── exploratory.py        # Agrégats métier (médailles par pays, athlètes, etc.)
-│   │   └── statistics.py         # Indicateurs statistiques
+│   │   └── statistics.py         # Stats descriptives & inférentielles (χ², Gini, Pearson)
 │   ├── models/
-│   │   ├── predictor.py          # Modèle de prédiction JO 2028
-│   │   └── evaluator.py          # Évaluation des modèles ML
-│   ├── visualization/
-│   │   ├── charts.py             # Graphiques Plotly / Matplotlib
-│   │   └── maps.py               # Cartes choroplèthes
+│   │   ├── predictor.py          # Modèle de prédiction JO 2028 (nations actives)
+│   │   └── evaluator.py          # Métriques & comparaison des modèles ML
 │   └── app/
 │       ├── app.py                # Point d'entrée Streamlit
 │       ├── views/                # Pages de l'application
@@ -29,7 +26,7 @@ Projet-Fil-Rouge-J.O/
 │       │   ├── exploration.py
 │       │   ├── athletes.py
 │       │   └── predictions.py
-│       └── components/           # Composants réutilisables (cards, filtres)
+│       └── components/           # Composants réutilisables (cards, style)
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
 │   ├── 02_data_cleaning.ipynb
@@ -68,23 +65,32 @@ olympics_dataset.csv
             └── data_cleaner.clean_data()
                     ├── Filtre : Season == "Summer"
                     ├── Suppression des doublons
+                    ├── Fusion des NOC historiques :
+                    │       GDR/FRG → GER, ROC → RUS, SCG → SRB, BOH → CZE
                     ├── Ajout colonne Has_Medal (0/1)
                     └── DataFrame prêt pour l'analyse
 ```
 
 ## Modèle de Machine Learning
 
-**Algorithme :** Régression Linéaire (`sklearn.linear_model.LinearRegression`)  
-**Fichier :** `src/models/predictor.py`
+**Algorithmes :** Régression Linéaire, Ridge, Gradient Boosting, Régression Polynomiale (deg. 2)  
+**Fichiers :** `src/models/predictor.py` (modèle de référence), `src/app/views/predictions.py` (comparaison multi-modèles), `src/models/evaluator.py` (métriques)
 
 ### Fonctionnement
 
 Un modèle indépendant est entraîné **par pays** :
 
 1. Calcul du total de médailles par pays par édition
-2. Entraînement d'une régression linéaire sur la série temporelle `Year → Total médailles`
-3. Prédiction pour `Year = 2028`
-4. Les valeurs négatives sont ramenées à 0
+2. **Filtrage aux nations actives** : seuls les pays présents à au moins une édition depuis 2016 sont prédits (`get_active_nocs`)
+3. Entraînement sur la série temporelle `Year → Total médailles`
+4. Prédiction pour `Year = 2028`
+5. Les valeurs négatives sont ramenées à 0
+
+### Évaluation
+
+`src/models/evaluator.py` fournit les métriques **MAE**, **RMSE** et **R²**, ainsi qu'une
+validation croisée temporelle (`TimeSeriesSplit`). L'onglet « Comparaison modèles » de
+l'application affiche ces scores pour comparer les algorithmes sur un pays donné.
 
 **Paramètres ML** (définis dans `config.py`) :
 
@@ -96,8 +102,9 @@ Un modèle indépendant est entraîné **par pays** :
 
 ### Limites connues
 
-- Les pays disparus (URSS, RDA) ont des séries longues et des valeurs élevées qui faussent le classement prédit
+- Les nations disparues (URSS, RDA, Tchécoslovaquie) sont **exclues des projections** via le filtre `get_active_nocs`, car leurs séries historiques fausseraient le classement 2028
 - La régression linéaire extrapole sans contrainte : les prédictions doivent être interprétées comme des tendances, pas des certitudes
+- Le modèle ne tient pas compte des changements de programme olympique (nouvelles disciplines) ni du contexte géopolitique
 
 ## Navigation de l'application
 

@@ -86,7 +86,7 @@ def show(df: pd.DataFrame):
         fig.update_layout(**PLOTLY_THEME, height=CHART_H, xaxis_tickangle=-35,
                           legend_title_text="", title_font_size=13)
         fig.update_traces(marker_line_width=0)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Carte choroplèthe
         section_header("🗺️ Carte mondiale des médailles")
@@ -106,7 +106,7 @@ def show(df: pd.DataFrame):
             title_font_size=13,
             margin=dict(l=0, r=0, t=36, b=0),
         )
-        st.plotly_chart(fig_map, use_container_width=True)
+        st.plotly_chart(fig_map, width='stretch')
 
         # Sunburst pays → médaille
         section_header("🌐 Répartition pays → type de médaille")
@@ -124,7 +124,7 @@ def show(df: pd.DataFrame):
         )
         fig_sun.update_layout(**PLOTLY_THEME, height=480, title_font_size=13,
                               margin=dict(l=0, r=0, t=40, b=0))
-        st.plotly_chart(fig_sun, use_container_width=True)
+        st.plotly_chart(fig_sun, width='stretch')
 
     # ════════════════════════════════════════════════════════════════════
     # TAB 2 — SPORTS
@@ -148,7 +148,7 @@ def show(df: pd.DataFrame):
                 title_font_size=13,
             )
             fig2.update_traces(marker_line_width=0)
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width='stretch')
 
         with col_sr:
             section_header("⚤ Médailles par genre dans les sports")
@@ -173,7 +173,7 @@ def show(df: pd.DataFrame):
                 yaxis={"categoryorder": "total ascending"},
                 legend_title_text="", title_font_size=13,
             )
-            st.plotly_chart(fig_gs, use_container_width=True)
+            st.plotly_chart(fig_gs, width='stretch')
 
         # Treemap hiérarchique
         section_header("🗂️ Treemap Sport → Médaille")
@@ -189,7 +189,7 @@ def show(df: pd.DataFrame):
             **PLOTLY_THEME, height=460, title_font_size=13,
             margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_tree, use_container_width=True)
+        st.plotly_chart(fig_tree, width='stretch')
 
     # ════════════════════════════════════════════════════════════════════
     # TAB 3 — TENDANCES
@@ -219,7 +219,7 @@ def show(df: pd.DataFrame):
             fig_evo.update_layout(**PLOTLY_THEME, height=420, legend_title_text="",
                                    title_font_size=13)
             fig_evo.update_traces(line_width=2.5)
-            st.plotly_chart(fig_evo, use_container_width=True)
+            st.plotly_chart(fig_evo, width='stretch')
         else:
             st.info("Sélectionnez au moins un pays.")
 
@@ -243,7 +243,7 @@ def show(df: pd.DataFrame):
         )
         fig_par.update_layout(**PLOTLY_THEME, height=360, legend_title_text="",
                                title_font_size=13)
-        st.plotly_chart(fig_par, use_container_width=True)
+        st.plotly_chart(fig_par, width='stretch')
 
         insight(
             "La part des femmes aux JO est passée de quasi-zéro en 1960 à près de "
@@ -272,7 +272,7 @@ def show(df: pd.DataFrame):
         )
         fig_hm.update_layout(**PLOTLY_THEME, height=480, title_font_size=13,
                               margin=dict(l=0, r=0, t=40, b=0))
-        st.plotly_chart(fig_hm, use_container_width=True)
+        st.plotly_chart(fig_hm, width='stretch')
 
         insight(
             "Les cases jaune-orange foncé révèlent les dominations historiques. "
