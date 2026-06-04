@@ -21,6 +21,12 @@ from src.models.ratings import (
     compute_athlete_ratings,
     generate_recommendations,
 )
+from src.models.records import (
+    get_edition_summary,
+    get_all_time_records,
+    get_first_medals_timeline,
+    get_olympic_editions,
+)
 from src.app.components.cards import (
     section_header, insight, warning_insight, prediction_card,
     MEDAL_COLORS, PLOTLY_THEME,
@@ -44,6 +50,21 @@ def _get_athlete_ratings(df: pd.DataFrame) -> pd.DataFrame:
 @st.cache_data
 def _get_recommendations(df: pd.DataFrame) -> dict:
     return generate_recommendations(df)
+
+
+@st.cache_data
+def _get_edition_summary(df: pd.DataFrame, year: int) -> dict:
+    return get_edition_summary(df, year)
+
+
+@st.cache_data
+def _get_all_time_records(df: pd.DataFrame) -> dict:
+    return get_all_time_records(df)
+
+
+@st.cache_data
+def _get_first_medals_timeline(df: pd.DataFrame) -> pd.DataFrame:
+    return get_first_medals_timeline(df)
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────
@@ -163,13 +184,14 @@ def show(df: pd.DataFrame):
         st.success(f"✅ {len(pred_df)} pays prédits avec **{model_used}**")
 
     # ── Tabs ──────────────────────────────────────────────────────────────
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
         "🏆 Classement 2028",
         "📈 Historique pays",
         "⚔️ Comparaison modèles",
         "🌍 Carte prédite",
         "🎯 Côtes & Disciplines",
         "💡 Recommandations",
+        "⏱️ Timeline des records",
     ])
 
     # ════════════════════════════════════════════════════════════════════
@@ -703,6 +725,180 @@ def show(df: pd.DataFrame):
             </div>
             """,
             unsafe_allow_html=True,
+        )
+
+    # ════════════════════════════════════════════════════════════════════
+    # TAB 7 — TIMELINE DES RECORDS
+    # ════════════════════════════════════════════════════════════════════
+    with tab7:
+        section_header("⏱️ Timeline des records olympiques")
+
+        all_years = get_olympic_editions(df)
+        sel_year = st.select_slider(
+            "Édition olympique",
+            options=all_years,
+            value=all_years[-1],
+            key="records_year",
+        )
+
+        summary = _get_edition_summary(df, sel_year)
+
+        # ── Métriques clés de l'édition ──────────────────────────────────
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Ville hôte", summary["city"])
+        m2.metric("Médailles distribuées", summary["total_medals"])
+        m3.metric("Pays médaillés", summary["total_countries"])
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # ── Top pays & top athlètes côte à côte ──────────────────────────
+        col_tc, col_ta = st.columns(2)
+
+        with col_tc:
+            st.subheader(f"Top pays — {sel_year}")
+            tc = summary["top_countries"]
+            if not tc.empty:
+                fig_tc = px.bar(
+                    tc, x="Médailles", y="Pays",
+                    orientation="h",
+                    color="Médailles",
+                    color_continuous_scale="Blues",
+                    text="Médailles",
+                    title=f"Palmarès {sel_year} — Top 10 nations",
+                )
+                fig_tc.update_traces(textposition="outside")
+                fig_tc.update_layout(
+                    **PLOTLY_THEME, height=380,
+                    coloraxis_showscale=False,
+                    yaxis={"categoryorder": "total ascending"},
+                    title_font_size=12,
+                )
+                st.plotly_chart(fig_tc, use_container_width=True)
+
+        with col_ta:
+            st.subheader(f"Top athlètes — {sel_year}")
+            ta = summary["top_athletes"]
+            if not ta.empty:
+                fig_ta = px.bar(
+                    ta, x="Médailles", y="Athlète",
+                    orientation="h",
+                    color="Médailles",
+                    color_continuous_scale="Oranges",
+                    text="Médailles",
+                    hover_data=["Pays", "Sport"],
+                    title=f"Athlètes {sel_year} — Top 10",
+                )
+                fig_ta.update_traces(textposition="outside")
+                fig_ta.update_layout(
+                    **PLOTLY_THEME, height=380,
+                    coloraxis_showscale=False,
+                    yaxis={"categoryorder": "total ascending"},
+                    title_font_size=12,
+                )
+                st.plotly_chart(fig_ta, use_container_width=True)
+
+        # ── Nouveautés de l'édition ───────────────────────────────────────
+        st.markdown("---")
+        col_ns, col_dc = st.columns(2)
+
+        with col_ns:
+            st.subheader("Nouvelles disciplines")
+            if summary["new_sports"]:
+                for sport in summary["new_sports"]:
+                    st.markdown(f"- {sport}")
+            else:
+                st.info("Aucune nouvelle discipline à cette édition.")
+
+        with col_dc:
+            st.subheader("1ères médailles historiques")
+            if summary["debut_countries"]:
+                st.caption(
+                    f"{len(summary['debut_countries'])} pays remportent leur 1ère médaille olympique"
+                )
+                for country in summary["debut_countries"]:
+                    st.markdown(f"- {country}")
+            else:
+                st.info("Aucun nouveau pays médaillé à cette édition.")
+
+        # ── Records absolus ───────────────────────────────────────────────
+        st.markdown("---")
+        section_header("🏆 Records absolus — toutes éditions")
+
+        alltime = _get_all_time_records(df)
+
+        col_r1, col_r2 = st.columns(2)
+        with col_r1:
+            st.subheader("Meilleures performances nationales")
+            st.caption("Pays ayant remporté le plus de médailles en une seule édition")
+            st.dataframe(
+                alltime["best_country_performances"][["Pays", "Year", "City", "Médailles"]],
+                use_container_width=True,
+                hide_index=False,
+            )
+
+        with col_r2:
+            st.subheader("Meilleures performances individuelles")
+            st.caption("Athlètes ayant remporté le plus de médailles en une seule édition")
+            st.dataframe(
+                alltime["best_athlete_performances"][["Athlète", "Pays", "Sport", "Year", "Médailles"]],
+                use_container_width=True,
+                hide_index=False,
+            )
+
+        # ── Évolution de la diversité olympique ───────────────────────────
+        st.markdown("---")
+        section_header("📈 Évolution de la diversité olympique")
+
+        cpy = alltime["countries_per_year"]
+        spy = alltime["sports_per_year"]
+        tl = _get_first_medals_timeline(df)
+
+        fig_div = go.Figure()
+        fig_div.add_trace(go.Bar(
+            x=cpy["Year"], y=cpy["Pays médaillés"],
+            name="Pays médaillés (édition)",
+            marker_color="#1E88E5",
+            opacity=0.75,
+        ))
+        fig_div.add_trace(go.Scatter(
+            x=tl["first_year"], y=tl["cumul_pays"],
+            name="Pays médaillés (cumulatif)",
+            mode="lines+markers",
+            line=dict(color="#43A047", width=2.5),
+            marker=dict(size=6),
+            yaxis="y",
+        ))
+        fig_div.add_trace(go.Scatter(
+            x=spy["Year"], y=spy["Disciplines"],
+            name="Disciplines",
+            mode="lines+markers",
+            line=dict(color="#E53935", width=2, dash="dot"),
+            marker=dict(size=6),
+            yaxis="y2",
+        ))
+        fig_div.update_layout(
+            **PLOTLY_THEME,
+            height=420,
+            title="Diversité olympique par édition — pays médaillés & disciplines",
+            xaxis_title="Année",
+            yaxis=dict(title="Pays", showgrid=False),
+            yaxis2=dict(
+                title="Disciplines",
+                overlaying="y",
+                side="right",
+                showgrid=False,
+            ),
+            legend=dict(orientation="h", y=-0.15),
+            title_font_size=13,
+            barmode="overlay",
+        )
+        st.plotly_chart(fig_div, use_container_width=True)
+
+        insight(
+            "La courbe verte <strong>(cumulatif)</strong> indique combien de pays ont remporté "
+            "au moins une médaille olympique au fil de l'histoire. Les barres bleues montrent "
+            "combien de nations sont actives à <em>chaque</em> édition. L'écart illustre "
+            "l'inégalité de participation d'une édition à l'autre."
         )
 
     # ── Footer ────────────────────────────────────────────────────────────
