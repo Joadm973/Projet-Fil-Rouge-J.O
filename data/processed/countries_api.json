@@ -1,0 +1,2571 @@
+{
+  "ABW": {
+    "iso3": "ABW",
+    "country_name": "Aruba",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Oranjestad",
+    "population": 107995,
+    "gdp_per_capita": 39498.59
+  },
+  "AFE": {
+    "iso3": "AFE",
+    "country_name": "Africa Eastern and Southern",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 769280888,
+    "gdp_per_capita": 1615.4
+  },
+  "AFG": {
+    "iso3": "AFG",
+    "country_name": "Afghanistan",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Low income",
+    "capital": "Kabul",
+    "population": 42647492
+  },
+  "AFR": {
+    "iso3": "AFR",
+    "country_name": "Africa",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "AFW": {
+    "iso3": "AFW",
+    "country_name": "Africa Western and Central",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 521764076,
+    "gdp_per_capita": 1411.34
+  },
+  "AGO": {
+    "iso3": "AGO",
+    "country_name": "Angola",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Luanda",
+    "population": 37885849,
+    "gdp_per_capita": 2665.87
+  },
+  "ALB": {
+    "iso3": "ALB",
+    "country_name": "Albania",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Tirane",
+    "population": 2377128,
+    "gdp_per_capita": 11377.78
+  },
+  "AND": {
+    "iso3": "AND",
+    "country_name": "Andorra",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Andorra la Vella",
+    "population": 81938,
+    "gdp_per_capita": 49303.65
+  },
+  "ARB": {
+    "iso3": "ARB",
+    "country_name": "Arab World",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 492612632,
+    "gdp_per_capita": 7583.81
+  },
+  "ARE": {
+    "iso3": "ARE",
+    "country_name": "United Arab Emirates",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Abu Dhabi",
+    "population": 10986400,
+    "gdp_per_capita": 50273.51
+  },
+  "ARG": {
+    "iso3": "ARG",
+    "country_name": "Argentina",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Buenos Aires",
+    "population": 45696159,
+    "gdp_per_capita": 13969.78
+  },
+  "ARM": {
+    "iso3": "ARM",
+    "country_name": "Armenia",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Yerevan",
+    "population": 3033500,
+    "gdp_per_capita": 8556.21
+  },
+  "ASM": {
+    "iso3": "ASM",
+    "country_name": "American Samoa",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Pago Pago",
+    "population": 46765
+  },
+  "ATG": {
+    "iso3": "ATG",
+    "country_name": "Antigua and Barbuda",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Saint John's",
+    "population": 93772,
+    "gdp_per_capita": 23542.45
+  },
+  "AUS": {
+    "iso3": "AUS",
+    "country_name": "Australia",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Canberra",
+    "population": 27196812,
+    "gdp_per_capita": 64603.99
+  },
+  "AUT": {
+    "iso3": "AUT",
+    "country_name": "Austria",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Vienna",
+    "population": 9177982,
+    "gdp_per_capita": 58268.88
+  },
+  "AZE": {
+    "iso3": "AZE",
+    "country_name": "Azerbaijan",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Baku",
+    "population": 10202830,
+    "gdp_per_capita": 7283.85
+  },
+  "BDI": {
+    "iso3": "BDI",
+    "country_name": "Burundi",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Bujumbura",
+    "population": 14047786,
+    "gdp_per_capita": 219.42
+  },
+  "BEA": {
+    "iso3": "BEA",
+    "country_name": "East Asia & Pacific (IBRD-only countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "BEC": {
+    "iso3": "BEC",
+    "country_name": "Europe & Central Asia (IBRD-only countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "BEL": {
+    "iso3": "BEL",
+    "country_name": "Belgium",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Brussels",
+    "population": 11858610,
+    "gdp_per_capita": 56614.57
+  },
+  "BEN": {
+    "iso3": "BEN",
+    "country_name": "Benin",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Porto-Novo",
+    "population": 14462724,
+    "gdp_per_capita": 1485.38
+  },
+  "BFA": {
+    "iso3": "BFA",
+    "country_name": "Burkina Faso",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Ouagadougou",
+    "population": 23548781,
+    "gdp_per_capita": 981.99
+  },
+  "BGD": {
+    "iso3": "BGD",
+    "country_name": "Bangladesh",
+    "region": "South Asia",
+    "income_level": "Lower middle income",
+    "capital": "Dhaka",
+    "population": 173562364,
+    "gdp_per_capita": 2593.42
+  },
+  "BGR": {
+    "iso3": "BGR",
+    "country_name": "Bulgaria",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Sofia",
+    "population": 6441421,
+    "gdp_per_capita": 17596.02
+  },
+  "BHI": {
+    "iso3": "BHI",
+    "country_name": "IBRD countries classified as high income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "BHR": {
+    "iso3": "BHR",
+    "country_name": "Bahrain",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Manama",
+    "population": 1588670,
+    "gdp_per_capita": 29653.57
+  },
+  "BHS": {
+    "iso3": "BHS",
+    "country_name": "Bahamas, The",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Nassau",
+    "population": 401283,
+    "gdp_per_capita": 39455.45
+  },
+  "BIH": {
+    "iso3": "BIH",
+    "country_name": "Bosnia and Herzegovina",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Sarajevo",
+    "population": 3164253,
+    "gdp_per_capita": 9358.79
+  },
+  "BLA": {
+    "iso3": "BLA",
+    "country_name": "Latin America & the Caribbean (IBRD-only countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "BLR": {
+    "iso3": "BLR",
+    "country_name": "Belarus",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Minsk",
+    "population": 9132629,
+    "gdp_per_capita": 8317.63
+  },
+  "BLZ": {
+    "iso3": "BLZ",
+    "country_name": "Belize",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Belmopan",
+    "population": 417072,
+    "gdp_per_capita": 7681.24
+  },
+  "BMN": {
+    "iso3": "BMN",
+    "country_name": "Middle East, North Africa, Afghanistan & Pakistan (IBRD only)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "BMU": {
+    "iso3": "BMU",
+    "country_name": "Bermuda",
+    "region": "North America",
+    "income_level": "High income",
+    "capital": "Hamilton",
+    "population": 64636,
+    "gdp_per_capita": 142855.37
+  },
+  "BOL": {
+    "iso3": "BOL",
+    "country_name": "Bolivia",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Lower middle income",
+    "capital": "La Paz",
+    "population": 12413315,
+    "gdp_per_capita": 4421.17
+  },
+  "BRA": {
+    "iso3": "BRA",
+    "country_name": "Brazil",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Brasilia",
+    "population": 211998573,
+    "gdp_per_capita": 10310.55
+  },
+  "BRB": {
+    "iso3": "BRB",
+    "country_name": "Barbados",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Bridgetown",
+    "population": 282467,
+    "gdp_per_capita": 26544.87
+  },
+  "BRN": {
+    "iso3": "BRN",
+    "country_name": "Brunei Darussalam",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Bandar Seri Begawan",
+    "population": 462721,
+    "gdp_per_capita": 33153.47
+  },
+  "BSS": {
+    "iso3": "BSS",
+    "country_name": "Sub-Saharan Africa (IBRD-only countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "BTN": {
+    "iso3": "BTN",
+    "country_name": "Bhutan",
+    "region": "South Asia",
+    "income_level": "Lower middle income",
+    "capital": "Thimphu",
+    "population": 791524
+  },
+  "BWA": {
+    "iso3": "BWA",
+    "country_name": "Botswana",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Upper middle income",
+    "capital": "Gaborone",
+    "population": 2521139,
+    "gdp_per_capita": 7695.75
+  },
+  "CAA": {
+    "iso3": "CAA",
+    "country_name": "Sub-Saharan Africa (IFC classification)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "CAF": {
+    "iso3": "CAF",
+    "country_name": "Central African Republic",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Bangui",
+    "population": 5330690,
+    "gdp_per_capita": 516.16
+  },
+  "CAN": {
+    "iso3": "CAN",
+    "country_name": "Canada",
+    "region": "North America",
+    "income_level": "High income",
+    "capital": "Ottawa",
+    "population": 41288599,
+    "gdp_per_capita": 54340.35
+  },
+  "CEA": {
+    "iso3": "CEA",
+    "country_name": "East Asia and the Pacific (IFC classification)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "CEB": {
+    "iso3": "CEB",
+    "country_name": "Central Europe and the Baltics",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 100061963,
+    "gdp_per_capita": 24604.81
+  },
+  "CEU": {
+    "iso3": "CEU",
+    "country_name": "Europe and Central Asia (IFC classification)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "CHE": {
+    "iso3": "CHE",
+    "country_name": "Switzerland",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Bern",
+    "population": 9005582,
+    "gdp_per_capita": 103998.19
+  },
+  "CHI": {
+    "iso3": "CHI",
+    "country_name": "Channel Islands",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "",
+    "population": 168126
+  },
+  "CHL": {
+    "iso3": "CHL",
+    "country_name": "Chile",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Santiago",
+    "population": 19764771,
+    "gdp_per_capita": 16709.89
+  },
+  "CHN": {
+    "iso3": "CHN",
+    "country_name": "China",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Beijing",
+    "population": 1408975000,
+    "gdp_per_capita": 13303.15
+  },
+  "CIV": {
+    "iso3": "CIV",
+    "country_name": "Cote d'Ivoire",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Yamoussoukro",
+    "population": 31934230,
+    "gdp_per_capita": 2727.89
+  },
+  "CLA": {
+    "iso3": "CLA",
+    "country_name": "Latin America and the Caribbean (IFC classification)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "CME": {
+    "iso3": "CME",
+    "country_name": "Middle East and North Africa (IFC classification)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "CMR": {
+    "iso3": "CMR",
+    "country_name": "Cameroon",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Yaounde",
+    "population": 29123744,
+    "gdp_per_capita": 1830.01
+  },
+  "COD": {
+    "iso3": "COD",
+    "country_name": "Congo, Dem. Rep.",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Kinshasa",
+    "population": 109276265,
+    "gdp_per_capita": 649.38
+  },
+  "COG": {
+    "iso3": "COG",
+    "country_name": "Congo, Rep.",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Brazzaville",
+    "population": 6332961,
+    "gdp_per_capita": 2482.25
+  },
+  "COL": {
+    "iso3": "COL",
+    "country_name": "Colombia",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Bogota",
+    "population": 52886363,
+    "gdp_per_capita": 7919.21
+  },
+  "COM": {
+    "iso3": "COM",
+    "country_name": "Comoros",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Moroni",
+    "population": 866628,
+    "gdp_per_capita": 1662.76
+  },
+  "CPV": {
+    "iso3": "CPV",
+    "country_name": "Cabo Verde",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Upper middle income",
+    "capital": "Praia",
+    "population": 524877,
+    "gdp_per_capita": 5192.48
+  },
+  "CRI": {
+    "iso3": "CRI",
+    "country_name": "Costa Rica",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "San Jose",
+    "population": 5129910,
+    "gdp_per_capita": 18587.15
+  },
+  "CSA": {
+    "iso3": "CSA",
+    "country_name": "South Asia (IFC classification)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "CSS": {
+    "iso3": "CSS",
+    "country_name": "Caribbean small states",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 4539060,
+    "gdp_per_capita": 19903.81
+  },
+  "CUB": {
+    "iso3": "CUB",
+    "country_name": "Cuba",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Havana",
+    "population": 10979783
+  },
+  "CUW": {
+    "iso3": "CUW",
+    "country_name": "Curacao",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Willemstad",
+    "population": 155967,
+    "gdp_per_capita": 22832.9
+  },
+  "CYM": {
+    "iso3": "CYM",
+    "country_name": "Cayman Islands",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "George Town",
+    "population": 74457
+  },
+  "CYP": {
+    "iso3": "CYP",
+    "country_name": "Cyprus",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Nicosia",
+    "population": 1358282,
+    "gdp_per_capita": 38674.29
+  },
+  "CZE": {
+    "iso3": "CZE",
+    "country_name": "Czechia",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Prague",
+    "population": 10905028,
+    "gdp_per_capita": 31823.31
+  },
+  "DEA": {
+    "iso3": "DEA",
+    "country_name": "East Asia & Pacific (IDA-eligible countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DEC": {
+    "iso3": "DEC",
+    "country_name": "Europe & Central Asia (IDA-eligible countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DEU": {
+    "iso3": "DEU",
+    "country_name": "Germany",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Berlin",
+    "population": 83516593,
+    "gdp_per_capita": 56103.73
+  },
+  "DJI": {
+    "iso3": "DJI",
+    "country_name": "Djibouti",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Djibouti",
+    "population": 1168722,
+    "gdp_per_capita": 3552.72
+  },
+  "DLA": {
+    "iso3": "DLA",
+    "country_name": "Latin America & the Caribbean (IDA-eligible countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DMA": {
+    "iso3": "DMA",
+    "country_name": "Dominica",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Roseau",
+    "population": 66205,
+    "gdp_per_capita": 10405.28
+  },
+  "DMN": {
+    "iso3": "DMN",
+    "country_name": "Middle East, North Africa, Afghanistan & Pakistan (IDA total)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DNK": {
+    "iso3": "DNK",
+    "country_name": "Denmark",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Copenhagen",
+    "population": 5976992,
+    "gdp_per_capita": 71026.48
+  },
+  "DNS": {
+    "iso3": "DNS",
+    "country_name": "IDA countries in Sub-Saharan Africa not classified as fragile situations ",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DOM": {
+    "iso3": "DOM",
+    "country_name": "Dominican Republic",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Santo Domingo",
+    "population": 11427557,
+    "gdp_per_capita": 10875.66
+  },
+  "DSA": {
+    "iso3": "DSA",
+    "country_name": "South Asia (IDA-eligible countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DSF": {
+    "iso3": "DSF",
+    "country_name": "IDA countries in Sub-Saharan Africa classified as fragile situations ",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DSS": {
+    "iso3": "DSS",
+    "country_name": "Sub-Saharan Africa (IDA-eligible countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "DZA": {
+    "iso3": "DZA",
+    "country_name": "Algeria",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Upper middle income",
+    "capital": "Algiers",
+    "population": 46814308,
+    "gdp_per_capita": 5752.99
+  },
+  "EAP": {
+    "iso3": "EAP",
+    "country_name": "East Asia & Pacific (excluding high income)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 2141122258,
+    "gdp_per_capita": 10396.8
+  },
+  "EAR": {
+    "iso3": "EAR",
+    "country_name": "Early-demographic dividend",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 3552278604,
+    "gdp_per_capita": 4450.19
+  },
+  "EAS": {
+    "iso3": "EAS",
+    "country_name": "East Asia & Pacific",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 2388319494,
+    "gdp_per_capita": 13405.74
+  },
+  "ECA": {
+    "iso3": "ECA",
+    "country_name": "Europe & Central Asia (excluding high income)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 250281521,
+    "gdp_per_capita": 9793.69
+  },
+  "ECS": {
+    "iso3": "ECS",
+    "country_name": "Europe & Central Asia",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 928263208,
+    "gdp_per_capita": 31555.52
+  },
+  "ECU": {
+    "iso3": "ECU",
+    "country_name": "Ecuador",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Quito",
+    "population": 18135478,
+    "gdp_per_capita": 6874.71
+  },
+  "EGY": {
+    "iso3": "EGY",
+    "country_name": "Egypt, Arab Rep.",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Cairo",
+    "population": 116538258,
+    "gdp_per_capita": 3338.47
+  },
+  "EMU": {
+    "iso3": "EMU",
+    "country_name": "Euro area",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 351161936,
+    "gdp_per_capita": 46945.42
+  },
+  "ERI": {
+    "iso3": "ERI",
+    "country_name": "Eritrea",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Asmara",
+    "population": 3535603
+  },
+  "ESP": {
+    "iso3": "ESP",
+    "country_name": "Spain",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Madrid",
+    "population": 48848840,
+    "gdp_per_capita": 35326.77
+  },
+  "EST": {
+    "iso3": "EST",
+    "country_name": "Estonia",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Tallinn",
+    "population": 1372341,
+    "gdp_per_capita": 31428.35
+  },
+  "ETH": {
+    "iso3": "ETH",
+    "country_name": "Ethiopia",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Not classified",
+    "capital": "Addis Ababa",
+    "population": 132059767,
+    "gdp_per_capita": 1133.88
+  },
+  "EUU": {
+    "iso3": "EUU",
+    "country_name": "European Union",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 450228188,
+    "gdp_per_capita": 43304.96
+  },
+  "FCS": {
+    "iso3": "FCS",
+    "country_name": "Fragile and conflict affected situations",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1081767572,
+    "gdp_per_capita": 1527.96
+  },
+  "FIN": {
+    "iso3": "FIN",
+    "country_name": "Finland",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Helsinki",
+    "population": 5619911,
+    "gdp_per_capita": 53149.77
+  },
+  "FJI": {
+    "iso3": "FJI",
+    "country_name": "Fiji",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Suva",
+    "population": 928784,
+    "gdp_per_capita": 6425.74
+  },
+  "FRA": {
+    "iso3": "FRA",
+    "country_name": "France",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Paris",
+    "population": 68551653,
+    "gdp_per_capita": 46103.08
+  },
+  "FRO": {
+    "iso3": "FRO",
+    "country_name": "Faroe Islands",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Torshavn",
+    "population": 54681,
+    "gdp_per_capita": 74119.66
+  },
+  "FSM": {
+    "iso3": "FSM",
+    "country_name": "Micronesia, Fed. Sts.",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Palikir",
+    "population": 113160,
+    "gdp_per_capita": 4166.0
+  },
+  "FXS": {
+    "iso3": "FXS",
+    "country_name": "IDA countries classified as fragile situations, excluding Sub-Saharan Africa",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "GAB": {
+    "iso3": "GAB",
+    "country_name": "Gabon",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Upper middle income",
+    "capital": "Libreville",
+    "population": 2538952,
+    "gdp_per_capita": 8230.04
+  },
+  "GBR": {
+    "iso3": "GBR",
+    "country_name": "United Kingdom",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "London",
+    "population": 69226000,
+    "gdp_per_capita": 53246.37
+  },
+  "GEO": {
+    "iso3": "GEO",
+    "country_name": "Georgia",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Tbilisi",
+    "population": 3699557,
+    "gdp_per_capita": 9241.49
+  },
+  "GHA": {
+    "iso3": "GHA",
+    "country_name": "Ghana",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Accra",
+    "population": 34427414,
+    "gdp_per_capita": 2390.77
+  },
+  "GIB": {
+    "iso3": "GIB",
+    "country_name": "Gibraltar",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "",
+    "population": 39329
+  },
+  "GIN": {
+    "iso3": "GIN",
+    "country_name": "Guinea",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Conakry",
+    "population": 14754785,
+    "gdp_per_capita": 1694.95
+  },
+  "GMB": {
+    "iso3": "GMB",
+    "country_name": "Gambia, The",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Banjul",
+    "population": 2759988,
+    "gdp_per_capita": 871.34
+  },
+  "GNB": {
+    "iso3": "GNB",
+    "country_name": "Guinea-Bissau",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Bissau",
+    "population": 2201352,
+    "gdp_per_capita": 1007.74
+  },
+  "GNQ": {
+    "iso3": "GNQ",
+    "country_name": "Equatorial Guinea",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Upper middle income",
+    "capital": "Malabo",
+    "population": 1892516,
+    "gdp_per_capita": 6745.4
+  },
+  "GRC": {
+    "iso3": "GRC",
+    "country_name": "Greece",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Athens",
+    "population": 10405134,
+    "gdp_per_capita": 24626.15
+  },
+  "GRD": {
+    "iso3": "GRD",
+    "country_name": "Grenada",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Saint George's",
+    "population": 117207,
+    "gdp_per_capita": 11705.09
+  },
+  "GRL": {
+    "iso3": "GRL",
+    "country_name": "Greenland",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Nuuk",
+    "population": 56836
+  },
+  "GTM": {
+    "iso3": "GTM",
+    "country_name": "Guatemala",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Guatemala City",
+    "population": 18406359,
+    "gdp_per_capita": 6150.03
+  },
+  "GUM": {
+    "iso3": "GUM",
+    "country_name": "Guam",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Agana",
+    "population": 167777
+  },
+  "GUY": {
+    "iso3": "GUY",
+    "country_name": "Guyana",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Georgetown",
+    "population": 831087,
+    "gdp_per_capita": 29675.24
+  },
+  "HIC": {
+    "iso3": "HIC",
+    "country_name": "High income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "HKG": {
+    "iso3": "HKG",
+    "country_name": "Hong Kong SAR, China",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "",
+    "population": 7524100,
+    "gdp_per_capita": 54074.69
+  },
+  "HND": {
+    "iso3": "HND",
+    "country_name": "Honduras",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Lower middle income",
+    "capital": "Tegucigalpa",
+    "population": 10825703,
+    "gdp_per_capita": 3426.43
+  },
+  "HPC": {
+    "iso3": "HPC",
+    "country_name": "Heavily indebted poor countries (HIPC)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 941413026,
+    "gdp_per_capita": 1216.38
+  },
+  "HRV": {
+    "iso3": "HRV",
+    "country_name": "Croatia",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Zagreb",
+    "population": 3866200,
+    "gdp_per_capita": 24050.44
+  },
+  "HTI": {
+    "iso3": "HTI",
+    "country_name": "Haiti",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Lower middle income",
+    "capital": "Port-au-Prince",
+    "population": 11772557,
+    "gdp_per_capita": 2142.62
+  },
+  "HUN": {
+    "iso3": "HUN",
+    "country_name": "Hungary",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Budapest",
+    "population": 9562065,
+    "gdp_per_capita": 23292.33
+  },
+  "IBB": {
+    "iso3": "IBB",
+    "country_name": "IBRD, including blend",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "IBD": {
+    "iso3": "IBD",
+    "country_name": "IBRD only",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 4979421568,
+    "gdp_per_capita": 8219.91
+  },
+  "IBT": {
+    "iso3": "IBT",
+    "country_name": "IDA & IBRD total",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 6926222113,
+    "gdp_per_capita": 6327.14
+  },
+  "IDA": {
+    "iso3": "IDA",
+    "country_name": "IDA total",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1946800545,
+    "gdp_per_capita": 1485.92
+  },
+  "IDB": {
+    "iso3": "IDB",
+    "country_name": "IDA blend",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 676957651,
+    "gdp_per_capita": 1650.64
+  },
+  "IDN": {
+    "iso3": "IDN",
+    "country_name": "Indonesia",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Jakarta",
+    "population": 283487931,
+    "gdp_per_capita": 4925.43
+  },
+  "IDX": {
+    "iso3": "IDX",
+    "country_name": "IDA only",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1269842894,
+    "gdp_per_capita": 1398.11
+  },
+  "IMN": {
+    "iso3": "IMN",
+    "country_name": "Isle of Man",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Douglas",
+    "population": 84160
+  },
+  "IND": {
+    "iso3": "IND",
+    "country_name": "India",
+    "region": "South Asia",
+    "income_level": "Lower middle income",
+    "capital": "New Delhi",
+    "population": 1450935791,
+    "gdp_per_capita": 2694.74
+  },
+  "INX": {
+    "iso3": "INX",
+    "country_name": "Not classified",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "IRL": {
+    "iso3": "IRL",
+    "country_name": "Ireland",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Dublin",
+    "population": 5395790,
+    "gdp_per_capita": 112894.95
+  },
+  "IRN": {
+    "iso3": "IRN",
+    "country_name": "Iran, Islamic Rep.",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Upper middle income",
+    "capital": "Tehran",
+    "population": 91567738,
+    "gdp_per_capita": 5190.17
+  },
+  "IRQ": {
+    "iso3": "IRQ",
+    "country_name": "Iraq",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Upper middle income",
+    "capital": "Baghdad",
+    "population": 46042015,
+    "gdp_per_capita": 6073.61
+  },
+  "ISL": {
+    "iso3": "ISL",
+    "country_name": "Iceland",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Reykjavik",
+    "population": 386506,
+    "gdp_per_capita": 86040.53
+  },
+  "ISR": {
+    "iso3": "ISR",
+    "country_name": "Israel",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "",
+    "population": 9974400,
+    "gdp_per_capita": 54176.68
+  },
+  "ITA": {
+    "iso3": "ITA",
+    "country_name": "Italy",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Rome",
+    "population": 58952704,
+    "gdp_per_capita": 40385.34
+  },
+  "JAM": {
+    "iso3": "JAM",
+    "country_name": "Jamaica",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Kingston",
+    "population": 2839175,
+    "gdp_per_capita": 7753.8
+  },
+  "JOR": {
+    "iso3": "JOR",
+    "country_name": "Jordan",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Amman",
+    "population": 11552876,
+    "gdp_per_capita": 4618.1
+  },
+  "JPN": {
+    "iso3": "JPN",
+    "country_name": "Japan",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Tokyo",
+    "population": 123975371,
+    "gdp_per_capita": 32487.08
+  },
+  "KAZ": {
+    "iso3": "KAZ",
+    "country_name": "Kazakhstan",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Astana",
+    "population": 20592571,
+    "gdp_per_capita": 14154.63
+  },
+  "KEN": {
+    "iso3": "KEN",
+    "country_name": "Kenya",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Nairobi",
+    "population": 56432944,
+    "gdp_per_capita": 2132.43
+  },
+  "KGZ": {
+    "iso3": "KGZ",
+    "country_name": "Kyrgyz Republic",
+    "region": "Europe & Central Asia",
+    "income_level": "Lower middle income",
+    "capital": "Bishkek",
+    "population": 7221868,
+    "gdp_per_capita": 2420.19
+  },
+  "KHM": {
+    "iso3": "KHM",
+    "country_name": "Cambodia",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Phnom Penh",
+    "population": 17638801,
+    "gdp_per_capita": 2627.88
+  },
+  "KIR": {
+    "iso3": "KIR",
+    "country_name": "Kiribati",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Tarawa",
+    "population": 134518,
+    "gdp_per_capita": 2288.63
+  },
+  "KNA": {
+    "iso3": "KNA",
+    "country_name": "St. Kitts and Nevis",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Basseterre",
+    "population": 46843,
+    "gdp_per_capita": 23960.65
+  },
+  "KOR": {
+    "iso3": "KOR",
+    "country_name": "Korea, Rep.",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Seoul",
+    "population": 51751065,
+    "gdp_per_capita": 36238.64
+  },
+  "KWT": {
+    "iso3": "KWT",
+    "country_name": "Kuwait",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Kuwait City",
+    "population": 4897263,
+    "gdp_per_capita": 32717.72
+  },
+  "LAC": {
+    "iso3": "LAC",
+    "country_name": "Latin America & Caribbean (excluding high income)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 594158638,
+    "gdp_per_capita": 10382.39
+  },
+  "LAO": {
+    "iso3": "LAO",
+    "country_name": "Lao PDR",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Vientiane",
+    "population": 7769819,
+    "gdp_per_capita": 2123.98
+  },
+  "LBN": {
+    "iso3": "LBN",
+    "country_name": "Lebanon",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Beirut",
+    "population": 5805962
+  },
+  "LBR": {
+    "iso3": "LBR",
+    "country_name": "Liberia",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Monrovia",
+    "population": 5612817,
+    "gdp_per_capita": 851.5
+  },
+  "LBY": {
+    "iso3": "LBY",
+    "country_name": "Libya",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Upper middle income",
+    "capital": "Tripoli",
+    "population": 7381023,
+    "gdp_per_capita": 6569.16
+  },
+  "LCA": {
+    "iso3": "LCA",
+    "country_name": "St. Lucia",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Castries",
+    "population": 179744,
+    "gdp_per_capita": 14181.63
+  },
+  "LCN": {
+    "iso3": "LCN",
+    "country_name": "Latin America & Caribbean ",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 662186388,
+    "gdp_per_capita": 10737.65
+  },
+  "LDC": {
+    "iso3": "LDC",
+    "country_name": "Least developed countries: UN classification",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1187777591,
+    "gdp_per_capita": 1293.4
+  },
+  "LIC": {
+    "iso3": "LIC",
+    "country_name": "Low income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "LIE": {
+    "iso3": "LIE",
+    "country_name": "Liechtenstein",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Vaduz",
+    "population": 40450
+  },
+  "LKA": {
+    "iso3": "LKA",
+    "country_name": "Sri Lanka",
+    "region": "South Asia",
+    "income_level": "Lower middle income",
+    "capital": "Colombo",
+    "population": 21916000,
+    "gdp_per_capita": 4515.57
+  },
+  "LMC": {
+    "iso3": "LMC",
+    "country_name": "Lower middle income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "LMY": {
+    "iso3": "LMY",
+    "country_name": "Low & middle income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 6563501708,
+    "gdp_per_capita": 6002.45
+  },
+  "LSO": {
+    "iso3": "LSO",
+    "country_name": "Lesotho",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Maseru",
+    "population": 2337423,
+    "gdp_per_capita": 971.91
+  },
+  "LTE": {
+    "iso3": "LTE",
+    "country_name": "Late-demographic dividend",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 2328628339,
+    "gdp_per_capita": 12874.17
+  },
+  "LTU": {
+    "iso3": "LTU",
+    "country_name": "Lithuania",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Vilnius",
+    "population": 2888278,
+    "gdp_per_capita": 29384.02
+  },
+  "LUX": {
+    "iso3": "LUX",
+    "country_name": "Luxembourg",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Luxembourg",
+    "population": 677012,
+    "gdp_per_capita": 137781.68
+  },
+  "LVA": {
+    "iso3": "LVA",
+    "country_name": "Latvia",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Riga",
+    "population": 1866124,
+    "gdp_per_capita": 23409.08
+  },
+  "MAC": {
+    "iso3": "MAC",
+    "country_name": "Macao SAR, China",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "",
+    "population": 687000,
+    "gdp_per_capita": 72004.74
+  },
+  "MAF": {
+    "iso3": "MAF",
+    "country_name": "St. Martin (French part)",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Marigot",
+    "population": 26129
+  },
+  "MAR": {
+    "iso3": "MAR",
+    "country_name": "Morocco",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Rabat",
+    "population": 38081173,
+    "gdp_per_capita": 4153.19
+  },
+  "MCO": {
+    "iso3": "MCO",
+    "country_name": "Monaco",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Monaco",
+    "population": 38631,
+    "gdp_per_capita": 288001.43
+  },
+  "MDA": {
+    "iso3": "MDA",
+    "country_name": "Moldova",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Chisinau",
+    "population": 2402306,
+    "gdp_per_capita": 7576.2
+  },
+  "MDE": {
+    "iso3": "MDE",
+    "country_name": "Middle East (developing only)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "MDG": {
+    "iso3": "MDG",
+    "country_name": "Madagascar",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Antananarivo",
+    "population": 31964956,
+    "gdp_per_capita": 544.99
+  },
+  "MDV": {
+    "iso3": "MDV",
+    "country_name": "Maldives",
+    "region": "South Asia",
+    "income_level": "Upper middle income",
+    "capital": "Male",
+    "population": 527799,
+    "gdp_per_capita": 13379.35
+  },
+  "MEA": {
+    "iso3": "MEA",
+    "country_name": "Middle East, North Africa, Afghanistan & Pakistan",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 813146136,
+    "gdp_per_capita": 6265.44
+  },
+  "MEX": {
+    "iso3": "MEX",
+    "country_name": "Mexico",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Mexico City",
+    "population": 130861007,
+    "gdp_per_capita": 14185.78
+  },
+  "MHL": {
+    "iso3": "MHL",
+    "country_name": "Marshall Islands",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Majuro",
+    "population": 37548,
+    "gdp_per_capita": 7726.34
+  },
+  "MIC": {
+    "iso3": "MIC",
+    "country_name": "Middle income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 5938893610,
+    "gdp_per_capita": 6554.37
+  },
+  "MKD": {
+    "iso3": "MKD",
+    "country_name": "North Macedonia",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Skopje",
+    "population": 1824359,
+    "gdp_per_capita": 9291.86
+  },
+  "MLI": {
+    "iso3": "MLI",
+    "country_name": "Mali",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Bamako",
+    "population": 24478595,
+    "gdp_per_capita": 1094.62
+  },
+  "MLT": {
+    "iso3": "MLT",
+    "country_name": "Malta",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Valletta",
+    "population": 568847,
+    "gdp_per_capita": 43898.58
+  },
+  "MMR": {
+    "iso3": "MMR",
+    "country_name": "Myanmar",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Naypyidaw",
+    "population": 54500091,
+    "gdp_per_capita": 1359.05
+  },
+  "MNA": {
+    "iso3": "MNA",
+    "country_name": "Middle East, North Africa, Afghanistan & Pakistan (excluding high income)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 741690916,
+    "gdp_per_capita": 2971.05
+  },
+  "MNE": {
+    "iso3": "MNE",
+    "country_name": "Montenegro",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Podgorica",
+    "population": 623525,
+    "gdp_per_capita": 13263.33
+  },
+  "MNG": {
+    "iso3": "MNG",
+    "country_name": "Mongolia",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Ulaanbaatar",
+    "population": 3524788,
+    "gdp_per_capita": 6750.63
+  },
+  "MNP": {
+    "iso3": "MNP",
+    "country_name": "Northern Mariana Islands",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Saipan",
+    "population": 44278
+  },
+  "MOZ": {
+    "iso3": "MOZ",
+    "country_name": "Mozambique",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Maputo",
+    "population": 34631766,
+    "gdp_per_capita": 656.78
+  },
+  "MRT": {
+    "iso3": "MRT",
+    "country_name": "Mauritania",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Nouakchott",
+    "population": 5169395,
+    "gdp_per_capita": 2110.12
+  },
+  "MUS": {
+    "iso3": "MUS",
+    "country_name": "Mauritius",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Upper middle income",
+    "capital": "Port Louis",
+    "population": 1245779,
+    "gdp_per_capita": 11990.78
+  },
+  "MWI": {
+    "iso3": "MWI",
+    "country_name": "Malawi",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Lilongwe",
+    "population": 21655286,
+    "gdp_per_capita": 522.57
+  },
+  "MYS": {
+    "iso3": "MYS",
+    "country_name": "Malaysia",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Kuala Lumpur",
+    "population": 35557673,
+    "gdp_per_capita": 11874.43
+  },
+  "NAC": {
+    "iso3": "NAC",
+    "country_name": "North America",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 381464223,
+    "gdp_per_capita": 81275.84
+  },
+  "NAF": {
+    "iso3": "NAF",
+    "country_name": "North Africa",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "NAM": {
+    "iso3": "NAM",
+    "country_name": "Namibia",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Windhoek",
+    "population": 3030131,
+    "gdp_per_capita": 4413.13
+  },
+  "NCL": {
+    "iso3": "NCL",
+    "country_name": "New Caledonia",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Noum'ea",
+    "population": 292639,
+    "gdp_per_capita": 29213.19
+  },
+  "NER": {
+    "iso3": "NER",
+    "country_name": "Niger",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Niamey",
+    "population": 27032412,
+    "gdp_per_capita": 735.27
+  },
+  "NGA": {
+    "iso3": "NGA",
+    "country_name": "Nigeria",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Abuja",
+    "population": 232679478,
+    "gdp_per_capita": 1084.16
+  },
+  "NIC": {
+    "iso3": "NIC",
+    "country_name": "Nicaragua",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Lower middle income",
+    "capital": "Managua",
+    "population": 6916140,
+    "gdp_per_capita": 2847.54
+  },
+  "NLD": {
+    "iso3": "NLD",
+    "country_name": "Netherlands",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Amsterdam",
+    "population": 17993485,
+    "gdp_per_capita": 67520.42
+  },
+  "NOR": {
+    "iso3": "NOR",
+    "country_name": "Norway",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Oslo",
+    "population": 5572279,
+    "gdp_per_capita": 86785.43
+  },
+  "NPL": {
+    "iso3": "NPL",
+    "country_name": "Nepal",
+    "region": "South Asia",
+    "income_level": "Lower middle income",
+    "capital": "Kathmandu",
+    "population": 29651054,
+    "gdp_per_capita": 1447.31
+  },
+  "NRS": {
+    "iso3": "NRS",
+    "country_name": "Non-resource rich Sub-Saharan Africa countries",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "NRU": {
+    "iso3": "NRU",
+    "country_name": "Nauru",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Yaren District",
+    "population": 11947,
+    "gdp_per_capita": 13609.16
+  },
+  "NXS": {
+    "iso3": "NXS",
+    "country_name": "IDA countries not classified as fragile situations, excluding Sub-Saharan Africa",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "NZL": {
+    "iso3": "NZL",
+    "country_name": "New Zealand",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Wellington",
+    "population": 5287500,
+    "gdp_per_capita": 49205.18
+  },
+  "OED": {
+    "iso3": "OED",
+    "country_name": "OECD members",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1396877448,
+    "gdp_per_capita": 48322.16
+  },
+  "OMN": {
+    "iso3": "OMN",
+    "country_name": "Oman",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Muscat",
+    "population": 5281538,
+    "gdp_per_capita": 20285.23
+  },
+  "OSS": {
+    "iso3": "OSS",
+    "country_name": "Other small states",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 12931878,
+    "gdp_per_capita": 16094.13
+  },
+  "PAK": {
+    "iso3": "PAK",
+    "country_name": "Pakistan",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Islamabad",
+    "population": 251269164,
+    "gdp_per_capita": 1478.77
+  },
+  "PAN": {
+    "iso3": "PAN",
+    "country_name": "Panama",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Panama City",
+    "population": 4515577,
+    "gdp_per_capita": 19161.22
+  },
+  "PER": {
+    "iso3": "PER",
+    "country_name": "Peru",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Lima",
+    "population": 34217848,
+    "gdp_per_capita": 8452.37
+  },
+  "PHL": {
+    "iso3": "PHL",
+    "country_name": "Philippines",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Manila",
+    "population": 115843670,
+    "gdp_per_capita": 3984.83
+  },
+  "PLW": {
+    "iso3": "PLW",
+    "country_name": "Palau",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Koror",
+    "population": 17695
+  },
+  "PNG": {
+    "iso3": "PNG",
+    "country_name": "Papua New Guinea",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Port Moresby",
+    "population": 10576502,
+    "gdp_per_capita": 3006.71
+  },
+  "POL": {
+    "iso3": "POL",
+    "country_name": "Poland",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Warsaw",
+    "population": 36559233,
+    "gdp_per_capita": 25103.57
+  },
+  "PRE": {
+    "iso3": "PRE",
+    "country_name": "Pre-demographic dividend",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1105951788,
+    "gdp_per_capita": 1366.07
+  },
+  "PRI": {
+    "iso3": "PRI",
+    "country_name": "Puerto Rico (US)",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "San Juan",
+    "population": 3203295,
+    "gdp_per_capita": 39343.72
+  },
+  "PRK": {
+    "iso3": "PRK",
+    "country_name": "Korea, Dem. People's Rep.",
+    "region": "East Asia & Pacific",
+    "income_level": "Low income",
+    "capital": "Pyongyang",
+    "population": 26498823
+  },
+  "PRT": {
+    "iso3": "PRT",
+    "country_name": "Portugal",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Lisbon",
+    "population": 10694681,
+    "gdp_per_capita": 29292.24
+  },
+  "PRY": {
+    "iso3": "PRY",
+    "country_name": "Paraguay",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Asuncion",
+    "population": 6929153,
+    "gdp_per_capita": 6416.1
+  },
+  "PSE": {
+    "iso3": "PSE",
+    "country_name": "West Bank and Gaza",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "",
+    "population": 5289152,
+    "gdp_per_capita": 2592.31
+  },
+  "PSS": {
+    "iso3": "PSS",
+    "country_name": "Pacific island small states",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 2722467,
+    "gdp_per_capita": 4453.59
+  },
+  "PST": {
+    "iso3": "PST",
+    "country_name": "Post-demographic dividend",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1128377826,
+    "gdp_per_capita": 55644.31
+  },
+  "PYF": {
+    "iso3": "PYF",
+    "country_name": "French Polynesia",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Papeete",
+    "population": 281807,
+    "gdp_per_capita": 22439.88
+  },
+  "QAT": {
+    "iso3": "QAT",
+    "country_name": "Qatar",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Doha",
+    "population": 2857822,
+    "gdp_per_capita": 76688.69
+  },
+  "ROU": {
+    "iso3": "ROU",
+    "country_name": "Romania",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Bucharest",
+    "population": 19051804,
+    "gdp_per_capita": 20080.21
+  },
+  "RRS": {
+    "iso3": "RRS",
+    "country_name": "Resource rich Sub-Saharan Africa countries",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "RUS": {
+    "iso3": "RUS",
+    "country_name": "Russian Federation",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Moscow",
+    "population": 143533851,
+    "gdp_per_capita": 14889.02
+  },
+  "RWA": {
+    "iso3": "RWA",
+    "country_name": "Rwanda",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Kigali",
+    "population": 14256567,
+    "gdp_per_capita": 999.65
+  },
+  "SAS": {
+    "iso3": "SAS",
+    "country_name": "South Asia",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1677384532,
+    "gdp_per_capita": 2690.08
+  },
+  "SAU": {
+    "iso3": "SAU",
+    "country_name": "Saudi Arabia",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "High income",
+    "capital": "Riyadh",
+    "population": 35300280,
+    "gdp_per_capita": 35121.66
+  },
+  "SDN": {
+    "iso3": "SDN",
+    "country_name": "Sudan",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Khartoum",
+    "population": 50448963,
+    "gdp_per_capita": 984.61
+  },
+  "SEN": {
+    "iso3": "SEN",
+    "country_name": "Senegal",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Dakar",
+    "population": 18501984,
+    "gdp_per_capita": 1773.22
+  },
+  "SGP": {
+    "iso3": "SGP",
+    "country_name": "Singapore",
+    "region": "East Asia & Pacific",
+    "income_level": "High income",
+    "capital": "Singapore",
+    "population": 6036860,
+    "gdp_per_capita": 90674.07
+  },
+  "SLB": {
+    "iso3": "SLB",
+    "country_name": "Solomon Islands",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Honiara",
+    "population": 819198,
+    "gdp_per_capita": 1933.56
+  },
+  "SLE": {
+    "iso3": "SLE",
+    "country_name": "Sierra Leone",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Freetown",
+    "population": 8642022,
+    "gdp_per_capita": 806.65
+  },
+  "SLV": {
+    "iso3": "SLV",
+    "country_name": "El Salvador",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "San Salvador",
+    "population": 6338193,
+    "gdp_per_capita": 5579.66
+  },
+  "SMR": {
+    "iso3": "SMR",
+    "country_name": "San Marino",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "San Marino",
+    "population": 33977
+  },
+  "SOM": {
+    "iso3": "SOM",
+    "country_name": "Somalia, Fed. Rep.",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Mogadishu",
+    "population": 19009151,
+    "gdp_per_capita": 629.54
+  },
+  "SRB": {
+    "iso3": "SRB",
+    "country_name": "Serbia",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Belgrade",
+    "population": 6586476,
+    "gdp_per_capita": 13679.21
+  },
+  "SSA": {
+    "iso3": "SSA",
+    "country_name": "Sub-Saharan Africa (excluding high income)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1158863843,
+    "gdp_per_capita": 1576.69
+  },
+  "SSD": {
+    "iso3": "SSD",
+    "country_name": "South Sudan",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Juba",
+    "population": 11943408
+  },
+  "SSF": {
+    "iso3": "SSF",
+    "country_name": "Sub-Saharan Africa ",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1291044964,
+    "gdp_per_capita": 1532.93
+  },
+  "SST": {
+    "iso3": "SST",
+    "country_name": "Small states",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 20193405,
+    "gdp_per_capita": 15383.34
+  },
+  "STP": {
+    "iso3": "STP",
+    "country_name": "Sao Tome and Principe",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Sao Tome",
+    "population": 235536,
+    "gdp_per_capita": 3490.57
+  },
+  "SUR": {
+    "iso3": "SUR",
+    "country_name": "Suriname",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Paramaribo",
+    "population": 634431,
+    "gdp_per_capita": 6961.79
+  },
+  "SVK": {
+    "iso3": "SVK",
+    "country_name": "Slovak Republic",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Bratislava",
+    "population": 5422069,
+    "gdp_per_capita": 25992.67
+  },
+  "SVN": {
+    "iso3": "SVN",
+    "country_name": "Slovenia",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Ljubljana",
+    "population": 2127400,
+    "gdp_per_capita": 34301.03
+  },
+  "SWE": {
+    "iso3": "SWE",
+    "country_name": "Sweden",
+    "region": "Europe & Central Asia",
+    "income_level": "High income",
+    "capital": "Stockholm",
+    "population": 10569709,
+    "gdp_per_capita": 57117.49
+  },
+  "SWZ": {
+    "iso3": "SWZ",
+    "country_name": "Eswatini",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Mbabane",
+    "population": 1242822,
+    "gdp_per_capita": 3909.56
+  },
+  "SXM": {
+    "iso3": "SXM",
+    "country_name": "Sint Maarten (Dutch part)",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Philipsburg",
+    "population": 43350,
+    "gdp_per_capita": 41472.59
+  },
+  "SXZ": {
+    "iso3": "SXZ",
+    "country_name": "Sub-Saharan Africa excluding South Africa",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "SYC": {
+    "iso3": "SYC",
+    "country_name": "Seychelles",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "High income",
+    "capital": "Victoria",
+    "population": 121354,
+    "gdp_per_capita": 17858.82
+  },
+  "SYR": {
+    "iso3": "SYR",
+    "country_name": "Syrian Arab Republic",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Low income",
+    "capital": "Damascus",
+    "population": 24672760
+  },
+  "TCA": {
+    "iso3": "TCA",
+    "country_name": "Turks and Caicos Islands",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Grand Turk",
+    "population": 46535,
+    "gdp_per_capita": 37506.78
+  },
+  "TCD": {
+    "iso3": "TCD",
+    "country_name": "Chad",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "N'Djamena",
+    "population": 20299123,
+    "gdp_per_capita": 961.56
+  },
+  "TEA": {
+    "iso3": "TEA",
+    "country_name": "East Asia & Pacific (IDA & IBRD countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 2114653077,
+    "gdp_per_capita": 10513.95
+  },
+  "TEC": {
+    "iso3": "TEC",
+    "country_name": "Europe & Central Asia (IDA & IBRD countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 459734030,
+    "gdp_per_capita": 13337.44
+  },
+  "TGO": {
+    "iso3": "TGO",
+    "country_name": "Togo",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Lome",
+    "population": 9515236,
+    "gdp_per_capita": 1119.38
+  },
+  "THA": {
+    "iso3": "THA",
+    "country_name": "Thailand",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Bangkok",
+    "population": 71668011,
+    "gdp_per_capita": 7346.62
+  },
+  "TJK": {
+    "iso3": "TJK",
+    "country_name": "Tajikistan",
+    "region": "Europe & Central Asia",
+    "income_level": "Lower middle income",
+    "capital": "Dushanbe",
+    "population": 10590927,
+    "gdp_per_capita": 1341.2
+  },
+  "TKM": {
+    "iso3": "TKM",
+    "country_name": "Turkmenistan",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Ashgabat",
+    "population": 7494498,
+    "gdp_per_capita": 6856.66
+  },
+  "TLA": {
+    "iso3": "TLA",
+    "country_name": "Latin America & the Caribbean (IDA & IBRD countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 647003746,
+    "gdp_per_capita": 10474.28
+  },
+  "TLS": {
+    "iso3": "TLS",
+    "country_name": "Timor-Leste",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Dili",
+    "population": 1400638,
+    "gdp_per_capita": 1331.97
+  },
+  "TMN": {
+    "iso3": "TMN",
+    "country_name": "Middle East, North Africa, Afghanistan & Pakistan (IDA & IBRD)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 736401764,
+    "gdp_per_capita": 2973.77
+  },
+  "TON": {
+    "iso3": "TON",
+    "country_name": "Tonga",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Nuku'alofa",
+    "population": 104175
+  },
+  "TSA": {
+    "iso3": "TSA",
+    "country_name": "South Asia (IDA & IBRD)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1677384532,
+    "gdp_per_capita": 2690.08
+  },
+  "TSS": {
+    "iso3": "TSS",
+    "country_name": "Sub-Saharan Africa (IDA & IBRD countries)",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 1291044964,
+    "gdp_per_capita": 1532.93
+  },
+  "TTO": {
+    "iso3": "TTO",
+    "country_name": "Trinidad and Tobago",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Port-of-Spain",
+    "population": 1368333,
+    "gdp_per_capita": 18733.41
+  },
+  "TUN": {
+    "iso3": "TUN",
+    "country_name": "Tunisia",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Lower middle income",
+    "capital": "Tunis",
+    "population": 12277109,
+    "gdp_per_capita": 4181.14
+  },
+  "TUR": {
+    "iso3": "TUR",
+    "country_name": "Turkiye",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Ankara",
+    "population": 85518661,
+    "gdp_per_capita": 15892.72
+  },
+  "TUV": {
+    "iso3": "TUV",
+    "country_name": "Tuvalu",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Funafuti",
+    "population": 9646
+  },
+  "TZA": {
+    "iso3": "TZA",
+    "country_name": "Tanzania",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Dodoma",
+    "population": 68560157,
+    "gdp_per_capita": 1186.72
+  },
+  "UGA": {
+    "iso3": "UGA",
+    "country_name": "Uganda",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Low income",
+    "capital": "Kampala",
+    "population": 50015092,
+    "gdp_per_capita": 1077.91
+  },
+  "UKR": {
+    "iso3": "UKR",
+    "country_name": "Ukraine",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Kiev",
+    "population": 37860221,
+    "gdp_per_capita": 5389.47
+  },
+  "UMC": {
+    "iso3": "UMC",
+    "country_name": "Upper middle income",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "URY": {
+    "iso3": "URY",
+    "country_name": "Uruguay",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Montevideo",
+    "population": 3386588,
+    "gdp_per_capita": 23906.51
+  },
+  "USA": {
+    "iso3": "USA",
+    "country_name": "United States",
+    "region": "North America",
+    "income_level": "High income",
+    "capital": "Washington D.C.",
+    "population": 340110988,
+    "gdp_per_capita": 84534.04
+  },
+  "UZB": {
+    "iso3": "UZB",
+    "country_name": "Uzbekistan",
+    "region": "Europe & Central Asia",
+    "income_level": "Lower middle income",
+    "capital": "Tashkent",
+    "population": 36361859,
+    "gdp_per_capita": 3161.7
+  },
+  "VCT": {
+    "iso3": "VCT",
+    "country_name": "St. Vincent and the Grenadines",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Upper middle income",
+    "capital": "Kingstown",
+    "population": 100616,
+    "gdp_per_capita": 11501.23
+  },
+  "VEN": {
+    "iso3": "VEN",
+    "country_name": "Venezuela, RB",
+    "region": "Latin America & Caribbean ",
+    "income_level": "Not classified",
+    "capital": "Caracas",
+    "population": 28405543,
+    "gdp_per_capita": 4217.59
+  },
+  "VGB": {
+    "iso3": "VGB",
+    "country_name": "British Virgin Islands",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Road Town",
+    "population": 39471
+  },
+  "VIR": {
+    "iso3": "VIR",
+    "country_name": "Virgin Islands (U.S.)",
+    "region": "Latin America & Caribbean ",
+    "income_level": "High income",
+    "capital": "Charlotte Amalie",
+    "population": 104377
+  },
+  "VNM": {
+    "iso3": "VNM",
+    "country_name": "Viet Nam",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Hanoi",
+    "population": 100987686,
+    "gdp_per_capita": 4717.29
+  },
+  "VUT": {
+    "iso3": "VUT",
+    "country_name": "Vanuatu",
+    "region": "East Asia & Pacific",
+    "income_level": "Lower middle income",
+    "capital": "Port-Vila",
+    "population": 327777,
+    "gdp_per_capita": 3410.77
+  },
+  "WLD": {
+    "iso3": "WLD",
+    "country_name": "World",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": "",
+    "population": 8141808945,
+    "gdp_per_capita": 13631.2
+  },
+  "WSM": {
+    "iso3": "WSM",
+    "country_name": "Samoa",
+    "region": "East Asia & Pacific",
+    "income_level": "Upper middle income",
+    "capital": "Apia",
+    "population": 218019,
+    "gdp_per_capita": 5392.88
+  },
+  "XKX": {
+    "iso3": "XKX",
+    "country_name": "Kosovo",
+    "region": "Europe & Central Asia",
+    "income_level": "Upper middle income",
+    "capital": "Pristina",
+    "population": 1594353,
+    "gdp_per_capita": 7023.07
+  },
+  "XZN": {
+    "iso3": "XZN",
+    "country_name": "Sub-Saharan Africa excluding South Africa and Nigeria",
+    "region": "Aggregates",
+    "income_level": "Aggregates",
+    "capital": ""
+  },
+  "YEM": {
+    "iso3": "YEM",
+    "country_name": "Yemen, Rep.",
+    "region": "Middle East, North Africa, Afghanistan & Pakistan",
+    "income_level": "Low income",
+    "capital": "Sana'a",
+    "population": 40583164
+  },
+  "ZAF": {
+    "iso3": "ZAF",
+    "country_name": "South Africa",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Upper middle income",
+    "capital": "Pretoria",
+    "population": 64007187,
+    "gdp_per_capita": 6267.19
+  },
+  "ZMB": {
+    "iso3": "ZMB",
+    "country_name": "Zambia",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Lusaka",
+    "population": 21314956,
+    "gdp_per_capita": 1187.11
+  },
+  "ZWE": {
+    "iso3": "ZWE",
+    "country_name": "Zimbabwe",
+    "region": "Sub-Saharan Africa ",
+    "income_level": "Lower middle income",
+    "capital": "Harare",
+    "population": 16634373,
+    "gdp_per_capita": 2497.2
+  }
+}
