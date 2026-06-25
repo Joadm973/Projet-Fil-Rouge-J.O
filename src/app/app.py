@@ -11,7 +11,7 @@ if str(_ROOT) not in sys.path:
 # pylint: disable=wrong-import-position
 from config import APP_CONFIG
 from src.app.components.style import CSS
-from src.app.views import athletes, annotations, exploration, home, predictions
+from src.app.views import athletes, annotations, exploration, generations, home, predictions
 from src.data.data_cleaner import clean_data
 from src.data.data_loader import load_raw_data
 # pylint: enable=wrong-import-position
@@ -38,6 +38,7 @@ PAGES = {
     "🏃  Athlètes": "athletes",
     "🔮  Prédictions 2028": "predictions",
     "📝  Annotations": "annotations",
+    "🌱  Nouvelles générations": "generations",
 }
 
 with st.sidebar:
@@ -98,3 +99,5 @@ elif key == "predictions":
     predictions.show(df)
 elif key == "annotations":
     annotations.show(df)
+elif key == "generations":
+    generations.show(df)
