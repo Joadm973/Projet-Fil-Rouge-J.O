@@ -1,7 +1,16 @@
-export default function SectionHeader({ title }: { title: string }) {
+interface Props {
+  title: string
+  sub?: string
+}
+
+export default function SectionHeader({ title, sub }: Props) {
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl mb-4 shadow-sm shadow-blue-200">
-      {title}
+    <div style={{ marginBottom: '20px', marginTop: '44px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ width: '3px', height: '18px', background: 'var(--gold)', borderRadius: '2px', flexShrink: 0 }} />
+        <h2 style={{ margin: 0 }}>{title}</h2>
+      </div>
+      {sub && <p style={{ marginTop: '4px', marginLeft: '13px', fontSize: '0.8rem' }}>{sub}</p>}
     </div>
   )
 }

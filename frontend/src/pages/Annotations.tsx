@@ -1,10 +1,31 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { fetchJSON, api } from '../lib/api'
-import SectionHeader from '../components/SectionHeader'
+import PageHeader from '../components/PageHeader'
 import Spinner from '../components/Spinner'
 
 const TYPES = ['Athlète', 'Pays', 'Sport', 'Édition']
+
+const typeMap: Record<string, string> = {
+  'Athlète': 'athlete',
+  'Pays': 'pays',
+  'Sport': 'sport',
+  'Édition': 'edition'
+}
+
+const typeLabels: Record<string, string> = {
+  'athlete': 'Athlète',
+  'pays': 'Pays',
+  'sport': 'Sport',
+  'edition': 'Édition'
+}
+
+const input: React.CSSProperties = {
+  fontSize: '0.82rem', fontFamily: 'inherit', width: '100%',
+  border: '1px solid var(--border)', borderRadius: 'var(--r-sm)',
+  padding: '7px 10px', background: 'var(--surface)', color: 'var(--text-1)',
+  outline: 'none', transition: 'border-color 0.1s',
+}
 
 export default function Annotations() {
   const qc = useQueryClient()
@@ -16,8 +37,8 @@ export default function Annotations() {
   const [filterType, setFilterType] = useState('')
   const [search, setSearch] = useState('')
 
-  const { data: anns, isLoading } = useQuery({ queryKey: ['annotations', filterType], queryFn: () => fetchJSON<any[]>('/annotations/', filterType ? { type: filterType } : undefined) })
-  const { data: targets } = useQuery({ queryKey: ['ann-targets', type], queryFn: () => fetchJSON<string[]>('/annotations/targets', { type }) })
+  const { data: anns, isLoading } = useQuery({ queryKey: ['annotations', filterType], queryFn: () => fetchJSON<any[]>('/annotations/', filterType ? { type: typeMap[filterType] } : undefined) })
+  const { data: targets } = useQuery({ queryKey: ['ann-targets', type], queryFn: () => fetchJSON<string[]>('/annotations/targets', { type: typeMap[type] }) })
 
   const addMut = useMutation({
     mutationFn: (body: any) => api.post('/annotations/', body).then(r => r.data),
@@ -33,80 +54,104 @@ export default function Annotations() {
 
   return (
     <div>
-      <h1 className="text-2xl font-black text-slate-800 mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>📝 Annotations</h1>
-      <p className="text-slate-500 text-sm mb-6">Ajoutez des notes personnelles sur athlètes, pays, sports ou éditions.</p>
+      <PageHeader title="Annotations" sub="Notes personnelles sur athlètes, pays, sports et éditions." badge="Annotations utilisateur" />
 
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '20px' }}>
         {/* Form */}
-        <div className="col-span-1 bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex flex-col gap-3">
-          <SectionHeader title="➕ Nouvelle annotation" />
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-slate-500">Type</label>
-            <div className="flex gap-2 flex-wrap">
+        <div className="card" style={{ padding: '20px', height: 'fit-content', position: 'sticky', top: '20px' }}>
+          <h3 style={{ marginBottom: '16px' }}>Nouvelle annotation</h3>
+
+          <div style={{ marginBottom: '14px' }}>
+            <div className="label" style={{ marginBottom: '8px' }}>Type</div>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
               {TYPES.map(t => (
-                <button key={t} onClick={() => setType(t)}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all ${type === t ? 'bg-blue-600 text-white border-blue-600' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                <button key={t} onClick={() => setType(t)} style={{
+                  padding: '4px 12px', borderRadius: 'var(--r-sm)', fontSize: '0.78rem', fontFamily: 'inherit', cursor: 'pointer',
+                  border: type === t ? '1px solid var(--gold)' : '1px solid var(--border)',
+                  background: type === t ? 'var(--gold-bg)' : 'transparent',
+                  color: type === t ? '#6b5820' : 'var(--text-2)', fontWeight: type === t ? 600 : 400,
+                }}>
                   {t}
                 </button>
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-slate-500">Cible</label>
-            <select value={target} onChange={e => setTarget(e.target.value)} className="text-sm border border-slate-200 rounded-lg px-3 py-1.5">
+
+          <div style={{ marginBottom: '12px' }}>
+            <div className="label" style={{ marginBottom: '6px' }}>Cible</div>
+            <select value={target} onChange={e => setTarget(e.target.value)} style={{ ...input }}>
               <option value="">Sélectionner…</option>
               {(targets ?? []).map(t => <option key={t} value={t}>{t}</option>)}
             </select>
           </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-slate-500">Auteur</label>
-            <input value={author} onChange={e => setAuthor(e.target.value)} className="text-sm border border-slate-200 rounded-lg px-3 py-1.5" />
+
+          <div style={{ marginBottom: '12px' }}>
+            <div className="label" style={{ marginBottom: '6px' }}>Auteur</div>
+            <input value={author} onChange={e => setAuthor(e.target.value)} style={input} />
           </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-slate-500">Tags (virgule)</label>
-            <input value={tags} onChange={e => setTags(e.target.value)} placeholder="record, à surveiller" className="text-sm border border-slate-200 rounded-lg px-3 py-1.5" />
+
+          <div style={{ marginBottom: '12px' }}>
+            <div className="label" style={{ marginBottom: '6px' }}>Tags</div>
+            <input value={tags} onChange={e => setTags(e.target.value)} placeholder="record, à surveiller" style={input} />
           </div>
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-slate-500">Note</label>
-            <textarea value={note} onChange={e => setNote(e.target.value)} rows={4} className="text-sm border border-slate-200 rounded-lg px-3 py-2 resize-none" />
+
+          <div style={{ marginBottom: '16px' }}>
+            <div className="label" style={{ marginBottom: '6px' }}>Note</div>
+            <textarea value={note} onChange={e => setNote(e.target.value)} rows={4}
+              style={{ ...input, resize: 'none', lineHeight: '1.5' }} />
           </div>
+
           <button
-            onClick={() => addMut.mutate({ type, target, note, author, tags })}
+            onClick={() => addMut.mutate({ type: typeMap[type], target, note, author, tags })}
             disabled={!target || !note || addMut.isPending}
-            className="bg-blue-600 disabled:opacity-40 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all"
+            style={{
+              width: '100%', padding: '8px', fontSize: '0.82rem', fontWeight: 600, fontFamily: 'inherit',
+              background: (!target || !note) ? 'var(--border)' : 'var(--text-1)',
+              color: (!target || !note) ? 'var(--text-3)' : '#fff',
+              border: 'none', borderRadius: 'var(--r-sm)', cursor: (!target || !note) ? 'default' : 'pointer',
+            }}
           >
-            {addMut.isPending ? 'Enregistrement…' : '💾 Enregistrer'}
+            {addMut.isPending ? 'Enregistrement…' : 'Enregistrer →'}
           </button>
         </div>
 
         {/* List */}
-        <div className="col-span-2">
-          <div className="flex gap-3 mb-4 flex-wrap">
-            <select value={filterType} onChange={e => setFilterType(e.target.value)} className="text-sm border border-slate-200 rounded-lg px-3 py-1.5">
+        <div>
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
+            <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ ...input, width: 'auto' }}>
               <option value="">Tous les types</option>
               {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
             </select>
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher…" className="text-sm border border-slate-200 rounded-lg px-3 py-1.5 flex-1" />
+            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher…" style={{ ...input }} />
           </div>
 
           {isLoading ? <Spinner /> : filtered.length === 0 ? (
-            <div className="text-center py-16 text-slate-400 text-sm">Aucune annotation. Ajoutez-en une !</div>
+            <div style={{ textAlign: 'center', padding: '64px 0', color: 'var(--text-3)', fontSize: '0.85rem' }}>
+              Aucune annotation. Ajoutez-en une à gauche.
+            </div>
           ) : (
-            <div className="flex flex-col gap-3">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {filtered.map((a: any) => (
-                <div key={a.id} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex gap-3">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="bg-blue-100 text-blue-700 text-xs font-medium px-2 py-0.5 rounded-full">{a.type}</span>
-                      <span className="font-semibold text-slate-800 text-sm">{a.target}</span>
-                      <span className="text-slate-400 text-xs ml-auto">{a.author} · {new Date(a.created_at).toLocaleDateString('fr-FR')}</span>
+                <div key={a.id} className="card" style={{ padding: '14px 16px', display: 'flex', gap: '12px' }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', background: 'var(--surface-3)', border: '1px solid var(--border)', borderRadius: '4px', padding: '2px 7px', color: 'var(--text-2)' }}>{typeLabels[a.type] || a.type}</span>
+                      <span style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-1)' }}>{a.target}</span>
+                      <span style={{ marginLeft: 'auto', fontSize: '0.72rem', color: 'var(--text-3)' }}>{a.author} · {new Date(a.timestamp).toLocaleDateString('fr-FR')}</span>
                     </div>
-                    <p className="text-slate-600 text-sm">{a.note}</p>
-                    {a.tags && <div className="flex gap-1 mt-2 flex-wrap">{a.tags.split(',').filter(Boolean).map((tag: string) => (
-                      <span key={tag} className="bg-slate-100 text-slate-500 text-xs px-2 py-0.5 rounded-full">{tag.trim()}</span>
-                    ))}</div>}
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-2)', lineHeight: '1.5' }}>{a.note}</p>
+                    {a.tags && (
+                      <div style={{ display: 'flex', gap: '5px', marginTop: '8px', flexWrap: 'wrap' }}>
+                        {(Array.isArray(a.tags) ? a.tags : a.tags.split(',')).filter(Boolean).map((tag: string) => (
+                          <span key={tag} style={{ fontSize: '0.68rem', background: 'var(--surface-3)', color: 'var(--text-3)', border: '1px solid var(--border)', borderRadius: '4px', padding: '1px 7px' }}>{tag.trim()}</span>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <button onClick={() => delMut.mutate(a.id)} className="text-slate-300 hover:text-red-400 transition-colors text-xl leading-none self-start">×</button>
+                  <button onClick={() => delMut.mutate(a.id)}
+                    style={{ color: 'var(--border)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', alignSelf: 'flex-start', lineHeight: 1, padding: '2px', transition: 'color 0.1s' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--red)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--border)')}>×</button>
                 </div>
               ))}
             </div>
@@ -114,7 +159,7 @@ export default function Annotations() {
         </div>
       </div>
 
-      <div className="text-center text-slate-400 text-xs mt-4 pb-4">YPerf · Ynov · 2026</div>
+      <div style={{ borderTop: '1px solid var(--border-soft)', paddingTop: '20px', marginTop: '40px', textAlign: 'center', color: 'var(--text-3)', fontSize: '0.72rem' }}>YPerf · Ynov · 2026</div>
     </div>
   )
 }

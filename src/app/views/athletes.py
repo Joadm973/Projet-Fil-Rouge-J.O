@@ -10,7 +10,7 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 from src.app.components.cards import (
-    section_header, insight, MEDAL_COLORS, PLOTLY_THEME
+    section_header, insight, MEDAL_COLORS, PLOTLY_THEME, st_plotly
 )
 
 CHART_H = 440
@@ -84,7 +84,7 @@ def show(df: pd.DataFrame):
                 yaxis={"categoryorder": "total ascending"},
                 legend_title_text="Sport", title_font_size=13,
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st_plotly(fig)
 
         # Détail or/argent/bronze pour le top 10
         section_header("📊 Détail des médailles — Top 10")
@@ -107,7 +107,7 @@ def show(df: pd.DataFrame):
                 **PLOTLY_THEME, height=380, xaxis_tickangle=-30,
                 legend_title_text="", title_font_size=13,
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st_plotly(fig2)
 
     # ════════════════════════════════════════════════════════════════════
     # TAB 2 — COMPARAISON RADAR
@@ -165,11 +165,11 @@ def show(df: pd.DataFrame):
                 title_font_size=13,
                 paper_bgcolor="rgba(0,0,0,0)",
             )
-            st.plotly_chart(fig_radar, use_container_width=True)
+            st_plotly(fig_radar)
 
             # Tableau comparatif
             radar_df = pd.DataFrame(radar_data).set_index("Athlète")
-            st.dataframe(radar_df, use_container_width=True)
+            st.dataframe(radar_df, width="stretch")
 
         else:
             st.info("Sélectionnez au moins 2 athlètes pour afficher le radar.")
@@ -189,7 +189,7 @@ def show(df: pd.DataFrame):
         )
         fig_gm.update_layout(**PLOTLY_THEME, height=360, legend_title_text="",
                               title_font_size=13)
-        st.plotly_chart(fig_gm, use_container_width=True)
+        st_plotly(fig_gm)
 
     # ════════════════════════════════════════════════════════════════════
     # TAB 3 — FICHE ATHLÈTE
@@ -245,14 +245,14 @@ def show(df: pd.DataFrame):
                 **PLOTLY_THEME, height=360, legend_title_text="",
                 title_font_size=13,
             )
-            st.plotly_chart(fig_tl, use_container_width=True)
+            st_plotly(fig_tl)
 
         # Tableau complet de la carrière
         with st.expander("📋 Voir le détail complet de la carrière"):
             cols_show = [c for c in ["Year", "Sport", "Event", "Medal", "Team"] if c in ath_all.columns]
             st.dataframe(
                 ath_all[cols_show].sort_values("Year").reset_index(drop=True),
-                use_container_width=True,
+                width="stretch",
             )
 
     # ── Footer ────────────────────────────────────────────────────────────

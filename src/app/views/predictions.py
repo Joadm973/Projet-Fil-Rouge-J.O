@@ -29,7 +29,7 @@ from src.models.records import (
 )
 from src.app.components.cards import (
     section_header, insight, warning_insight, prediction_card,
-    MEDAL_COLORS, PLOTLY_THEME,
+    MEDAL_COLORS, PLOTLY_THEME, st_plotly,
 )
 
 CHART_H = 420
@@ -170,7 +170,7 @@ def show(df: pd.DataFrame):
     with col_cfg2:
         top_n = st.slider("Nombre de pays", 5, 30, 20, key="pred_top_n")
 
-    run = st.button("🚀 Calculer les prédictions", type="primary", use_container_width=True)
+    run = st.button("🚀 Calculer les prédictions", type="primary", width="stretch")
 
     if run:
         with st.spinner("Modèle en cours d'entraînement…"):
@@ -219,7 +219,7 @@ def show(df: pd.DataFrame):
                 coloraxis_showscale=False,
                 title_font_size=13,
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st_plotly(fig)
 
             podium_cols = st.columns(3)
             podium = pred_df.head(3)
@@ -230,7 +230,7 @@ def show(df: pd.DataFrame):
 
             st.markdown("<br>", unsafe_allow_html=True)
             with st.expander("📋 Tableau complet des prédictions"):
-                st.dataframe(pred_df, use_container_width=True)
+                st.dataframe(pred_df, width="stretch")
 
             insight(
                 f"Le modèle <strong>{model_used}</strong> prédit "
@@ -288,7 +288,7 @@ def show(df: pd.DataFrame):
                     legend=dict(orientation="h"),
                     title_font_size=13,
                 )
-                st.plotly_chart(fig2, use_container_width=True)
+                st_plotly(fig2)
 
                 c1, c2, c3 = st.columns(3)
                 c1.metric("Prédiction 2028", f"{pred_2028} 🏅")
@@ -360,8 +360,8 @@ def show(df: pd.DataFrame):
                     legend=dict(orientation="h", y=-0.15),
                     title_font_size=13,
                 )
-                st.plotly_chart(fig_cmp, use_container_width=True)
-                st.dataframe(pd.DataFrame(results), use_container_width=True, hide_index=True)
+                st_plotly(fig_cmp)
+                st.dataframe(pd.DataFrame(results), width="stretch", hide_index=True)
 
                 insight(
                     "Un <strong>R² proche de 1</strong> indique un bon ajustement aux données historiques. "
@@ -398,12 +398,11 @@ def show(df: pd.DataFrame):
             fig_map.update_layout(
                 **PLOTLY_THEME, height=500,
                 geo=dict(showframe=False, showcoastlines=True,
-                         coastlinecolor="#e0e0e0", bgcolor="rgba(0,0,0,0)"),
+                         coastlinecolor="#dddddd", bgcolor="rgba(0,0,0,0)"),
                 coloraxis_colorbar=dict(title="Médailles", thickness=12),
                 title_font_size=13,
-                margin=dict(l=0, r=0, t=40, b=0),
             )
-            st.plotly_chart(fig_map, use_container_width=True)
+            st_plotly(fig_map)
 
             warning_insight(
                 "Ces prédictions sont basées sur des tendances historiques et ne prennent pas en compte "
@@ -440,7 +439,7 @@ def show(df: pd.DataFrame):
             title="Dominance par pays et discipline — % des médailles distribuées (2016–2024)",
         )
         fig_heat.update_layout(**PLOTLY_THEME, height=420, title_font_size=13)
-        st.plotly_chart(fig_heat, use_container_width=True)
+        st_plotly(fig_heat)
 
         insight(
             "Un score de <strong>40%</strong> signifie que ce pays a remporté 40% de toutes les "
@@ -474,7 +473,7 @@ def show(df: pd.DataFrame):
                 yaxis={"categoryorder": "total ascending"},
                 title_font_size=13,
             )
-            st.plotly_chart(fig_sport, use_container_width=True)
+            st_plotly(fig_sport)
 
         st.markdown("---")
 
@@ -511,7 +510,7 @@ def show(df: pd.DataFrame):
                 showlegend=False,
                 title_font_size=13,
             )
-            st.plotly_chart(fig_radar, use_container_width=True)
+            st_plotly(fig_radar)
         else:
             st.warning(f"Pas assez de disciplines avec données pour {sel_country_radar}.")
 
@@ -553,7 +552,7 @@ def show(df: pd.DataFrame):
                         yaxis={"categoryorder": "total ascending"},
                         title_font_size=13,
                     )
-                    st.plotly_chart(fig_ath, use_container_width=True)
+                    st_plotly(fig_ath)
                 else:
                     st.info("Aucun athlète ne correspond aux filtres sélectionnés.")
 
@@ -562,7 +561,7 @@ def show(df: pd.DataFrame):
                     filtered_ath[
                         ["Name", "Team", "Sport", "nb_medals", "nb_editions", "weighted_score", "cote"]
                     ].head(50),
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                 )
 
@@ -602,7 +601,7 @@ def show(df: pd.DataFrame):
                 yaxis={"categoryorder": "total ascending"},
                 title_font_size=13,
             )
-            st.plotly_chart(fig_rising, use_container_width=True)
+            st_plotly(fig_rising)
 
             insight(
                 "Ces nations ont <strong>multiplié leur palmarès</strong> sur les deux derniers "
@@ -638,7 +637,7 @@ def show(df: pd.DataFrame):
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=13,
                 )
-                st.plotly_chart(fig_comp, use_container_width=True)
+                st_plotly(fig_comp)
 
                 insight(
                     "Score élevé = médailles <strong>réparties entre de nombreux pays</strong>. "
@@ -669,7 +668,7 @@ def show(df: pd.DataFrame):
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=13,
                 )
-                st.plotly_chart(fig_dom, use_container_width=True)
+                st_plotly(fig_dom)
 
                 warning_insight(
                     "Ces sports sont historiquement monopolisés par un ou deux pays. "
@@ -700,7 +699,7 @@ def show(df: pd.DataFrame):
                 yaxis={"categoryorder": "total ascending"},
                 title_font_size=13,
             )
-            st.plotly_chart(fig_fr, use_container_width=True)
+            st_plotly(fig_fr)
 
             insight(
                 "Pour maximiser son palmarès à Los Angeles, la France devrait s'appuyer "
@@ -773,7 +772,7 @@ def show(df: pd.DataFrame):
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=12,
                 )
-                st.plotly_chart(fig_tc, use_container_width=True)
+                st_plotly(fig_tc)
 
         with col_ta:
             st.subheader(f"Top athlètes — {sel_year}")
@@ -795,7 +794,7 @@ def show(df: pd.DataFrame):
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=12,
                 )
-                st.plotly_chart(fig_ta, use_container_width=True)
+                st_plotly(fig_ta)
 
         # ── Nouveautés de l'édition ───────────────────────────────────────
         st.markdown("---")
@@ -832,7 +831,7 @@ def show(df: pd.DataFrame):
             st.caption("Pays ayant remporté le plus de médailles en une seule édition")
             st.dataframe(
                 alltime["best_country_performances"][["Pays", "Year", "City", "Médailles"]],
-                use_container_width=True,
+                width="stretch",
                 hide_index=False,
             )
 
@@ -841,7 +840,7 @@ def show(df: pd.DataFrame):
             st.caption("Athlètes ayant remporté le plus de médailles en une seule édition")
             st.dataframe(
                 alltime["best_athlete_performances"][["Athlète", "Pays", "Sport", "Year", "Médailles"]],
-                use_container_width=True,
+                width="stretch",
                 hide_index=False,
             )
 
@@ -892,7 +891,7 @@ def show(df: pd.DataFrame):
             title_font_size=13,
             barmode="overlay",
         )
-        st.plotly_chart(fig_div, use_container_width=True)
+        st_plotly(fig_div)
 
         insight(
             "La courbe verte <strong>(cumulatif)</strong> indique combien de pays ont remporté "

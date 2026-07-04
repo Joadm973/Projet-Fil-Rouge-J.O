@@ -120,7 +120,7 @@ def show(df: pd.DataFrame) -> None:
                 max_chars=1000,
             )
 
-        submitted = st.form_submit_button("Enregistrer", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("Enregistrer", type="primary", width="stretch")
 
     if submitted:
         if not note.strip():

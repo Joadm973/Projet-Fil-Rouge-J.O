@@ -1,21 +1,35 @@
-export function Insight({ children }: { children: React.ReactNode }) {
+import type { ReactNode } from 'react'
+
+const BASE: React.CSSProperties = {
+  borderRadius: 'var(--r-md)',
+  padding: '12px 16px',
+  fontSize: '0.82rem',
+  lineHeight: '1.55',
+  margin: '16px 0',
+}
+
+export function Insight({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-sm text-blue-800 flex gap-2 items-start my-4">
-      <span className="text-lg leading-none">💡</span>
-      <span dangerouslySetInnerHTML={typeof children === 'string' ? { __html: children } : undefined}>
-        {typeof children !== 'string' ? children : undefined}
-      </span>
+    <div style={{
+      ...BASE,
+      background: 'var(--gold-bg)',
+      border: '1px solid var(--gold-border)',
+      color: '#6b5820',
+    }}>
+      {children}
     </div>
   )
 }
 
-export function Warning({ children }: { children: React.ReactNode }) {
+export function Warning({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 text-sm text-amber-800 flex gap-2 items-start my-4">
-      <span className="text-lg leading-none">⚠️</span>
-      <span dangerouslySetInnerHTML={typeof children === 'string' ? { __html: children } : undefined}>
-        {typeof children !== 'string' ? children : undefined}
-      </span>
+    <div style={{
+      ...BASE,
+      background: 'var(--surface-2)',
+      border: '1px solid var(--border)',
+      color: 'var(--text-2)',
+    }}>
+      {children}
     </div>
   )
 }

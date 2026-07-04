@@ -22,7 +22,8 @@ def list_annotations(type: Optional[str] = None, target: Optional[str] = None):
 
 @router.post("/")
 def create_annotation(body: AnnotationIn):
-    ann = add_annotation(body.type, body.target, body.note, body.author, body.tags)
+    tags_list = [t.strip() for t in (body.tags or "").split(",") if t.strip()]
+    ann = add_annotation(body.type, body.target, body.note, body.author, tags_list)
     return ann
 
 
@@ -37,4 +38,14 @@ def remove_annotation(ann_id: str):
 @router.get("/targets")
 def targets(type: str):
     df = get_df()
-    return get_targets_for_type(df, type)
+    medals = df[df["Medal"].isin(["Gold", "Silver", "Bronze"])]
+    if type == "athlete":
+        return sorted([str(x) for x in medals["Name"].dropna().unique()])
+    elif type == "pays":
+        return sorted([str(x) for x in medals["Team"].dropna().unique()])
+    elif type == "sport":
+        return sorted([str(x) for x in medals["Sport"].dropna().unique()])
+    elif type == "edition":
+        years = sorted(df["Year"].unique(), reverse=True)
+        return [str(y) for y in years]
+    return []

@@ -12,7 +12,7 @@ if str(_ROOT) not in sys.path:
 
 from src.analysis.exploratory import medals_by_year, participation_over_time
 from src.app.components.cards import (
-    render_kpis, section_header, insight, hero_banner, MEDAL_COLORS, PLOTLY_THEME
+    render_kpis, section_header, insight, hero_banner, MEDAL_COLORS, PLOTLY_THEME, st_plotly
 )
 
 CHART_H = 380
@@ -59,7 +59,7 @@ def show(df: pd.DataFrame):
         fig.update_layout(**PLOTLY_THEME, height=CHART_H, legend_title_text="",
                           title_font_size=14)
         fig.update_traces(marker_line_width=0)
-        st.plotly_chart(fig, use_container_width=True)
+        st_plotly(fig)
 
     with col_r:
         # Gender participation evolution (area chart, not simple pie)
@@ -73,7 +73,7 @@ def show(df: pd.DataFrame):
         )
         fig2.update_layout(**PLOTLY_THEME, height=CHART_H, legend_title_text="",
                            title_font_size=14)
-        st.plotly_chart(fig2, use_container_width=True)
+        st_plotly(fig2)
 
     insight(
         "Les JO 2020 (Tokyo) ont enregistré le plus grand nombre d'athlètes. "
@@ -86,7 +86,12 @@ def show(df: pd.DataFrame):
     col_map, col_bar = st.columns([3, 2])
 
     with col_map:
-        medals_by_noc = medals_df.groupby(["NOC", "Team"]).size().reset_index(name="Total")
+        # Agrégation par NOC pour éviter les doublons géographiques causés par les sous-équipes (ex: USA-1, USA-2)
+        noc_totals = medals_df.groupby("NOC").size().reset_index(name="Total")
+        main_teams = medals_df.groupby(["NOC", "Team"]).size().reset_index(name="count")
+        main_teams = main_teams.sort_values("count", ascending=False).drop_duplicates("NOC")
+        medals_by_noc = noc_totals.merge(main_teams[["NOC", "Team"]], on="NOC")
+
         fig_map = px.choropleth(
             medals_by_noc, locations="NOC", color="Total",
             hover_name="Team", hover_data={"NOC": False},
@@ -100,9 +105,8 @@ def show(df: pd.DataFrame):
                      coastlinecolor="#dddddd", bgcolor="rgba(0,0,0,0)"),
             coloraxis_colorbar=dict(title="Médailles", thickness=12),
             title_font_size=14,
-            margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_map, use_container_width=True)
+        st_plotly(fig_map)
 
     with col_bar:
         top10 = (
@@ -120,7 +124,7 @@ def show(df: pd.DataFrame):
             coloraxis_showscale=False, title_font_size=14,
         )
         fig_top.update_traces(marker_line_width=0)
-        st.plotly_chart(fig_top, use_container_width=True)
+        st_plotly(fig_top)
 
     # ── Row 3 : Participation + Treemap sports ─────────────────────────────
     section_header("📈 Tendances & Sports")
@@ -138,7 +142,7 @@ def show(df: pd.DataFrame):
         fig3.update_layout(**PLOTLY_THEME, height=360, title_font_size=14,
                            legend=dict(orientation="h", yanchor="bottom", y=1.02))
         fig3.update_traces(line_width=2.5)
-        st.plotly_chart(fig3, use_container_width=True)
+        st_plotly(fig3)
 
     with col_tree:
         sport_medals = medals_df.groupby("Sport").size().reset_index(name="Médailles")
@@ -149,9 +153,8 @@ def show(df: pd.DataFrame):
         )
         fig_tree.update_layout(
             **PLOTLY_THEME, height=360, title_font_size=14,
-            margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_tree, use_container_width=True)
+        st_plotly(fig_tree)
 
     insight(
         f"Le pays le plus lauréat en médailles d'or toutes éditions confondues est "

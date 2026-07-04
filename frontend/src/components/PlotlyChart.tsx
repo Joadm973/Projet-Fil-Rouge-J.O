@@ -7,15 +7,24 @@ interface Props {
   data: any[]
   layout?: Partial<Layout>
   height?: number
-  className?: string
+  style?: React.CSSProperties
 }
 
-export default function PlotlyChart({ data, layout, height = 400, className }: Props) {
+export default function PlotlyChart({ data, layout, height = 380, style }: Props) {
   return (
-    <div className={`bg-white rounded-2xl shadow-sm border border-slate-100 p-4 ${className ?? ''}`}>
+    <div className="card" style={{ padding: '4px', overflow: 'hidden', ...style }}>
       <Plot
         data={data}
-        layout={{ ...PLOTLY_LAYOUT, height, ...layout }}
+        layout={{
+          ...PLOTLY_LAYOUT,
+          ...layout,
+          height,
+          xaxis: { ...PLOTLY_LAYOUT.xaxis, ...layout?.xaxis },
+          yaxis: { ...PLOTLY_LAYOUT.yaxis, ...layout?.yaxis },
+          hoverlabel: { ...PLOTLY_LAYOUT.hoverlabel, ...layout?.hoverlabel },
+          legend: { ...PLOTLY_LAYOUT.legend, ...layout?.legend },
+          title: { ...PLOTLY_LAYOUT.title, ...layout?.title },
+        }}
         config={PLOTLY_CONFIG}
         style={{ width: '100%' }}
         useResizeHandler

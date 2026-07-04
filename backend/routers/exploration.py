@@ -1,3 +1,4 @@
+import numpy as np
 from fastapi import APIRouter, Query
 from typing import Optional
 from backend.deps import get_df
@@ -27,11 +28,13 @@ def top_countries(
 ):
     df = _filter(year_min, year_max, gender)
     medals = df[df["Medal"].isin(MEDALS)]
+    top_teams = medals.groupby("Team").size().nlargest(top_n).index.tolist()
     r = (
-        medals.groupby(["NOC", "Team", "Medal"])
+        medals[medals["Team"].isin(top_teams)]
+        .groupby(["NOC", "Team", "Medal"])
         .size().reset_index(name="count")
     )
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/top-sports")
@@ -41,9 +44,10 @@ def top_sports(
 ):
     df = _filter(year_min, year_max, gender)
     medals = df[df["Medal"].isin(MEDALS)]
-    r = medals.groupby(["Sport", "Sex"]).size().reset_index(name="count")
+    top_sport_names = medals.groupby("Sport").size().nlargest(top_n).index.tolist()
+    r = medals[medals["Sport"].isin(top_sport_names)].groupby(["Sport", "Sex"]).size().reset_index(name="count")
     r["Sex"] = r["Sex"].map({"M": "Hommes", "F": "Femmes"})
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/trends")
@@ -57,8 +61,8 @@ def trends(
     parity = df.groupby(["Year", "Sex"])["Name"].nunique().reset_index()
     parity["Sex"] = parity["Sex"].map({"M": "Hommes", "F": "Femmes"})
     return {
-        "gold_by_year": gold_by_year.to_dict(orient="records"),
-        "parity": parity.to_dict(orient="records"),
+        "gold_by_year": gold_by_year.replace({np.nan: None}).to_dict(orient="records"),
+        "parity": parity.replace({np.nan: None}).to_dict(orient="records"),
     }
 
 
@@ -75,7 +79,7 @@ def heatmap(
         medals[medals["Team"].isin(top_countries)]
         .groupby(["Team", "Year"]).size().reset_index(name="gold")
     )
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/choropleth")
@@ -86,4 +90,4 @@ def choropleth(
     df = _filter(year_min, year_max, gender)
     medals = df[df["Medal"].isin(MEDALS)]
     r = medals.groupby(["NOC", "Team"]).size().reset_index(name="total")
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")

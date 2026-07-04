@@ -11,7 +11,7 @@ _ROOT = Path(__file__).parent.parent.parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from src.app.components.cards import PLOTLY_THEME, insight, section_header, warning_insight
+from src.app.components.cards import PLOTLY_THEME, insight, section_header, warning_insight, st_plotly
 from src.data.api_fetcher import enrich_medals_with_country_data, fetch_country_metadata
 
 CHART_H = 420
@@ -146,7 +146,7 @@ def show(df: pd.DataFrame) -> None:
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=13,
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                st_plotly(fig)
 
         # Scatter population vs medals
         st.markdown("---")
@@ -169,7 +169,7 @@ def show(df: pd.DataFrame) -> None:
             yaxis_title="Médailles totales",
             title_font_size=13,
         )
-        st.plotly_chart(fig_sc, use_container_width=True)
+        st_plotly(fig_sc)
 
         insight(
             "La <strong>médaille par habitant</strong> corrige le biais de taille. "
@@ -211,7 +211,7 @@ def show(df: pd.DataFrame) -> None:
             )
             fig_reg.update_traces(textposition="inside", textinfo="percent+label")
             fig_reg.update_layout(**PLOTLY_THEME, height=360, title_font_size=13)
-            st.plotly_chart(fig_reg, use_container_width=True)
+            st_plotly(fig_reg)
 
         with col_r2:
             fig_reg2 = px.bar(
@@ -231,7 +231,7 @@ def show(df: pd.DataFrame) -> None:
                 coloraxis_showscale=False,
                 title_font_size=13,
             )
-            st.plotly_chart(fig_reg2, use_container_width=True)
+            st_plotly(fig_reg2)
 
         # Évolution régionale dans le temps
         st.markdown("---")
@@ -259,7 +259,7 @@ def show(df: pd.DataFrame) -> None:
             legend=dict(orientation="h", y=-0.2),
             title_font_size=13,
         )
-        st.plotly_chart(fig_trend, use_container_width=True)
+        st_plotly(fig_trend)
 
         insight(
             "La progression de l'Asie de l'Est est nette depuis 1992, "
@@ -297,7 +297,7 @@ def show(df: pd.DataFrame) -> None:
             legend=dict(orientation="h", y=-0.2),
             title_font_size=13,
         )
-        st.plotly_chart(fig_gdp, use_container_width=True)
+        st_plotly(fig_gdp)
 
         # Top performers relatifs au PIB — sur-performers
         st.markdown("---")
@@ -331,7 +331,7 @@ def show(df: pd.DataFrame) -> None:
                 yaxis={"categoryorder": "total ascending"},
                 title_font_size=12,
             )
-            st.plotly_chart(fig_over, use_container_width=True)
+            st_plotly(fig_over)
 
         with col_o2:
             fig_under = px.bar(
@@ -350,7 +350,7 @@ def show(df: pd.DataFrame) -> None:
                 yaxis={"categoryorder": "total ascending"},
                 title_font_size=12,
             )
-            st.plotly_chart(fig_under, use_container_width=True)
+            st_plotly(fig_under)
 
         insight(
             "Le <strong>score de sur-performance</strong> compare le rang médailles/million "
@@ -389,7 +389,7 @@ def show(df: pd.DataFrame) -> None:
         ).reset_index(drop=True)
         display_df.index += 1
 
-        st.dataframe(display_df, use_container_width=True, height=500)
+        st.dataframe(display_df, width="stretch", height=500)
 
         st.download_button(
             label="Télécharger (CSV)",

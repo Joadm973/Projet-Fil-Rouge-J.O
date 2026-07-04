@@ -1,3 +1,4 @@
+import numpy as np
 from fastapi import APIRouter, Query
 from backend.deps import get_df
 
@@ -21,12 +22,13 @@ def top_athletes(
     if sport != "all":
         filt = filt[filt["Sport"] == sport]
     if country != "all":
-        filt = filt[filt["Team"] == country]
+        noc = df.loc[df["Team"] == country, "NOC"]
+        filt = filt[filt["NOC"].isin(noc)]
     top = (
         filt.groupby(["Name", "Team", "Sport"])
         .size().nlargest(top_n).reset_index(name="total")
     )
-    return top.to_dict(orient="records")
+    return top.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/detail")
@@ -43,8 +45,8 @@ def athlete_detail(
     by_medal = filt.groupby(["Name", "Medal"]).size().reset_index(name="count")
     by_year = filt.groupby("Year").size().reset_index(name="medals")
     return {
-        "by_medal": by_medal.to_dict(orient="records"),
-        "by_year": by_year.to_dict(orient="records"),
+        "by_medal": by_medal.replace({np.nan: None}).to_dict(orient="records"),
+        "by_year": by_year.replace({np.nan: None}).to_dict(orient="records"),
         "sports": filt["Sport"].unique().tolist(),
         "editions": sorted(filt["Year"].unique().tolist()),
     }
@@ -61,7 +63,7 @@ def gender_medals(
     filt = df[(df["Medal"].isin(medal_list)) & (df["Year"] >= year_min) & (df["Year"] <= year_max)]
     r = filt.groupby(["Sex", "Medal"]).size().reset_index(name="count")
     r["Sex"] = r["Sex"].map({"M": "Hommes", "F": "Femmes"})
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/timeline")
@@ -71,13 +73,14 @@ def athlete_timeline(
     df = get_df()
     filt = df[(df["Name"] == name) & df["Medal"].isin(MEDALS)]
     r = filt.groupby(["Year", "Sport", "Event", "Medal"]).size().reset_index(name="n")
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/filters-meta")
 def filters_meta():
     df = get_df()
+    canonical_team = df.groupby("NOC")["Team"].agg(lambda s: s.value_counts().idxmax())
     return {
         "sports": sorted(df["Sport"].unique().tolist()),
-        "countries": sorted(df["Team"].unique().tolist()),
+        "countries": sorted(canonical_team.unique().tolist()),
     }

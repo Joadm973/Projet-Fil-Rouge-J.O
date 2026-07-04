@@ -8,6 +8,44 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     # Uniquement les JO d'été
     df = df[df["Season"] == "Summer"]
     df = df.drop_duplicates()
+    
+    # Correction des noms d'athlètes corrompus
+    name_fixes = {
+        "Michael Ii": "Michael Phelps",
+        "Larysa (diriy-)": "Larysa Latynina",
+        "Vra (-odloilov)": "Věra Čáslavská",
+        "Aladr (-gerei)": "Aladár Gerevich",
+        "Jennifer (-cumpelik)": "Jenny Thompson",
+        "Dara -minas)": "Dara Torres",
+        "Natalie (-hall)": "Natalie Coughlin",
+        "gnes (klein)": "Ágnes Keleti",
+        "Lyudmila (-borzova)": "Lyudmila Turischeva",
+        "Nadia (-conner)": "Nadia Comăneci",
+        "Kornelia -grummt)": "Kornelia Ender",
+        "Margit -szalay)": "Margit Korondi",
+        "Petria (-jones)": "Petria Thomas",
+        "Sofiya (poduzdova-)": "Sofiya Muratova",
+        "Viljo (koukkari-)": "Ville Ritola",
+        "Albert (thorvaldsen-)": "Albert Helgerud",
+        "Amanda (-brown)": "Amanda Beard",
+        "Dana (-grant)": "Dana Vollmer",
+        "Karin (-bttner)": "Karin Janz",
+        "Kirsty (-seward)": "Kirsty Coventry",
+        "Shannon -falconetti)": "Shannon Miller",
+        "Simona (-tabr)": "Simona Amânar",
+        "Amy (-rouen)": "Amy Van Dyken",
+        "Anders (johansson-)": "Anders Holmertz",
+        "Andrea (-pinske)": "Andrea Pollack",
+        "Angelina -sims)": "Angelina Martino",
+        "Kimberly (-harryman)": "Kim Rhode",
+        "Nellya (-achasov)": "Nelli Kim",
+        "Olga (todenbier-)": "Olga Tass",
+        "Olga -voynich)": "Olga Korbut",
+        "Renate (meiner-)": "Renate Stecher",
+        "Viorica (-harper)": "Daniela Silivaș",
+        "Antje (-meeuw)": "Antje Buschschulte"
+    }
+    df["Name"] = df["Name"].replace(name_fixes)
     # Fusionner Allemagne de l'Est (GDR) et de l'Ouest (FRG) avec l'Allemagne unifiée (GER)
     germany_nocs = {"GDR", "FRG"}
     df.loc[df["NOC"].isin(germany_nocs), "NOC"] = "GER"

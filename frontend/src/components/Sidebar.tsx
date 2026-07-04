@@ -4,51 +4,86 @@ import {
 } from 'lucide-react'
 
 const NAV = [
-  { to: '/',            icon: Home,          label: 'Accueil' },
-  { to: '/exploration', icon: BarChart2,      label: 'Exploration' },
-  { to: '/athletes',    icon: Users,          label: 'Athlètes' },
-  { to: '/predictions', icon: TrendingUp,     label: 'Prédictions 2028' },
-  { to: '/annotations', icon: MessageSquare,  label: 'Annotations' },
-  { to: '/generations', icon: Sprout,         label: 'Nouvelles générations' },
-  { to: '/multisource', icon: Globe,          label: 'Multi-sources' },
+  { to: '/', icon: Home, label: 'Accueil' },
+  { to: '/exploration', icon: BarChart2, label: 'Exploration' },
+  { to: '/athletes', icon: Users, label: 'Athlètes' },
+  { to: '/predictions', icon: TrendingUp, label: 'Prédictions 2028' },
+  { to: '/annotations', icon: MessageSquare, label: 'Annotations' },
+  { to: '/generations', icon: Sprout, label: 'Générations' },
+  { to: '/multisource', icon: Globe, label: 'Multi-sources' },
 ]
 
 export default function Sidebar() {
   return (
-    <aside className="fixed top-0 left-0 h-full w-[220px] bg-[#0a0f2e] flex flex-col z-50 shadow-2xl">
-      {/* Logo */}
-      <div className="flex flex-col items-center py-7 border-b border-white/10">
-        <div className="text-4xl mb-1">🏅</div>
-        <div className="text-white font-bold text-lg tracking-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-          YPerf
+    <aside style={{ width: 'var(--sidebar-w)', background: 'var(--sidebar-bg)' }}
+      className="fixed top-0 left-0 h-full flex flex-col z-50">
+
+      {/* Custom Logo & Wordmark */}
+      <div className="px-5 pt-24 pb-8 text-center flex flex-col items-center flex-shrink-0">
+        <div style={{ marginBottom: '16px' }}>
+          <svg width="130" height="74" viewBox="0 0 100 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* 5 Olympic Rings in Gold */}
+            <circle cx="28" cy="28" r="13" stroke="#D4AF37" strokeWidth="2.5" fill="none" />
+            <circle cx="50" cy="28" r="13" stroke="#D4AF37" strokeWidth="2.5" fill="none" />
+            <circle cx="72" cy="28" r="13" stroke="#D4AF37" strokeWidth="2.5" fill="none" />
+            <circle cx="39" cy="39" r="13" stroke="#D4AF37" strokeWidth="2.5" fill="none" />
+            <circle cx="61" cy="39" r="13" stroke="#D4AF37" strokeWidth="2.5" fill="none" />
+          </svg>
         </div>
-        <div className="text-white/40 text-[11px] mt-0.5">Los Angeles 2028</div>
+        <span style={{ color: '#ffffff', fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1 }}>
+          YPerf
+        </span>
+        <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.78rem', marginTop: '6px', letterSpacing: '0.02em', fontWeight: 500 }}>
+          JO · Los Angeles 2028
+        </div>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 py-4 overflow-y-auto">
+      <nav className="flex-1 px-2 overflow-y-auto flex flex-col justify-center">
+        <div style={{ color: 'rgba(255,255,255,0.22)', fontSize: '0.62rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0 10px 8px', textAlign: 'center' }}>
+          Navigation
+        </div>
         {NAV.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}
             end={to === '/'}
-            className={({ isActive }) =>
-              `flex items-center gap-3 mx-2 my-0.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
-                isActive
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/30'
-                  : 'text-white/60 hover:bg-white/8 hover:text-white'
-              }`
-            }
+            className="block"
+            style={({ isActive }) => ({
+              display: 'flex',
+              alignItems: 'center',
+              gap: '9px',
+              padding: '7px 10px',
+              borderRadius: '6px',
+              marginBottom: '12px',
+              fontSize: '0.82rem',
+              fontWeight: isActive ? 600 : 400,
+              color: isActive ? '#ffffff' : 'rgba(255,255,255,0.45)',
+              background: isActive ? 'rgba(255,255,255,0.08)' : 'transparent',
+              textDecoration: 'none',
+              transition: 'all 0.12s',
+            })}
+            onMouseEnter={e => {
+              const t = e.currentTarget
+              if (!t.getAttribute('aria-current')) t.style.color = 'rgba(255,255,255,0.75)'
+            }}
+            onMouseLeave={e => {
+              const t = e.currentTarget
+              if (!t.getAttribute('aria-current')) t.style.color = 'rgba(255,255,255,0.45)'
+            }}
           >
-            <Icon size={16} strokeWidth={2} />
+            <Icon size={14} strokeWidth={1.75} />
             <span>{label}</span>
           </NavLink>
         ))}
       </nav>
 
-      {/* Footer */}
-      <div className="border-t border-white/10 py-4 px-4 text-center text-white/30 text-[10px]">
-        Ynov Bachelor 3 · Data &amp; IA · 2026
+      {/* Gold accent bar + footer */}
+      <div>
+        <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '0 16px' }} />
+        <div style={{ padding: '16px', color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem' }}>
+          Ynov B3 · Data & IA · 2026
+        </div>
       </div>
     </aside>
   )

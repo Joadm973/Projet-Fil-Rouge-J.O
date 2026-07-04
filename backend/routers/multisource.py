@@ -1,3 +1,4 @@
+import numpy as np
 from fastapi import APIRouter, Query
 from backend.deps import get_df
 from src.data.api_fetcher import fetch_country_metadata, enrich_medals_with_country_data
@@ -24,7 +25,15 @@ def _enriched() -> pd.DataFrame:
 def overview():
     enriched = _enriched()
     matched = int(enriched["population"].notna().sum())
-    return {"total_countries": len(enriched), "matched": matched}
+    total = len(enriched)
+    return {
+        "total_countries": total,
+        "matched": matched,
+        "countries_with_data": matched,
+        "coverage_pct": round(matched / total * 100, 1) if total else 0,
+        "total_medals": int(enriched["medals"].sum()),
+        "regions": int(enriched["region"].nunique()),
+    }
 
 
 @router.get("/per-capita")
@@ -37,14 +46,14 @@ def per_capita(min_medals: int = Query(10), min_pop: int = Query(500000), top_n:
         .sort_values("medals_per_million", ascending=False)
         .head(top_n)
     )
-    return r[["NOC", "Team", "medals", "medals_per_million", "population", "region"]].to_dict(orient="records")
+    return r[["NOC", "Team", "medals", "medals_per_million", "population", "region"]].replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/scatter")
 def scatter():
     enriched = _enriched()
     r = enriched.dropna(subset=["population", "region"]).query("medals > 0")
-    return r[["NOC", "Team", "medals", "medals_per_million", "population", "region"]].to_dict(orient="records")
+    return r[["NOC", "Team", "medals", "medals_per_million", "population", "region"]].replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/by-region")
@@ -58,7 +67,7 @@ def by_region():
         .sort_values("medals", ascending=False)
     )
     r["medals_per_million"] = (r["medals"] / r["total_pop"] * 1_000_000).round(3)
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/region-trend")
@@ -77,7 +86,7 @@ def region_trend():
     )
     total_by_year = trend.groupby("Year")["medals"].transform("sum")
     trend["share_pct"] = (trend["medals"] / total_by_year * 100).round(1)
-    return trend.to_dict(orient="records")
+    return trend.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/gdp-scatter")
@@ -88,7 +97,7 @@ def gdp_scatter():
     r["med_rank_pct"] = r["medals_per_million"].rank(pct=True).round(3)
     r["overperformance"] = (r["med_rank_pct"] - r["gdp_rank_pct"]).round(3)
     cols = ["NOC", "Team", "medals", "medals_per_million", "population", "gdp_per_capita", "region", "overperformance"]
-    return r[cols].to_dict(orient="records")
+    return r[cols].replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/table")
@@ -96,4 +105,4 @@ def table():
     enriched = _enriched()
     cols = [c for c in ["NOC", "Team", "medals", "medals_per_million", "population", "gdp_per_capita", "region", "income_level"] if c in enriched.columns]
     r = enriched[cols].dropna(subset=["region"]).sort_values("medals", ascending=False)
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")

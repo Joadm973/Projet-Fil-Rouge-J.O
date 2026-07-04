@@ -5,13 +5,44 @@ import streamlit as st
 
 
 # ── Palette olympique ─────────────────────────────────────────────────────
-MEDAL_COLORS = {"Gold": "#FFD700", "Silver": "#C0C0C0", "Bronze": "#CD7F32"}
+MEDAL_COLORS = {"Gold": "#f59e0b", "Silver": "#9ca3af", "Bronze": "#b45309"}
+
 PLOTLY_THEME = dict(
     template="plotly_white",
-    font_family="Inter, Segoe UI, sans-serif",
+    font=dict(family="Inter, Segoe UI, sans-serif", size=12, color="#374151"),
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(248,250,252,0.5)",
+    margin=dict(t=48, r=16, b=40, l=16),
+    title_font=dict(size=14, color="#0f172a", family="Inter, Segoe UI, sans-serif"),
+    hoverlabel=dict(
+        bgcolor="white",
+        bordercolor="#e5e7eb",
+        font_size=12,
+        font_family="Inter, Segoe UI, sans-serif",
+    ),
 )
+
+_AXIS_STYLE = dict(
+    gridcolor="#f1f5f9",
+    linecolor="#e2e8f0",
+    tickfont=dict(size=11, color="#6b7280"),
+    title_font=dict(size=12, color="#374151"),
+    zeroline=False,
+)
+
+
+def polish_fig(fig):
+    """Apply consistent axis + grid styling to any Plotly figure."""
+    fig.update_xaxes(**_AXIS_STYLE)
+    fig.update_yaxes(**_AXIS_STYLE)
+    return fig
+
+
+def st_plotly(fig, **kwargs):
+    """Polish + render a Plotly figure via st.plotly_chart."""
+    polish_fig(fig)
+    kwargs.setdefault("width", "stretch")
+    st.plotly_chart(fig, **kwargs)
 
 
 def kpi_card(icon: str, value: str, label: str, color: str = "blue") -> str:

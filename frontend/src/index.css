@@ -1,17 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Design tokens ──────────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg:          #f5f3ee;
+  --surface:     #ffffff;
+  --surface-2:   #faf8f4;
+  --surface-3:   #f0ede6;
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #f0f4f8;
-  color: #1e293b;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
+  /* Borders */
+  --border:      #e5e1d8;
+  --border-soft: #edeae3;
+
+  /* Text */
+  --text-1:      #111010;
+  --text-2:      #6b6763;
+  --text-3:      #9e9993;
+
+  /* Accent — or olympique mat */
+  --gold:        #c9a227;
+  --gold-dim:    #b8911e;
+  --gold-bg:     #fdf6e3;
+  --gold-border: #f0dfa0;
+
+  /* Sidebar */
+  --sidebar-bg:  #0f0f0f;
+  --sidebar-w:   200px;
+
+  /* Positive / Negative */
+  --green:       #16a34a;
+  --red:         #dc2626;
+
+  /* Radii */
+  --r-sm:        6px;
+  --r-md:        10px;
+  --r-lg:        14px;
+
+  /* Shadows */
+  --shadow-xs:   0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
 }
 
-#root { display: flex; min-height: 100vh; }
+/* ── Reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+/* ── Base ───────────────────────────────────────────────────────────── */
+html { font-size: 15px; }
+
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.55;
+}
+
+#root { display: flex; min-height: 100vh; width: 100%; }
+
+/* ── Typography scale ───────────────────────────────────────────────── */
+h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--text-1);
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+}
+
+h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+p { color: var(--text-2); }
+
+/* ── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ── Focus visible ──────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* ── Selection ──────────────────────────────────────────────────────── */
+::selection { background: var(--gold-bg); color: var(--text-1); }
+
+/* ── Utility classes ────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+.label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text-1);
+  line-height: 1;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-soft);
+  margin: 2rem 0;
+}
+
+/* ── Plotly overrides ───────────────────────────────────────────────── */
+.js-plotly-plot .plotly .modebar { display: none !important; }

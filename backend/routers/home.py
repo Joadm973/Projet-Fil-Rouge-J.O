@@ -1,3 +1,4 @@
+import numpy as np
 from fastapi import APIRouter
 from backend.deps import get_df
 from src.analysis.exploratory import medals_by_year, participation_over_time
@@ -29,7 +30,7 @@ def kpis():
 def medals_by_year_endpoint():
     df = get_df()
     mby = medals_by_year(df)
-    return mby.to_dict(orient="records")
+    return mby.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/gender-participation")
@@ -38,7 +39,7 @@ def gender_participation():
     gp = df.groupby(["Year", "Sex"])["Name"].nunique().reset_index()
     gp["Sex"] = gp["Sex"].map({"M": "Hommes", "F": "Femmes"})
     gp.columns = ["year", "sex", "count"]
-    return gp.to_dict(orient="records")
+    return gp.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/medals-by-country")
@@ -46,14 +47,14 @@ def medals_by_country():
     df = get_df()
     medals_df = df[df["Medal"].isin(MEDALS)]
     r = medals_df.groupby(["NOC", "Team"]).size().reset_index(name="total")
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/participation")
 def participation():
     df = get_df()
     part = participation_over_time(df)
-    return part.to_dict(orient="records")
+    return part.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/medals-by-sport")
@@ -61,4 +62,4 @@ def medals_by_sport():
     df = get_df()
     medals_df = df[df["Medal"].isin(MEDALS)]
     r = medals_df.groupby("Sport").size().reset_index(name="medals")
-    return r.to_dict(orient="records")
+    return r.replace({np.nan: None}).to_dict(orient="records")

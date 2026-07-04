@@ -59,6 +59,13 @@ data/processed/*.csv
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
+# Runtime user-generated data
+data/annotations.json
+
+# Scratch / one-off artifacts
+patch_nan.py
+streamlit_out.txt
+
 # Model files
 *.pkl
 *.joblib

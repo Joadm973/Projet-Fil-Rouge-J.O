@@ -11,7 +11,7 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 from src.app.components.cards import (
-    section_header, insight, warning_insight, MEDAL_COLORS, PLOTLY_THEME
+    section_header, insight, warning_insight, MEDAL_COLORS, PLOTLY_THEME, st_plotly
 )
 
 CHART_H = 420
@@ -86,11 +86,16 @@ def show(df: pd.DataFrame):
         fig.update_layout(**PLOTLY_THEME, height=CHART_H, xaxis_tickangle=-35,
                           legend_title_text="", title_font_size=13)
         fig.update_traces(marker_line_width=0)
-        st.plotly_chart(fig, use_container_width=True)
+        st_plotly(fig)
 
         # Carte choroplèthe
         section_header("🗺️ Carte mondiale des médailles")
-        medals_by_noc = filt.groupby(["NOC", "Team"]).size().reset_index(name="Total")
+        # Agrégation par NOC pour éviter les doublons géographiques causés par les sous-équipes (ex: USA-1, USA-2)
+        noc_totals = filt.groupby("NOC").size().reset_index(name="Total")
+        main_teams = filt.groupby(["NOC", "Team"]).size().reset_index(name="count")
+        main_teams = main_teams.sort_values("count", ascending=False).drop_duplicates("NOC")
+        medals_by_noc = noc_totals.merge(main_teams[["NOC", "Team"]], on="NOC")
+
         fig_map = px.choropleth(
             medals_by_noc, locations="NOC", color="Total",
             hover_name="Team", hover_data={"NOC": False},
@@ -104,9 +109,8 @@ def show(df: pd.DataFrame):
                      coastlinecolor="#e0e0e0", bgcolor="rgba(0,0,0,0)"),
             coloraxis_colorbar=dict(title="Médailles", thickness=12),
             title_font_size=13,
-            margin=dict(l=0, r=0, t=36, b=0),
         )
-        st.plotly_chart(fig_map, use_container_width=True)
+        st_plotly(fig_map)
 
         # Sunburst pays → médaille
         section_header("🌐 Répartition pays → type de médaille")
@@ -122,9 +126,8 @@ def show(df: pd.DataFrame):
             color="Medal", color_discrete_map=MEDAL_COLORS,
             title="Top 6 pays — composition des médailles",
         )
-        fig_sun.update_layout(**PLOTLY_THEME, height=480, title_font_size=13,
-                              margin=dict(l=0, r=0, t=40, b=0))
-        st.plotly_chart(fig_sun, use_container_width=True)
+        fig_sun.update_layout(**PLOTLY_THEME, height=480, title_font_size=13)
+        st_plotly(fig_sun)
 
     # ════════════════════════════════════════════════════════════════════
     # TAB 2 — SPORTS
@@ -148,7 +151,7 @@ def show(df: pd.DataFrame):
                 title_font_size=13,
             )
             fig2.update_traces(marker_line_width=0)
-            st.plotly_chart(fig2, use_container_width=True)
+            st_plotly(fig2)
 
         with col_sr:
             section_header("⚤ Médailles par genre dans les sports")
@@ -173,7 +176,7 @@ def show(df: pd.DataFrame):
                 yaxis={"categoryorder": "total ascending"},
                 legend_title_text="", title_font_size=13,
             )
-            st.plotly_chart(fig_gs, use_container_width=True)
+            st_plotly(fig_gs)
 
         # Treemap hiérarchique
         section_header("🗂️ Treemap Sport → Médaille")
@@ -187,9 +190,8 @@ def show(df: pd.DataFrame):
         )
         fig_tree.update_layout(
             **PLOTLY_THEME, height=460, title_font_size=13,
-            margin=dict(l=0, r=0, t=40, b=0),
         )
-        st.plotly_chart(fig_tree, use_container_width=True)
+        st_plotly(fig_tree)
 
     # ════════════════════════════════════════════════════════════════════
     # TAB 3 — TENDANCES
@@ -219,7 +221,7 @@ def show(df: pd.DataFrame):
             fig_evo.update_layout(**PLOTLY_THEME, height=420, legend_title_text="",
                                    title_font_size=13)
             fig_evo.update_traces(line_width=2.5)
-            st.plotly_chart(fig_evo, use_container_width=True)
+            st_plotly(fig_evo)
         else:
             st.info("Sélectionnez au moins un pays.")
 
@@ -243,7 +245,7 @@ def show(df: pd.DataFrame):
         )
         fig_par.update_layout(**PLOTLY_THEME, height=360, legend_title_text="",
                                title_font_size=13)
-        st.plotly_chart(fig_par, use_container_width=True)
+        st_plotly(fig_par)
 
         insight(
             "La part des femmes aux JO est passée de quasi-zéro en 1960 à près de "
@@ -270,9 +272,8 @@ def show(df: pd.DataFrame):
             title="Heatmap — médailles d'or par pays et par édition",
             aspect="auto",
         )
-        fig_hm.update_layout(**PLOTLY_THEME, height=480, title_font_size=13,
-                              margin=dict(l=0, r=0, t=40, b=0))
-        st.plotly_chart(fig_hm, use_container_width=True)
+        fig_hm.update_layout(**PLOTLY_THEME, height=480, title_font_size=13)
+        st_plotly(fig_hm)
 
         insight(
             "Les cases jaune-orange foncé révèlent les dominations historiques. "

@@ -11,7 +11,7 @@ _ROOT = Path(__file__).parent.parent.parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from src.app.components.cards import PLOTLY_THEME, insight, section_header, warning_insight
+from src.app.components.cards import PLOTLY_THEME, insight, section_header, warning_insight, st_plotly
 from src.models.generations import (
     detect_breakout_athletes,
     detect_generation_shift,
@@ -103,7 +103,7 @@ def show(df: pd.DataFrame) -> None:
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=13,
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                st_plotly(fig)
 
         st.markdown("---")
 
@@ -123,13 +123,13 @@ def show(df: pd.DataFrame) -> None:
             xaxis=dict(tickmode="array", tickvals=[2016, 2020, 2024]),
             title_font_size=13,
         )
-        st.plotly_chart(fig_sc, use_container_width=True)
+        st_plotly(fig_sc)
 
         with st.expander("📋 Tableau complet"):
             st.dataframe(
                 filtered[["Name", "Team", "Sport", "debut_year", "nb_editions",
                            "gold", "silver", "bronze", "score"]].head(100),
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
             )
 
@@ -185,7 +185,7 @@ def show(df: pd.DataFrame) -> None:
                     yaxis={"categoryorder": "total ascending"},
                     title_font_size=13,
                 )
-                st.plotly_chart(fig_bo, use_container_width=True)
+                st_plotly(fig_bo)
 
         # Distribution par sport
         st.markdown("---")
@@ -215,7 +215,7 @@ def show(df: pd.DataFrame) -> None:
             yaxis={"categoryorder": "total ascending"},
             title_font_size=13,
         )
-        st.plotly_chart(fig_sport_bo, use_container_width=True)
+        st_plotly(fig_sport_bo)
 
         insight(
             "Ces athlètes n'avaient <strong>aucune médaille olympique avant 2020</strong>. "
@@ -259,7 +259,7 @@ def show(df: pd.DataFrame) -> None:
             xaxis=dict(tickformat=".0%", range=[0, 1.15]),
             title_font_size=13,
         )
-        st.plotly_chart(fig_gs, use_container_width=True)
+        st_plotly(fig_gs)
 
         # Sports avec continuité — champions qui durent
         st.markdown("---")
@@ -285,10 +285,10 @@ def show(df: pd.DataFrame) -> None:
                 xaxis=dict(tickformat=".0%"),
                 title_font_size=13,
             )
-            st.plotly_chart(fig_low, use_container_width=True)
+            st_plotly(fig_low)
 
         with st.expander("📋 Tableau complet"):
-            st.dataframe(gs, use_container_width=True, hide_index=True)
+            st.dataframe(gs, width="stretch", hide_index=True)
 
         insight(
             "Un <strong>taux de 100%</strong> signifie que les 10 athlètes dominants en 2020–2024 "
@@ -328,7 +328,7 @@ def show(df: pd.DataFrame) -> None:
                 coloraxis_colorbar=dict(title="Année", thickness=12),
                 title_font_size=13,
             )
-            st.plotly_chart(fig_nn, use_container_width=True)
+            st_plotly(fig_nn)
 
             st.markdown("---")
             section_header("Carte des nouvelles nations médaillées")
@@ -349,14 +349,13 @@ def show(df: pd.DataFrame) -> None:
                          coastlinecolor="#e0e0e0", bgcolor="rgba(0,0,0,0)"),
                 coloraxis_colorbar=dict(title="Médailles", thickness=12),
                 title_font_size=13,
-                margin=dict(l=0, r=0, t=40, b=0),
             )
-            st.plotly_chart(fig_map, use_container_width=True)
+            st_plotly(fig_map)
 
             with st.expander("📋 Détail par nation"):
                 st.dataframe(
                     nn[["Team", "NOC", "first_medal_year", "medals_total", "Sports"]],
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                 )
 

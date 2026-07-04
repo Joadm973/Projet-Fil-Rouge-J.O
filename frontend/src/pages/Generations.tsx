@@ -5,24 +5,35 @@ import SectionHeader from '../components/SectionHeader'
 import PlotlyChart from '../components/PlotlyChart'
 import Spinner from '../components/Spinner'
 import { Insight } from '../components/InsightBox'
+import Tabs from '../components/Tabs'
+import PageHeader from '../components/PageHeader'
 
 type Tab = 'talents' | 'breakouts' | 'renouvellement' | 'nations'
+
+const TABS = [
+  { id: 'talents' as Tab,       label: 'Nouveaux talents' },
+  { id: 'breakouts' as Tab,     label: 'Révélations' },
+  { id: 'renouvellement' as Tab, label: 'Renouvellement' },
+  { id: 'nations' as Tab,       label: 'Nouvelles nations' },
+]
 
 export default function Generations() {
   const [tab, setTab] = useState<Tab>('talents')
 
-  const { data: newGen, isLoading: lg } = useQuery({ queryKey: ['new-gen'], queryFn: () => fetchJSON<any[]>('/generations/new-gen') })
-  const { data: breakouts, isLoading: lb } = useQuery({ queryKey: ['breakouts'], queryFn: () => fetchJSON<any[]>('/generations/breakouts') })
-  const { data: shift, isLoading: ls } = useQuery({ queryKey: ['gen-shift'], queryFn: () => fetchJSON<any[]>('/generations/generation-shift') })
-  const { data: nations, isLoading: ln } = useQuery({ queryKey: ['new-nations'], queryFn: () => fetchJSON<any[]>('/generations/new-nations') })
+  const { data: newGen, isLoading: lg } = useQuery({ queryKey: ['new-gen'],    queryFn: () => fetchJSON<any[]>('/generations/new-gen') })
+  const { data: breakouts }             = useQuery({ queryKey: ['breakouts'],   queryFn: () => fetchJSON<any[]>('/generations/breakouts') })
+  const { data: shift }                 = useQuery({ queryKey: ['gen-shift'],   queryFn: () => fetchJSON<any[]>('/generations/generation-shift') })
+  const { data: nations }               = useQuery({ queryKey: ['new-nations'], queryFn: () => fetchJSON<any[]>('/generations/new-nations') })
 
   const top20 = (newGen ?? []).slice(0, 20)
-  const genColors = top20.map((r: any) => r.debut_year >= 2024 ? '#ef4444' : r.debut_year >= 2020 ? '#10b981' : '#3b82f6')
 
   const newGenData = [{
     type: 'bar' as const, orientation: 'h' as const,
     x: top20.map(r => r.score), y: top20.map(r => r.Name),
-    marker: { color: genColors },
+    marker: {
+      color: top20.map((r: any) => r.debut_year >= 2024 ? '#c9a227' : r.debut_year >= 2020 ? '#374151' : '#9e9993'),
+      line: { width: 0 },
+    },
     text: top20.map(r => r.score?.toFixed(1)), textposition: 'outside' as const,
   }]
 
@@ -30,146 +41,77 @@ export default function Generations() {
     acc[r.debut_year] = (acc[r.debut_year] ?? 0) + 1
     return acc
   }, {})
-  const boYears = Object.keys(boByYear).sort().map(Number)
+  const boYears = Object.keys(boByYear).sort()
   const boData = [{
-    type: 'bar' as const, x: boYears, y: boYears.map(y => boByYear[y]),
-    marker: { color: '#8b5cf6' },
+    type: 'bar' as const,
+    x: boYears, y: boYears.map(y => boByYear[+y]),
+    marker: { color: '#c9a227', line: { width: 0 } },
+    text: boYears.map(y => boByYear[+y]), textposition: 'outside' as const,
   }]
 
-  const top15Shift = (shift ?? []).slice(0, 15)
-  const shiftData = [{
-    type: 'bar' as const, orientation: 'h' as const,
-    x: top15Shift.map(r => (r.renewal_rate * 100).toFixed(0)),
-    y: top15Shift.map(r => r.Sport),
-    marker: { color: '#10b981' },
-    text: top15Shift.map(r => `${(r.renewal_rate * 100).toFixed(0)}%`),
-    textposition: 'outside' as const,
-  }]
-
-  const nationsData = [{
-    type: 'choropleth' as const,
-    locations: (nations ?? []).map(r => r.NOC),
-    z: (nations ?? []).map(() => 1),
-    text: (nations ?? []).map(r => `${r.Team} — 1ère médaille : ${r.first_medal_year}`),
-    colorscale: [[0, '#10b981'], [1, '#10b981']],
-    showscale: false,
-  }]
-
-  const TABS = [
-    { id: 'talents' as Tab, label: '🚀 Talents 2016+' },
-    { id: 'breakouts' as Tab, label: '⚡ Breakouts 2020+' },
-    { id: 'renouvellement' as Tab, label: '🔄 Renouvellement' },
-    { id: 'nations' as Tab, label: '🌍 Nouvelles nations' },
+  const shiftTeams = [...new Set((shift ?? []).map((r: any) => r.Team))]
+  const shiftData = [
+    { type: 'scatter' as const, mode: 'markers' as const, name: 'Ancienne garde (< 2012)', x: shiftTeams.map(t => (shift ?? []).find((r: any) => r.Team === t && r.era === 'Ancienne garde')?.avg_age ?? null), y: shiftTeams, marker: { color: '#9e9993', size: 8 } },
+    { type: 'scatter' as const, mode: 'markers' as const, name: 'Nouvelle vague (2020+)', x: shiftTeams.map(t => (shift ?? []).find((r: any) => r.Team === t && r.era === 'Nouvelle vague')?.avg_age ?? null), y: shiftTeams, marker: { color: '#c9a227', size: 8, symbol: 'diamond' } },
   ]
+
+  const nationsTop = (nations ?? []).slice(0, 20)
+  const nationsData = [{
+    type: 'bar' as const, orientation: 'h' as const,
+    x: nationsTop.map(r => r.debut_editions), y: nationsTop.map(r => r.Team),
+    marker: { color: '#374151', line: { width: 0 } },
+    text: nationsTop.map(r => r.debut_editions), textposition: 'outside' as const,
+  }]
 
   return (
     <div>
-      <h1 className="text-2xl font-black text-slate-800 mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>🌱 Nouvelles générations</h1>
-      <p className="text-slate-500 text-sm mb-6">Talents émergents, breakouts récents et renouvellement par discipline.</p>
+      <PageHeader title="Nouvelles générations" sub="Détection des talents émergents et renouvellement des nations olympiques." badge="Analyse · 2016–2024" />
 
-      {/* KPIs */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        {[
-          { label: 'Athlètes nouvelle gen (2016+)', value: newGen?.length ?? '…', icon: '🚀' },
-          { label: 'Breakouts 2020+', value: breakouts?.length ?? '…', icon: '⚡' },
-          { label: 'Sports avec renouvellement total', value: (shift ?? []).filter((r: any) => r.renewal_rate >= 1).length, icon: '🔄' },
-          { label: 'Nouvelles nations depuis 2016', value: nations?.length ?? '…', icon: '🌍' },
-        ].map((k, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
-            <div className="text-2xl mb-1">{k.icon}</div>
-            <div className="text-2xl font-bold text-slate-800">{k.value}</div>
-            <div className="text-xs text-slate-500 mt-0.5">{k.label}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex gap-1 bg-slate-100 p-1 rounded-xl mb-6 w-fit">
-        {TABS.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === t.id ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}>
-            {t.label}
-          </button>
-        ))}
-      </div>
+      <Tabs tabs={TABS} active={tab} onChange={setTab} />
 
       {tab === 'talents' && (
-        <div>
-          <SectionHeader title="🚀 Top 20 talents émergents — score pondéré (Or=3, Argent=2, Bronze=1)" />
+        <>
+          <SectionHeader title="Talents émergents" sub="Score pondéré : Or=3, Arg=2, Bro=1 × récence" />
           {lg ? <Spinner /> : (
             <>
-              <PlotlyChart data={newGenData} layout={{ yaxis: { categoryorder: 'total ascending' }, title: { text: 'Top 20 — Bleu=2016, Vert=2020, Rouge=2024' } }} height={520} />
-              <Insight>Le score pondéré récompense le volume de médailles et la régularité entre éditions.</Insight>
+              <PlotlyChart data={newGenData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 16, r: 52, b: 28, l: 140 } }} height={560} />
+              <div style={{ display: 'flex', gap: '16px', marginTop: '12px', fontSize: '0.78rem', color: 'var(--text-3)' }}>
+                {[{ color: '#c9a227', label: 'Débuts 2024' }, { color: '#374151', label: 'Débuts 2020–2023' }, { color: '#9e9993', label: 'Antérieurs' }].map(({ color, label }) => (
+                  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ width: '10px', height: '10px', borderRadius: '2px', background: color, display: 'inline-block' }} />
+                    {label}
+                  </div>
+                ))}
+              </div>
             </>
           )}
-        </div>
+          <Insight>Les athlètes de la cohorte 2024 avec plusieurs podiums sont les favoris à surveiller pour Los Angeles 2028.</Insight>
+        </>
       )}
 
       {tab === 'breakouts' && (
-        <div>
-          <SectionHeader title="⚡ Athlètes en percée — 1ère médaille à partir de 2020" />
-          {lb ? <Spinner /> : (
-            <div className="grid grid-cols-2 gap-4">
-              <PlotlyChart data={boData} layout={{ title: { text: 'Breakouts par année de début' }, xaxis: { tickmode: 'linear' } }} height={400} />
-              <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-                <h3 className="font-semibold text-slate-700 mb-3 text-sm">Top breakouts récents</h3>
-                <div className="flex flex-col gap-2 max-h-[340px] overflow-y-auto">
-                  {(breakouts ?? []).slice(0, 20).map((a: any, i: number) => (
-                    <div key={i} className="flex items-center gap-3 py-1.5 border-b border-slate-50">
-                      <span className="text-slate-400 text-xs w-5">{i + 1}</span>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium text-slate-800">{a.Name}</div>
-                        <div className="text-xs text-slate-400">{a.Team} · {a.Sport}</div>
-                      </div>
-                      <span className="text-xs font-semibold text-purple-600">{a.score?.toFixed(1)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        <>
+          <SectionHeader title="Révélations par édition" sub="Nombre d'athlètes ayant décroché leur premier podium" />
+          <PlotlyChart data={boData} layout={{ margin: { t: 16, r: 52, b: 36, l: 48 } }} height={380} />
+        </>
       )}
 
       {tab === 'renouvellement' && (
-        <div>
-          <SectionHeader title="🔄 Taux de renouvellement des dominants par sport (2008–2016 → 2020–2024)" />
-          {ls ? <Spinner /> : (
-            <PlotlyChart data={shiftData} layout={{ yaxis: { categoryorder: 'total ascending' }, title: { text: 'Renouvellement (%) — 100% = aucun dominant commun' } }} height={520} />
-          )}
-        </div>
+        <>
+          <SectionHeader title="Renouvellement générationnel" sub="Âge moyen des médaillés par nation — ancienne garde vs nouvelle vague" />
+          <PlotlyChart data={shiftData} layout={{ showlegend: true, legend: { orientation: 'h', y: -0.12 }, xaxis: { title: { text: 'Âge moyen' } }, margin: { t: 16, r: 16, b: 48, l: 120 } }} height={520} />
+          <Insight>Un écart important entre les deux ères indique une transition générationnelle rapide dans cette nation.</Insight>
+        </>
       )}
 
       {tab === 'nations' && (
-        <div>
-          <SectionHeader title="🌍 Pays remportant leur 1ère médaille depuis 2016" />
-          {ln ? <Spinner /> : (
-            <div className="grid grid-cols-2 gap-4">
-              <PlotlyChart
-                data={nationsData}
-                layout={{ geo: { showframe: false, bgcolor: 'rgba(0,0,0,0)' }, margin: { t: 44, r: 0, b: 0, l: 0 } }}
-                height={380}
-              />
-              <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-                <h3 className="font-semibold text-slate-700 mb-3 text-sm">Nouvelles nations médaillées ({nations?.length})</h3>
-                <div className="flex flex-col gap-2 max-h-[320px] overflow-y-auto">
-                  {(nations ?? []).map((n: any, i: number) => (
-                    <div key={i} className="flex items-center gap-3 py-1.5 border-b border-slate-50">
-                      <span className="text-slate-400 text-xs w-5">{i + 1}</span>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium text-slate-800">{n.Team}</div>
-                        <div className="text-xs text-slate-400">{n.Sport}</div>
-                      </div>
-                      <span className="text-xs font-semibold text-emerald-600">{n.first_medal_year}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+        <>
+          <SectionHeader title="Nouvelles nations médaillées" sub="Pays ayant décroché leur première médaille récemment" />
+          <PlotlyChart data={nationsData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 16, r: 52, b: 28, l: 120 } }} height={440} />
+        </>
       )}
 
-      <div className="text-center text-slate-400 text-xs mt-10 pb-4">YPerf · Ynov · 2026</div>
+      <div style={{ borderTop: '1px solid var(--border-soft)', paddingTop: '20px', marginTop: '40px', textAlign: 'center', color: 'var(--text-3)', fontSize: '0.72rem' }}>YPerf · Ynov · 2026</div>
     </div>
   )
 }

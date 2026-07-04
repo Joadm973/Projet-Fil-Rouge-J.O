@@ -14,171 +14,169 @@ interface Kpis {
 }
 
 export default function Home() {
-  const { data: kpis, isLoading: k } = useQuery({ queryKey: ['home-kpis'], queryFn: () => fetchJSON<Kpis>('/home/kpis') })
-  const { data: mby } = useQuery({ queryKey: ['medals-by-year'], queryFn: () => fetchJSON<any[]>('/home/medals-by-year') })
-  const { data: gender } = useQuery({ queryKey: ['gender-participation'], queryFn: () => fetchJSON<any[]>('/home/gender-participation') })
-  const { data: byCountry } = useQuery({ queryKey: ['medals-by-country'], queryFn: () => fetchJSON<any[]>('/home/medals-by-country') })
-  const { data: part } = useQuery({ queryKey: ['participation'], queryFn: () => fetchJSON<any[]>('/home/participation') })
-  const { data: bySport } = useQuery({ queryKey: ['medals-by-sport'], queryFn: () => fetchJSON<any[]>('/home/medals-by-sport') })
+  const { data: kpis, isLoading } = useQuery({ queryKey: ['home-kpis'], queryFn: () => fetchJSON<Kpis>('/home/kpis') })
+  const { data: mby }       = useQuery({ queryKey: ['medals-by-year'],       queryFn: () => fetchJSON<any[]>('/home/medals-by-year') })
+  const { data: gender }    = useQuery({ queryKey: ['gender-participation'],  queryFn: () => fetchJSON<any[]>('/home/gender-participation') })
+  const { data: byCountry } = useQuery({ queryKey: ['medals-by-country'],     queryFn: () => fetchJSON<any[]>('/home/medals-by-country') })
+  const { data: part }      = useQuery({ queryKey: ['participation'],          queryFn: () => fetchJSON<any[]>('/home/participation') })
+  const { data: bySport }   = useQuery({ queryKey: ['medals-by-sport'],        queryFn: () => fetchJSON<any[]>('/home/medals-by-sport') })
 
-  if (k) return <Spinner />
+  if (isLoading) return <Spinner />
+  if (!kpis) return null
 
-  // Medals by year stacked bar
+  // ── Chart data ─────────────────────────────────────────────────────
   const medalTypes = ['Gold', 'Silver', 'Bronze']
   const mbyData = medalTypes.map(medal => ({
-    type: 'bar' as const,
-    name: medal,
+    type: 'bar' as const, name: medal,
     x: mby?.filter(r => r.Medal === medal).map(r => r.Year) ?? [],
     y: mby?.filter(r => r.Medal === medal).map(r => r.Count) ?? [],
-    marker: { color: MEDAL_COLORS[medal] },
+    marker: { color: MEDAL_COLORS[medal], line: { width: 0 } },
   }))
 
-  // Gender area
-  const sexes = ['Hommes', 'Femmes']
-  const genderData = sexes.map((s, i) => ({
-    type: 'scatter' as const,
-    fill: 'tozeroy' as const,
-    mode: 'lines' as const,
-    name: s,
+  const genderData = ['Hommes', 'Femmes'].map((s, i) => ({
+    type: 'scatter' as const, fill: 'tozeroy' as const, mode: 'lines' as const, name: s,
     x: gender?.filter(r => r.sex === s).map(r => r.year) ?? [],
     y: gender?.filter(r => r.sex === s).map(r => r.count) ?? [],
-    line: { color: i === 0 ? '#3b82f6' : '#ec4899', width: 2 },
-    fillcolor: i === 0 ? 'rgba(59,130,246,0.15)' : 'rgba(236,72,153,0.15)',
+    line: { color: i === 0 ? '#374151' : '#c9a227', width: 1.75 },
+    fillcolor: i === 0 ? 'rgba(55,65,81,0.08)' : 'rgba(201,162,39,0.08)',
   }))
 
-  // Choropleth
+  const top10 = [...(byCountry ?? [])].sort((a, b) => b.total - a.total).slice(0, 10)
+  const top10Data = [{
+    type: 'bar' as const, orientation: 'h' as const,
+    x: top10.map(r => r.total), y: top10.map(r => r.Team),
+    marker: { color: '#c9a227' },
+    text: top10.map(r => r.total), textposition: 'outside' as const,
+  }]
+
   const choroplethData = [{
     type: 'choropleth' as const,
     locations: byCountry?.map(r => r.NOC) ?? [],
     z: byCountry?.map(r => r.total) ?? [],
     text: byCountry?.map(r => r.Team) ?? [],
-    colorscale: 'YlOrRd',
-    showscale: true,
-    colorbar: { title: { text: 'Médailles' }, thickness: 12 },
+    colorscale: [['0', '#f5f3ee'], ['0.5', '#e8c96b'], ['1', '#92641a']],
+    showscale: false,
   }]
 
-  // Top 10 bar
-  const top10 = [...(byCountry ?? [])].sort((a, b) => b.total - a.total).slice(0, 10)
-  const top10Data = [{
-    type: 'bar' as const,
-    orientation: 'h' as const,
-    x: top10.map(r => r.total),
-    y: top10.map(r => r.Team),
-    marker: { color: top10.map(r => r.total), colorscale: 'Blues', showscale: false },
-  }]
-
-  // Participation lines
-  const partKeys = ['Athlètes', 'Pays', 'Sports']
-  const partColors = ['#3b82f6', '#10b981', '#ef4444']
-  const partData = partKeys.map((k, i) => ({
-    type: 'scatter' as const, mode: 'lines+markers' as const,
-    name: k,
+  const partColors = ['#c9a227', '#374151', '#3d7a9e']
+  const partData = ['Athlètes', 'Pays', 'Sports'].map((k, i) => ({
+    type: 'scatter' as const, mode: 'lines' as const, name: k,
     x: part?.map(r => r.Year) ?? [],
     y: part?.map((r: any) => r[k]) ?? [],
-    line: { color: partColors[i], width: 2.5 },
-    marker: { size: 4 },
+    line: { color: partColors[i], width: 1.75 },
   }))
 
-  // Treemap sports
   const treemapData = [{
     type: 'treemap' as const,
     labels: bySport?.map(r => r.Sport) ?? [],
     parents: bySport?.map(() => '') ?? [],
     values: bySport?.map(r => r.medals) ?? [],
-    marker: { colorscale: 'Blues' },
+    marker: { colorscale: [['0', '#f5f3ee'], ['1', '#c9a227']] },
+    textfont: { size: 11 },
   }]
 
   return (
     <div>
-      {/* Hero */}
-      <div className="bg-gradient-to-r from-[#0a0f2e] to-[#1a2560] rounded-3xl p-8 mb-8 relative overflow-hidden">
-        <div className="text-4xl mb-2">⭕🔵🟡⚫🟢🔴</div>
-        <h1 className="text-3xl font-black text-white mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-          YPerf — Performances Olympiques
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <div style={{ marginBottom: '48px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
+          <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-3)' }}>
+            Projet fil rouge · Ynov Bachelor 3
+          </span>
+        </div>
+
+        <h1 style={{ maxWidth: '560px', marginBottom: '16px' }}>
+          60 ans de JO,<br />
+          <span style={{ color: 'var(--gold)' }}>une prédiction</span><br />
+          pour 2028.
         </h1>
-        <p className="text-white/60 text-sm max-w-xl">
-          Explorez 60 ans d'histoire olympique et découvrez les prédictions pour Los Angeles 2028 🇺🇸
+
+        <p style={{ maxWidth: '440px', fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-2)' }}>
+          Analyse complète des performances olympiques 1896–2024.
+          Prédictions ML pour Los Angeles, nouvelles générations, données World Bank.
         </p>
+
+        {/* Méta-stats en ligne */}
+        <div style={{ display: 'flex', gap: '32px', marginTop: '28px', paddingTop: '28px', borderTop: '1px solid var(--border-soft)' }}>
+          {[
+            { v: kpis?.editions, l: 'éditions' },
+            { v: kpis?.athletes?.toLocaleString(), l: 'athlètes' },
+            { v: kpis?.countries, l: 'pays' },
+            { v: kpis?.sports, l: 'sports' },
+          ].map(({ v, l }) => (
+            <div key={l}>
+              <div style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text-1)' }}>{v ?? '—'}</div>
+              <div className="label">{l}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* KPIs */}
-      <div className="grid grid-cols-5 gap-4 mb-8">
-        <KpiCard icon="📅" value={kpis!.editions} label="Éditions des JO" color="blue" />
-        <KpiCard icon="🏃" value={kpis!.athletes.toLocaleString()} label="Athlètes uniques" color="green" />
-        <KpiCard icon="🌍" value={kpis!.countries} label="Pays représentés" color="red" />
-        <KpiCard icon="🏋️" value={kpis!.sports} label="Sports différents" color="slate" />
-        <KpiCard icon="🥇" value={kpis!.gold_medals.toLocaleString()} label="Médailles d'or" color="gold" />
+      {/* ── KPIs row ─────────────────────────────────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '48px' }}>
+        <KpiCard value={kpis!.gold_medals.toLocaleString()} label="Médailles d'or distribuées" />
+        <KpiCard value={kpis!.top_country} label="Nation la plus titrée" />
+        <KpiCard value={kpis!.last_year} label="Dernière édition" />
+        <KpiCard value={kpis!.last_year_countries} label="Pays représentés en 2024" />
       </div>
 
-      {/* Row 1 */}
-      <SectionHeader title="📊 Vue d'ensemble historique" />
-      <div className="grid grid-cols-5 gap-4 mb-6">
-        <div className="col-span-3">
-          <PlotlyChart
-            data={mbyData}
-            layout={{ barmode: 'stack', title: { text: 'Médailles par édition' }, legend: { orientation: 'h' } }}
-            height={360}
-          />
-        </div>
-        <div className="col-span-2">
-          <PlotlyChart
-            data={genderData}
-            layout={{ title: { text: 'Parité hommes / femmes' }, legend: { orientation: 'h' } }}
-            height={360}
-          />
-        </div>
+      {/* ── Section 1 : Historique ───────────────────────────────────── */}
+      <SectionHeader title="Historique des médailles" sub="Distribution par édition et évolution de la parité" />
+
+      <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '16px', marginBottom: '16px' }}>
+        <PlotlyChart
+          data={mbyData}
+          layout={{ barmode: 'stack', showlegend: true, legend: { orientation: 'h', y: -0.12, x: 0 } }}
+          height={340}
+        />
+        <PlotlyChart
+          data={genderData}
+          layout={{ showlegend: true, legend: { orientation: 'h', y: -0.12, x: 0 } }}
+          height={340}
+        />
       </div>
 
       <Insight>
-        Les JO de Tokyo 2020 ont enregistré le plus grand nombre d'athlètes. La parité hommes/femmes a spectaculairement progressé : les femmes représentent aujourd'hui près de <strong>50 %</strong> des participations.
+        Les femmes représentent aujourd'hui près de <strong>50 %</strong> des participations olympiques — une progression spectaculaire depuis 1900 où elles n'étaient que 22.
       </Insight>
 
-      {/* Row 2 */}
-      <SectionHeader title="🌍 Rayonnement mondial" />
-      <div className="grid grid-cols-5 gap-4 mb-6">
-        <div className="col-span-3">
-          <PlotlyChart
-            data={choroplethData}
-            layout={{
-              title: { text: 'Total des médailles par pays' },
-              geo: { showframe: false, showcoastlines: true, coastlinecolor: '#ddd', bgcolor: 'rgba(0,0,0,0)' },
-              margin: { t: 44, r: 0, b: 0, l: 0 },
-            }}
-            height={360}
-          />
-        </div>
-        <div className="col-span-2">
-          <PlotlyChart
-            data={top10Data}
-            layout={{
-              title: { text: 'Top 10 pays (1896–2024)' },
-              yaxis: { categoryorder: 'total ascending' },
-            }}
-            height={360}
-          />
-        </div>
+      {/* ── Section 2 : Rayonnement ─────────────────────────────────── */}
+      <SectionHeader title="Rayonnement mondial" sub="Répartition géographique de toutes les médailles" />
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: '16px', marginBottom: '16px' }}>
+        <PlotlyChart
+          data={choroplethData}
+          layout={{
+            geo: { showframe: false, showcoastlines: true, coastlinecolor: '#e5e1d8', bgcolor: 'transparent', showland: true, landcolor: '#f5f3ee', showocean: true, oceancolor: '#edeae3' },
+            margin: { t: 8, r: 0, b: 8, l: 0 },
+          }}
+          height={340}
+        />
+        <PlotlyChart
+          data={top10Data}
+          layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 16, r: 52, b: 28, l: 90 } }}
+          height={340}
+        />
       </div>
 
-      {/* Row 3 */}
-      <SectionHeader title="📈 Tendances & Sports" />
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      {/* ── Section 3 : Tendances ───────────────────────────────────── */}
+      <SectionHeader title="Tendances & disciplines" sub="Croissance de la participation et poids des sports" />
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }}>
         <PlotlyChart
           data={partData}
-          layout={{ title: { text: 'Évolution de la participation' }, legend: { orientation: 'h', y: 1.1 } }}
-          height={340}
+          layout={{ showlegend: true, legend: { orientation: 'h', y: -0.14, x: 0 } }}
+          height={300}
         />
         <PlotlyChart
           data={treemapData}
-          layout={{ title: { text: 'Médailles par sport' }, margin: { t: 44, r: 0, b: 0, l: 0 } }}
-          height={340}
+          layout={{ margin: { t: 8, r: 0, b: 8, l: 0 } }}
+          height={300}
         />
       </div>
 
-      <Insight>
-        Le pays le plus lauréat en médailles d'or toutes éditions confondues est <strong>{kpis?.top_country}</strong>. L'édition {kpis?.last_year} a vu la participation de <strong>{kpis?.last_year_countries}</strong> pays.
-      </Insight>
-
-      <div className="text-center text-slate-400 text-xs mt-10 pb-4">
+      <div style={{ borderTop: '1px solid var(--border-soft)', paddingTop: '20px', textAlign: 'center', color: 'var(--text-3)', fontSize: '0.72rem' }}>
         YPerf · Projet fil rouge Bachelor 3 · Ynov Informatique · 2026
       </div>
     </div>

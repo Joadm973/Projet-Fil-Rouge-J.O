@@ -69,7 +69,7 @@ def country_trend(team: str = Query(...)):
         .sort_values("Year")
     )
     if len(hist) < 3:
-        return {"history": hist.to_dict(orient="records"), "pred2028": None}
+        return {"history": hist.replace({np.nan: None}).to_dict(orient="records"), "pred2028": None}
     X = hist[["Year"]].values
     y = hist["Total"].values if "Total" in hist.columns else hist["total"].values
     m = LinearRegression()
@@ -78,7 +78,7 @@ def country_trend(team: str = Query(...)):
     residuals = y - m.predict(X)
     std = float(np.std(residuals))
     return {
-        "history": hist.to_dict(orient="records"),
+        "history": hist.replace({np.nan: None}).to_dict(orient="records"),
         "pred2028": round(pred),
         "ci_low": max(0, round(pred - 1.96 * std)),
         "ci_high": round(pred + 1.96 * std),
@@ -89,14 +89,14 @@ def country_trend(team: str = Query(...)):
 def dominance():
     df = get_df()
     dom = compute_sport_dominance(df)
-    return dom.to_dict(orient="records")
+    return dom.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/athlete-ratings")
 def athlete_ratings(top_n: int = Query(30)):
     df = get_df()
     r = compute_athlete_ratings(df)
-    return r.head(top_n).to_dict(orient="records")
+    return r.head(top_n).replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/recommendations")
@@ -104,10 +104,10 @@ def recommendations():
     df = get_df()
     recs = generate_recommendations(df)
     return {
-        "rising_nations": recs["rising_nations"].head(10).to_dict(orient="records"),
+        "rising_nations": recs["rising_nations"].head(10).replace({np.nan: None}).to_dict(orient="records"),
         "competitive_sports": recs["competitive_sports"].head(8).tolist(),
         "dominated_sports": recs["dominated_sports"].head(8).tolist(),
-        "france_top_sports": recs["france_top_sports"].head(8).to_dict(orient="records"),
+        "france_top_sports": recs["france_top_sports"].head(8).reset_index(name="medals_recent").replace({np.nan: None}).to_dict(orient="records"),
     }
 
 
@@ -126,7 +126,7 @@ def edition_summary(year: int = Query(2024)):
         "city": s["city"],
         "total_medals": s["total_medals"],
         "total_countries": s["total_countries"],
-        "top_countries": s["top_countries"].reset_index().to_dict(orient="records"),
+        "top_countries": s["top_countries"].reset_index().replace({np.nan: None}).to_dict(orient="records"),
         "new_sports": s["new_sports"],
         "debut_countries": s["debut_countries"],
     }
@@ -138,7 +138,7 @@ def timeline_diversity():
     alltime = get_all_time_records(df)
     tl = get_first_medals_timeline(df)
     return {
-        "countries_per_year": alltime["countries_per_year"].to_dict(orient="records"),
-        "sports_per_year": alltime["sports_per_year"].to_dict(orient="records"),
-        "first_medals_timeline": tl.to_dict(orient="records"),
+        "countries_per_year": alltime["countries_per_year"].replace({np.nan: None}).to_dict(orient="records"),
+        "sports_per_year": alltime["sports_per_year"].replace({np.nan: None}).to_dict(orient="records"),
+        "first_medals_timeline": tl.replace({np.nan: None}).to_dict(orient="records"),
     }
