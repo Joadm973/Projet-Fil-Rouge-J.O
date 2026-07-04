@@ -49,11 +49,18 @@ export default function Generations() {
     text: boYears.map(y => boByYear[+y]), textposition: 'outside' as const,
   }]
 
-  const shiftTeams = [...new Set((shift ?? []).map((r: any) => r.Team))]
-  const shiftData = [
-    { type: 'scatter' as const, mode: 'markers' as const, name: 'Ancienne garde (< 2012)', x: shiftTeams.map(t => (shift ?? []).find((r: any) => r.Team === t && r.era === 'Ancienne garde')?.avg_age ?? null), y: shiftTeams, marker: { color: '#9e9993', size: 8 } },
-    { type: 'scatter' as const, mode: 'markers' as const, name: 'Nouvelle vague (2020+)', x: shiftTeams.map(t => (shift ?? []).find((r: any) => r.Team === t && r.era === 'Nouvelle vague')?.avg_age ?? null), y: shiftTeams, marker: { color: '#c9a227', size: 8, symbol: 'diamond' } },
-  ]
+  // Taux de renouvellement des athlètes dominants par discipline (2008-2016 vs 2020-2024)
+  const shiftTop = [...(shift ?? [])]
+    .sort((a: any, b: any) => b.renewal_rate - a.renewal_rate)
+    .slice(0, 20)
+  const shiftData = [{
+    type: 'bar' as const, orientation: 'h' as const,
+    x: shiftTop.map((r: any) => Math.round(r.renewal_rate * 100)),
+    y: shiftTop.map((r: any) => r.Sport),
+    marker: { color: '#c9a227', line: { width: 0 } },
+    text: shiftTop.map((r: any) => `${Math.round(r.renewal_rate * 100)}%`),
+    textposition: 'outside' as const,
+  }]
 
   const nationsTop = (nations ?? []).slice(0, 20)
   const nationsData = [{
@@ -98,9 +105,9 @@ export default function Generations() {
 
       {tab === 'renouvellement' && (
         <>
-          <SectionHeader title="Renouvellement générationnel" sub="Âge moyen des médaillés par nation — ancienne garde vs nouvelle vague" />
-          <PlotlyChart data={shiftData} layout={{ showlegend: true, legend: { orientation: 'h', y: -0.12 }, xaxis: { title: { text: 'Âge moyen' } }, margin: { t: 16, r: 16, b: 48, l: 120 } }} height={520} />
-          <Insight>Un écart important entre les deux ères indique une transition générationnelle rapide dans cette nation.</Insight>
+          <SectionHeader title="Renouvellement par discipline" sub="Part des athlètes dominants remplacés entre 2008–2016 et 2020–2024" />
+          <PlotlyChart data={shiftData} layout={{ yaxis: { categoryorder: 'total ascending' }, xaxis: { title: { text: 'Taux de renouvellement (%)' }, range: [0, 110] }, margin: { t: 16, r: 52, b: 48, l: 140 } }} height={560} />
+          <Insight>Un taux élevé indique que la plupart des athlètes qui dominaient une discipline ont été remplacés par une nouvelle vague — un signal fort de transition générationnelle vers 2028.</Insight>
         </>
       )}
 
