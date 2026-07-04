@@ -9,12 +9,13 @@ import { Insight, Warning } from '../components/InsightBox'
 import Tabs from '../components/Tabs'
 import PageHeader from '../components/PageHeader'
 
-type Tab = 'classement' | 'historique' | 'cotes' | 'recommandations' | 'timeline'
+type Tab = 'classement' | 'historique' | 'cotes' | 'domination' | 'recommandations' | 'timeline'
 
 const TABS = [
   { id: 'classement' as Tab,      label: 'Classement 2028' },
   { id: 'historique' as Tab,      label: 'Historique pays' },
   { id: 'cotes' as Tab,           label: 'Côtes athlètes' },
+  { id: 'domination' as Tab,      label: 'Domination pays' },
   { id: 'recommandations' as Tab, label: 'Recommandations' },
   { id: 'timeline' as Tab,        label: 'Timeline' },
 ]
@@ -55,6 +56,8 @@ export default function Predictions() {
   const { data: ratings } = useQuery({ queryKey: ['ratings'], queryFn: () => fetchJSON<any[]>('/predictions/athlete-ratings') })
   const { data: recs }    = useQuery({ queryKey: ['recs'],    queryFn: () => fetchJSON<any>('/predictions/recommendations') })
   const { data: diversity } = useQuery({ queryKey: ['diversity'], queryFn: () => fetchJSON<any>('/predictions/timeline-diversity') })
+  const { data: dominance } = useQuery({ queryKey: ['dominance'], queryFn: () => fetchJSON<any[]>('/predictions/dominance') })
+  const [dominanceSport, setDominanceSport] = useState('')
 
   const handleRun = () => setRun(true)
 
@@ -81,6 +84,19 @@ export default function Predictions() {
     y: (ratings ?? []).slice(0, 20).map(r => r.Name),
     marker: { color: '#c9a227', line: { width: 0 } },
     text: (ratings ?? []).slice(0, 20).map(r => r.cote?.toFixed(1)), textposition: 'outside' as const,
+  }]
+
+  const dominanceSports = [...new Set((dominance ?? []).map((r: any) => r.Sport))].sort()
+  const dominanceRows = (dominance ?? [])
+    .filter((r: any) => !dominanceSport || r.Sport === dominanceSport)
+    .sort((a: any, b: any) => b.dominance_pct - a.dominance_pct)
+    .slice(0, 15)
+  const dominanceData = [{
+    type: 'bar' as const, orientation: 'h' as const,
+    x: dominanceRows.map((r: any) => r.dominance_pct),
+    y: dominanceRows.map((r: any) => dominanceSport ? r.Team : `${r.Team} · ${r.Sport}`),
+    marker: { color: '#c9a227', line: { width: 0 } },
+    text: dominanceRows.map((r: any) => `${r.dominance_pct}%`), textposition: 'outside' as const,
   }]
 
   const divData: Data[] = diversity ? [
@@ -149,6 +165,21 @@ export default function Predictions() {
           <SectionHeader title="Côtes athlètes" sub="Score pondéré : Or=3 pts, Argent=2 pts, Bronze=1 pt (+régularité)" />
           <PlotlyChart data={ratingsData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 20, r: 52, b: 28, l: 130 } }} height={500} />
           <Insight>Le score intègre le volume de médailles et la régularité entre éditions olympiques (+15% par édition supplémentaire).</Insight>
+        </>
+      )}
+
+      {tab === 'domination' && (
+        <>
+          <SectionHeader title="Domination pays par discipline" sub="Part des médailles d'une discipline captée par un pays, depuis 2016" />
+          <div style={{ marginBottom: '16px' }}>
+            <div className="label" style={{ marginBottom: '6px' }}>Discipline</div>
+            <select value={dominanceSport} onChange={e => setDominanceSport(e.target.value)} style={{ ...select, minWidth: '220px' }}>
+              <option value="">Toutes disciplines (top 15 global)</option>
+              {dominanceSports.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <PlotlyChart data={dominanceData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 20, r: 52, b: 28, l: 160 } }} height={560} />
+          <Insight>Une dominance proche de 100% signifie qu'un seul pays a remporté quasiment toutes les médailles de la discipline depuis 2016 — un signal fort pour anticiper 2028.</Insight>
         </>
       )}
 
