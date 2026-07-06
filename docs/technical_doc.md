@@ -28,7 +28,6 @@ Projet-Fil-Rouge-J.O/
 │       ├── pages/                # Home, Exploration, Athletes, Predictions, Annotations,
 │       │                         #   Generations, Multisource
 │       ├── components/           # PlotlyChart, Sidebar, Tabs, SectionHeader, InsightBox…
-│       ├── hooks/                # Hooks React Query
 │       └── lib/                  # Client API (fetchJSON, api), config Plotly (couleurs, marges)
 ├── src/                          # Code source d'analyse et de modélisation (partagé)
 │   ├── data/
@@ -101,7 +100,7 @@ nécessairement ce cache si un processus orphelin reste lié au port.
 ## API FastAPI (`backend/`)
 
 Toutes les routes sont préfixées par `/api/<domaine>` et déclarées dans `backend/main.py`.
-CORS autorise `http://localhost:5173` et `http://localhost:3000`.
+CORS autorise les origines de développement locales (`http://localhost:5173`, `:5174` et `:3000`).
 
 | Router | Prefix | Endpoints principaux |
 |---|---|---|

@@ -77,7 +77,7 @@ cd frontend
 npm run dev
 ```
 
-L'application est accessible à l'adresse : `http://localhost:5173` (proxy `/api` → backend `:8000`).
+L'application est accessible à l'adresse : `http://localhost:5174` (proxy `/api` → backend `:8000`).
 
 ### Explorer les notebooks
 
@@ -99,7 +99,6 @@ Projet-Fil-Rouge-J.O/
 │       ├── pages/                # 7 pages (Home, Exploration, Athletes, Predictions,
 │                                  #   Annotations, Generations, Multisource)
 │       ├── components/           # Composants réutilisables (PlotlyChart, Sidebar, etc.)
-│       ├── hooks/                # Hooks React (React Query)
 │       └── lib/                  # Client API, config Plotly
 ├── src/                          # Code source d'analyse et de modélisation (partagé)
 │   ├── data/                     # Chargement et nettoyage des données, World Bank API

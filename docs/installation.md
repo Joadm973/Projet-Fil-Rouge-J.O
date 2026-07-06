@@ -85,7 +85,7 @@ cd frontend
 npm run dev
 ```
 
-Ouvrir ensuite : [http://localhost:5173](http://localhost:5173)
+Ouvrir ensuite : [http://localhost:5174](http://localhost:5174)
 
 ## 8. (Optionnel) Lancer les notebooks
 
