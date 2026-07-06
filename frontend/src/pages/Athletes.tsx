@@ -38,8 +38,10 @@ export default function Athletes() {
   const { data: top, isLoading } = useQuery({ queryKey: ['top-athletes', params], queryFn: () => fetchJSON<any[]>('/athletes/top', params) })
   const { data: genderMedals } = useQuery({ queryKey: ['gender-medals', { year_min: yearMin, year_max: yearMax, medals }], queryFn: () => fetchJSON<any[]>('/athletes/gender-medals', { year_min: yearMin, year_max: yearMax, medals }) })
   const { data: detail } = useQuery({ queryKey: ['athlete-detail', selectedAthlete], queryFn: () => fetchJSON<any>('/athletes/detail', { name: selectedAthlete, year_min: yearMin, year_max: yearMax, medals }), enabled: !!selectedAthlete })
+  const { data: searchResults, isLoading: isSearching } = useQuery({ queryKey: ['athlete-search', search], queryFn: () => fetchJSON<any[]>('/athletes/search', { q: search }), enabled: search.trim().length >= 2 })
 
-  const filtered = (top ?? []).filter(a => !search || a.Name?.toLowerCase().includes(search.toLowerCase()))
+  const isSearchActive = search.trim().length >= 2
+  const filtered = isSearchActive ? (searchResults ?? []) : (top ?? [])
 
   const topBarData = [{
     type: 'bar' as const, orientation: 'h' as const,
@@ -102,8 +104,8 @@ export default function Athletes() {
 
       {tab === 'classement' && (
         <>
-          <SectionHeader title="Palmarès" sub={`Top ${filtered.length} athlètes — ${yearMin}–${yearMax}`} />
-          {isLoading ? <Spinner /> : (
+          <SectionHeader title="Palmarès" sub={isSearchActive ? `${filtered.length} résultat(s) pour « ${search} »` : `Top ${filtered.length} athlètes — ${yearMin}–${yearMax}`} />
+          {(isSearchActive ? isSearching : isLoading) ? <Spinner /> : (
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <PlotlyChart data={topBarData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 16, r: 48, b: 28, l: 120 } }} height={560} />
               <PlotlyChart data={genderData} layout={{ barmode: 'group', margin: { t: 16, r: 16, b: 28, l: 40 }, title: { text: 'Par genre' } }} height={560} />

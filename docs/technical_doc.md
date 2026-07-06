@@ -120,7 +120,7 @@ CORS autorise les origines de développement locales (`http://localhost:5173`, `
 |---|---|---|
 | `home` | `/api/home` | `kpis`, `medals-by-year`, `gender-participation`, `medals-by-country`, `participation`, `medals-by-sport` |
 | `exploration` | `/api/exploration` | `meta`, `top-countries`, `top-sports`, `trends`, `heatmap`, `choropleth` |
-| `athletes` | `/api/athletes` | `filters-meta`, `top`, `gender-medals`, `detail`, `timeline` |
+| `athletes` | `/api/athletes` | `filters-meta`, `top`, `search`, `gender-medals`, `detail`, `timeline` |
 | `predictions` | `/api/predictions` | `predict`, `country-trend`, `athlete-ratings`, `dominance`, `recommendations`, `editions`, `edition-summary`, `timeline-diversity` |
 | `annotations` | `/api/annotations` | `GET /`, `POST /`, `DELETE /{id}`, `targets` |
 | `generations` | `/api/generations` | `new-gen`, `breakouts`, `new-nations` |

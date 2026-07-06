@@ -34,6 +34,20 @@ def top_athletes(
     return top.replace({np.nan: None}).to_dict(orient="records")
 
 
+@router.get("/search")
+def search_athletes(q: str = Query("", min_length=0)):
+    q = q.strip()
+    if len(q) < 2:
+        return []
+    df = get_df()
+    m = df[df["Name"].str.contains(q, case=False, na=False, regex=False)]
+    m = m[~is_ambiguous_athlete_name(m["Name"])]
+    medals = m[m["Medal"].isin(MEDALS)]
+    totals = medals.groupby(["Name", "Team"]).size().reset_index(name="total")
+    results = totals.sort_values("total", ascending=False).head(50)
+    return results.replace({np.nan: None}).to_dict(orient="records")
+
+
 @router.get("/detail")
 def athlete_detail(
     name: str = Query(...),
