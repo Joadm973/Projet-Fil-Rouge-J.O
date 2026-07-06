@@ -46,16 +46,20 @@ export default function Multisource() {
   }]
 
   const regions = [...new Set((byRegion ?? []).map((r: any) => r.region))]
+  const pieValues = regions.map(reg => (byRegion ?? []).find((r: any) => r.region === reg)?.medals ?? 0)
+  const pieTotal = pieValues.reduce((a, b) => a + b, 0)
   const pieData = [{
     type: 'pie' as const,
     labels: regions,
-    values: regions.map(reg => (byRegion ?? []).find((r: any) => r.region === reg)?.medals ?? 0),
-    marker: { colors: REGION_COLORS },
-    hole: 0.45,
-    textinfo: 'percent' as const,
+    values: pieValues,
+    marker: { colors: REGION_COLORS, line: { color: '#ffffff', width: 1.5 } },
+    hole: 0.5,
+    text: pieValues.map(v => (pieTotal && v / pieTotal >= 0.05) ? `${Math.round((v / pieTotal) * 100)}%` : ''),
+    textinfo: 'text' as const,
     textposition: 'inside' as const,
-    insidetextorientation: 'radial' as const,
-    textfont: { size: 11, color: '#ffffff' },
+    insidetextorientation: 'horizontal' as const,
+    textfont: { size: 12, color: '#ffffff' },
+    hovertemplate: '<b>%{label}</b><br>%{percent}<extra></extra>',
   }]
 
   const regionYears = [...new Set((regionTrend ?? []).map((r: any) => r.Year))].sort()
@@ -123,7 +127,7 @@ export default function Multisource() {
         <>
           <SectionHeader title="Répartition par région du monde" />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
-            <PlotlyChart data={pieData} layout={{ showlegend: true, legend: { orientation: 'v', x: 1.02 }, margin: { t: 8, r: 0, b: 8, l: 0 } }} height={380} />
+            <PlotlyChart data={pieData} layout={{ showlegend: true, legend: { orientation: 'h', y: -0.1, x: 0.5, xanchor: 'center' }, margin: { t: 8, r: 8, b: 8, l: 8 } }} height={420} />
             <PlotlyChart data={trendData} layout={{ showlegend: true, legend: { orientation: 'h', y: -0.14 } }} height={380} />
           </div>
         </>
