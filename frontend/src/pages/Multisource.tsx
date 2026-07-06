@@ -52,7 +52,10 @@ export default function Multisource() {
     values: regions.map(reg => (byRegion ?? []).find((r: any) => r.region === reg)?.medals ?? 0),
     marker: { colors: REGION_COLORS },
     hole: 0.45,
-    textfont: { size: 11 },
+    textinfo: 'percent' as const,
+    textposition: 'inside' as const,
+    insidetextorientation: 'radial' as const,
+    textfont: { size: 11, color: '#ffffff' },
   }]
 
   const regionYears = [...new Set((regionTrend ?? []).map((r: any) => r.Year))].sort()
