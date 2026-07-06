@@ -39,6 +39,9 @@ _ROWS = [
     (17, "Athlete Q", "M", "United States", "USA", 2012, "Summer", "London", "Athletics", "200m", "Silver"),
     (18, "Athlete R", "F", "United States", "USA", 2024, "Summer", "Paris", "Gymnastics", "All-Around", "Gold"),
     (19, "Athlete S", "F", "France", "FRA", 2024, "Summer", "Paris", "Swimming", "200m", "Bronze"),
+    # Variantes de nom d'équipe pour un même NOC (clubs 1904, embarcations "-1")
+    (20, "Athlete T", "M", "Vesper Boat Club", "USA", 1904, "Summer", "St. Louis", "Rowing", "Eight", "Gold"),
+    (21, "Athlete U", "M", "United States-1", "USA", 2012, "Summer", "London", "Tennis", "Doubles", "Bronze"),
 ]
 
 
@@ -47,7 +50,8 @@ def sample_df() -> pd.DataFrame:
     """Mini-dataset synthétique couvrant tous les cas du nettoyage et du modèle.
 
     Contient volontairement : un doublon, une ligne d'hiver, des NOC historiques
-    (GDR/FRG/ROC/SCG/BOH), une nation disparue (URS) et des pays actifs.
+    (GDR/FRG/ROC/SCG/BOH), une nation disparue (URS), des pays actifs et des
+    variantes de nom d'équipe ("Vesper Boat Club", "United States-1").
     """
     df = pd.DataFrame(_ROWS, columns=_COLUMNS)
     # Ajoute un doublon exact (1re ligne) pour tester la déduplication.

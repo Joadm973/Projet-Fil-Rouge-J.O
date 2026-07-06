@@ -1,6 +1,7 @@
 import numpy as np
 from fastapi import APIRouter, Query
 from backend.deps import get_df
+from src.data.data_cleaner import is_ambiguous_athlete_name
 
 router = APIRouter()
 MEDALS = ["Gold", "Silver", "Bronze"]
@@ -18,6 +19,8 @@ def top_athletes(
     df = get_df()
     medal_list = medals.split(",")
     filt = df[df["Medal"].isin(medal_list)]
+    # Exclut les noms fusionnant plusieurs athlètes ("William Jr.") du palmarès.
+    filt = filt[~is_ambiguous_athlete_name(filt["Name"])]
     filt = filt[(filt["Year"] >= year_min) & (filt["Year"] <= year_max)]
     if sport != "all":
         filt = filt[filt["Sport"] == sport]

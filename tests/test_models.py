@@ -47,3 +47,22 @@ def test_evaluate_models_on_country(sample_df):
     )
     assert not res.empty
     assert {"Modèle", "MAE", "RMSE", "R2", "Prédiction 2028"}.issubset(res.columns)
+
+
+def test_ambiguous_names_excluded_from_ratings(sample_df):
+    """Les noms fusionnés ("X Jr.") sont exclus des classements individuels."""
+    import pandas as pd
+    from src.models.ratings import compute_athlete_ratings
+
+    extra = pd.DataFrame(
+        [
+            (30, "Kevin Jr.", "M", "United States", "USA", 2016, "Summer", "Rio", "Shooting", "Trap", "Gold"),
+            (31, "Kevin Jr.", "M", "France", "FRA", 2020, "Summer", "Tokyo", "Diving", "10m", "Gold"),
+        ],
+        columns=sample_df.columns,
+    )
+    df = clean_data(pd.concat([sample_df, extra], ignore_index=True))
+    ratings = compute_athlete_ratings(df)
+    assert "Kevin Jr." not in ratings["Name"].values
+    # Les athlètes normaux restent classés.
+    assert (ratings["Name"] == "Athlete O").any()

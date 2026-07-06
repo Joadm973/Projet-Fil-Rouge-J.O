@@ -5,13 +5,17 @@ a eu lieu en 2016 ou après, avec au moins une médaille.
 """
 import pandas as pd
 
+from src.data.data_cleaner import is_ambiguous_athlete_name
+
 MEDAL_VALUES = ["Gold", "Silver", "Bronze"]
 NEW_GEN_FROM = 2016
 RECENT_FROM = 2020
 
 
 def _medals(df: pd.DataFrame) -> pd.DataFrame:
-    return df[df["Medal"].isin(MEDAL_VALUES)].copy()
+    """Lignes médaillées, sans les noms ambigus (plusieurs athlètes fusionnés)."""
+    m = df[df["Medal"].isin(MEDAL_VALUES)]
+    return m[~is_ambiguous_athlete_name(m["Name"])].copy()
 
 
 def detect_new_gen_athletes(df: pd.DataFrame, debut_from: int = NEW_GEN_FROM) -> pd.DataFrame:

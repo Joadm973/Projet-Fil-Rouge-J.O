@@ -1,6 +1,8 @@
 """Système de notation (côtes) pour les athlètes et pays par discipline."""
 import pandas as pd
 
+from src.data.data_cleaner import is_ambiguous_athlete_name
+
 MEDAL_WEIGHTS = {"Gold": 3, "Silver": 2, "Bronze": 1}
 MEDAL_VALUES = ["Gold", "Silver", "Bronze"]
 
@@ -44,6 +46,9 @@ def compute_athlete_ratings(df: pd.DataFrame, recent_start: int = 2016) -> pd.Da
     Returns DataFrame: Name, Team, Sport, nb_medals, nb_editions, weighted_score, cote
     """
     medals = df[df["Medal"].isin(MEDAL_VALUES)].copy()
+    # Les noms ambigus (plusieurs athlètes fusionnés, ex. "William Jr.")
+    # fausseraient le classement individuel.
+    medals = medals[~is_ambiguous_athlete_name(medals["Name"])]
     medals["weight"] = medals["Medal"].map(MEDAL_WEIGHTS)
 
     active_names = set(df.loc[df["Year"] >= recent_start, "Name"])
