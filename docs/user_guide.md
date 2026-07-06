@@ -28,7 +28,7 @@ La barre latérale gauche contient le menu de navigation. Cliquez sur une option
 | Athlètes | Palmarès et performances individuelles |
 | Prédictions 2028 | Prévisions des médailles pour Los Angeles 2028, côtes, domination pays |
 | Annotations | Avis et notes personnelles sur athlètes, pays, sports, éditions |
-| Générations | Détection des talents émergents, renouvellement, nouvelles nations |
+| Générations | Détection des talents émergents, nouvelles nations |
 | Multi-sources | Analyses enrichies avec données World Bank (population, PIB) |
 
 ---
@@ -145,7 +145,6 @@ Identifie les athlètes et nations émergents en vue de 2028.
 |---|---|
 | Nouveaux talents | Athlètes dont la 1ère participation date de 2016 ou après, classés par score (Or=3pts, Argent=2pts, Bronze=1pt) |
 | Révélations | Athlètes sans médaille avant 2020, comptés par édition de leur première médaille |
-| Renouvellement | Taux de renouvellement des athlètes dominants par discipline (2008–2016 vs 2020–2024) |
 | Nouvelles nations | Pays remportant leur 1ère médaille depuis 2016, classés par total de médailles remportées |
 
 ---

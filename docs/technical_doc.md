@@ -20,7 +20,7 @@ Projet-Fil-Rouge-J.O/
 │       ├── athletes.py           # Classement athlètes, détail, filtres
 │       ├── predictions.py        # Modèle ML 2028, côtes, domination, recommandations, timeline
 │       ├── annotations.py        # CRUD annotations utilisateurs
-│       ├── generations.py        # Nouveaux talents, breakouts, renouvellement, nouvelles nations
+│       ├── generations.py        # Nouveaux talents, breakouts, nouvelles nations
 │       └── multisource.py        # Fusion CSV × World Bank API
 ├── frontend/                     # Application React + TypeScript + Vite
 │   ├── vite.config.ts            # Proxy /api → http://localhost:8000
@@ -42,7 +42,7 @@ Projet-Fil-Rouge-J.O/
 │   │   ├── evaluator.py          # Métriques & comparaison des modèles ML
 │   │   ├── ratings.py            # Côtes de dominance par discipline + recommandations 2028
 │   │   ├── records.py            # Timeline des records olympiques par édition
-│   │   ├── generations.py        # Détection nouvelles générations (débuts, breakouts, renouvellement)
+│   │   ├── generations.py        # Détection nouvelles générations (débuts, breakouts, nouvelles nations)
 │   │   └── annotations.py        # CRUD annotations utilisateurs (stockage JSON local)
 │   └── app/                      # Ancienne application Streamlit (legacy, non déployée)
 ├── notebooks/
@@ -123,7 +123,7 @@ CORS autorise les origines de développement locales (`http://localhost:5173`, `
 | `athletes` | `/api/athletes` | `filters-meta`, `top`, `gender-medals`, `detail`, `timeline` |
 | `predictions` | `/api/predictions` | `predict`, `country-trend`, `athlete-ratings`, `dominance`, `recommendations`, `editions`, `edition-summary`, `timeline-diversity` |
 | `annotations` | `/api/annotations` | `GET /`, `POST /`, `DELETE /{id}`, `targets` |
-| `generations` | `/api/generations` | `new-gen`, `breakouts`, `generation-shift`, `new-nations` |
+| `generations` | `/api/generations` | `new-gen`, `breakouts`, `new-nations` |
 | `multisource` | `/api/multisource` | `overview`, `per-capita`, `scatter`, `by-region`, `region-trend`, `gdp-scatter`, `table` |
 
 `GET /api/health` renvoie `{"status": "ok"}` pour un check de disponibilité.
@@ -201,7 +201,6 @@ Exposé côté API par `backend/routers/predictions.py` : `athlete-ratings` (`co
 |---|---|---|
 | `detect_new_gen_athletes(df)` | Athlètes débutant en 2016+, classés par score pondéré | `Name, Team, Sport, debut_year, nb_editions, nb_medals, gold, silver, bronze, score` |
 | `detect_breakout_athletes(df)` | Athlètes sans médaille avant 2020, percée récente | `Name, Team, Sport, first_medal_year, medals_recent, gold, silver, bronze, score` |
-| `detect_generation_shift(df)` | Taux de renouvellement des top 10 dominants par sport (2008–2016 vs 2020–2024) | `Sport, top_old_count, top_new_count, overlap, renewal_rate` |
 | `detect_new_medaling_nations(df)` | Pays remportant leur 1ère médaille depuis 2016 | `NOC, Team, first_medal_year, medals_total, Sports` |
 
 ### `src/models/annotations.py` — Annotations

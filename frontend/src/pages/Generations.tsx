@@ -8,12 +8,11 @@ import { Insight } from '../components/InsightBox'
 import Tabs from '../components/Tabs'
 import PageHeader from '../components/PageHeader'
 
-type Tab = 'talents' | 'breakouts' | 'renouvellement' | 'nations'
+type Tab = 'talents' | 'breakouts' | 'nations'
 
 const TABS = [
   { id: 'talents' as Tab,       label: 'Nouveaux talents' },
   { id: 'breakouts' as Tab,     label: 'Révélations' },
-  { id: 'renouvellement' as Tab, label: 'Renouvellement' },
   { id: 'nations' as Tab,       label: 'Nouvelles nations' },
 ]
 
@@ -22,7 +21,6 @@ export default function Generations() {
 
   const { data: newGen, isLoading: lg } = useQuery({ queryKey: ['new-gen'],    queryFn: () => fetchJSON<any[]>('/generations/new-gen') })
   const { data: breakouts }             = useQuery({ queryKey: ['breakouts'],   queryFn: () => fetchJSON<any[]>('/generations/breakouts') })
-  const { data: shift }                 = useQuery({ queryKey: ['gen-shift'],   queryFn: () => fetchJSON<any[]>('/generations/generation-shift') })
   const { data: nations }               = useQuery({ queryKey: ['new-nations'], queryFn: () => fetchJSON<any[]>('/generations/new-nations') })
 
   const top20 = (newGen ?? []).slice(0, 20)
@@ -47,19 +45,6 @@ export default function Generations() {
     x: boYears, y: boYears.map(y => boByYear[+y]),
     marker: { color: '#c9a227', line: { width: 0 } },
     text: boYears.map(y => boByYear[+y]), textposition: 'outside' as const,
-  }]
-
-  // Taux de renouvellement des athlètes dominants par discipline (2008-2016 vs 2020-2024)
-  const shiftTop = [...(shift ?? [])]
-    .sort((a: any, b: any) => b.renewal_rate - a.renewal_rate)
-    .slice(0, 20)
-  const shiftData = [{
-    type: 'bar' as const, orientation: 'h' as const,
-    x: shiftTop.map((r: any) => Math.round(r.renewal_rate * 100)),
-    y: shiftTop.map((r: any) => r.Sport),
-    marker: { color: '#c9a227', line: { width: 0 } },
-    text: shiftTop.map((r: any) => `${Math.round(r.renewal_rate * 100)}%`),
-    textposition: 'outside' as const,
   }]
 
   const nationsTop = (nations ?? []).slice(0, 20)
@@ -103,14 +88,6 @@ export default function Generations() {
         <>
           <SectionHeader title="Révélations par édition" sub="Athlètes sans podium avant 2020 ayant décroché leur première médaille" />
           <PlotlyChart data={boData} layout={{ margin: { t: 16, r: 52, b: 36, l: 48 } }} height={380} />
-        </>
-      )}
-
-      {tab === 'renouvellement' && (
-        <>
-          <SectionHeader title="Renouvellement par discipline" sub="Part des athlètes dominants remplacés entre 2008–2016 et 2020–2024" />
-          <PlotlyChart data={shiftData} layout={{ yaxis: { categoryorder: 'total ascending' }, xaxis: { title: { text: 'Taux de renouvellement (%)' }, range: [0, 110] }, margin: { t: 16, r: 52, b: 48, l: 140 } }} height={560} />
-          <Insight>Un taux élevé indique que la plupart des athlètes qui dominaient une discipline ont été remplacés par une nouvelle vague — un signal fort de transition générationnelle vers 2028.</Insight>
         </>
       )}
 

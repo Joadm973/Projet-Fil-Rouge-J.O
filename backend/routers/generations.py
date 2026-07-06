@@ -4,7 +4,6 @@ from backend.deps import get_df
 from src.models.generations import (
     detect_new_gen_athletes,
     detect_breakout_athletes,
-    detect_generation_shift,
     detect_new_medaling_nations,
 )
 
@@ -23,13 +22,6 @@ def breakouts(top_n: int = Query(50)):
     df = get_df()
     r = detect_breakout_athletes(df)
     return r.head(top_n).replace({np.nan: None}).to_dict(orient="records")
-
-
-@router.get("/generation-shift")
-def generation_shift():
-    df = get_df()
-    r = detect_generation_shift(df)
-    return r.replace({np.nan: None}).to_dict(orient="records")
 
 
 @router.get("/new-nations")
