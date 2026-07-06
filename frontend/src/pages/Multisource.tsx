@@ -18,13 +18,6 @@ const TABS = [
   { id: 'table' as Tab,     label: 'Tableau' },
 ]
 
-const select: React.CSSProperties = {
-  fontSize: '0.8rem', fontFamily: 'inherit',
-  border: '1px solid var(--border)', borderRadius: 'var(--r-sm)',
-  padding: '6px 10px', background: 'var(--surface)', color: 'var(--text-1)',
-  cursor: 'pointer', outline: 'none',
-}
-
 export default function Multisource() {
   const [tab, setTab] = useState<Tab>('percapita')
   const [minMedals, setMinMedals] = useState(10)

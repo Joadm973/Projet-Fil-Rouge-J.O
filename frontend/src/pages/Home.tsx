@@ -138,7 +138,7 @@ export default function Home() {
       </div>
 
       <Insight>
-        Les femmes représentent aujourd'hui près de <strong>50 %</strong> des participations olympiques — une progression spectaculaire depuis 1900 où elles n'étaient que 22.
+        Les femmes représentent aujourd'hui près de <strong>50 %</strong> des participations olympiques — une progression spectaculaire depuis 1900 où elles n'étaient que 23.
       </Insight>
 
       {/* ── Section 2 : Rayonnement ─────────────────────────────────── */}

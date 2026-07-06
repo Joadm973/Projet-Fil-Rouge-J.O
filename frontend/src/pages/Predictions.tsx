@@ -44,7 +44,8 @@ export default function Predictions() {
   const { data: predictions, isLoading: lp } = useQuery({
     queryKey: ['predictions', model, topN],
     queryFn: () => fetchJSON<any[]>('/predictions/predict', { model, top_n: topN }),
-    enabled: run,
+    // L'onglet Historique a besoin de la liste des pays prédits pour son menu déroulant.
+    enabled: run || tab === 'historique',
   })
 
   const { data: trend } = useQuery({
@@ -67,12 +68,14 @@ export default function Predictions() {
     y: (predictions ?? []).map(r => r.country),
     marker: { color: '#c9a227', line: { width: 0 } },
     text: (predictions ?? []).map(r => r.predicted), textposition: 'outside' as const,
+    customdata: (predictions ?? []).map(r => r.mae),
+    hovertemplate: '<b>%{y}</b><br>%{x} médailles prédites<br>MAE du modèle : ±%{customdata}<extra></extra>',
   }]
 
   const trendData: Data[] = []
   if (trend) {
     trendData.push({ type: 'scatter', mode: 'lines+markers', name: 'Historique', x: trend.history.map((r: any) => r.Year), y: trend.history.map((r: any) => r.total ?? r.medals ?? 0), line: { color: '#374151', width: 1.75 }, marker: { size: 5, color: '#374151' } })
-    if (trend.pred2028) {
+    if (trend.pred2028 != null) {
       const last = trend.history[trend.history.length - 1]
       trendData.push({ type: 'scatter', mode: 'lines+markers', name: 'Projection 2028', x: [last?.Year, 2028], y: [last?.total ?? 0, trend.pred2028], line: { color: '#c9a227', width: 2, dash: 'dot' }, marker: { size: 6, color: '#c9a227' } })
     }

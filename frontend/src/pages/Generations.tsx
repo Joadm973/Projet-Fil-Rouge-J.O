@@ -34,11 +34,11 @@ export default function Generations() {
       color: top20.map((r: any) => r.debut_year >= 2024 ? '#c9a227' : r.debut_year >= 2020 ? '#374151' : '#9e9993'),
       line: { width: 0 },
     },
-    text: top20.map(r => r.score?.toFixed(1)), textposition: 'outside' as const,
+    text: top20.map(r => r.score), textposition: 'outside' as const,
   }]
 
   const boByYear = (breakouts ?? []).reduce((acc: Record<number, number>, r: any) => {
-    acc[r.debut_year] = (acc[r.debut_year] ?? 0) + 1
+    acc[r.first_medal_year] = (acc[r.first_medal_year] ?? 0) + 1
     return acc
   }, {})
   const boYears = Object.keys(boByYear).sort()
@@ -65,9 +65,12 @@ export default function Generations() {
   const nationsTop = (nations ?? []).slice(0, 20)
   const nationsData = [{
     type: 'bar' as const, orientation: 'h' as const,
-    x: nationsTop.map(r => r.debut_editions), y: nationsTop.map(r => r.Team),
+    x: nationsTop.map(r => r.medals_total), y: nationsTop.map(r => r.Team),
     marker: { color: '#374151', line: { width: 0 } },
-    text: nationsTop.map(r => r.debut_editions), textposition: 'outside' as const,
+    text: nationsTop.map(r => `${r.medals_total} (1ʳᵉ en ${r.first_medal_year})`),
+    textposition: 'outside' as const,
+    customdata: nationsTop.map(r => [r.first_medal_year, r.Sports]),
+    hovertemplate: '<b>%{y}</b><br>%{x} médailles · 1ʳᵉ médaille en %{customdata[0]}<br>%{customdata[1]}<extra></extra>',
   }]
 
   return (
@@ -78,7 +81,7 @@ export default function Generations() {
 
       {tab === 'talents' && (
         <>
-          <SectionHeader title="Talents émergents" sub="Score pondéré : Or=3, Arg=2, Bro=1 × récence" />
+          <SectionHeader title="Talents émergents" sub="Athlètes ayant débuté depuis 2016 — score pondéré : Or=3, Argent=2, Bronze=1" />
           {lg ? <Spinner /> : (
             <>
               <PlotlyChart data={newGenData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 16, r: 52, b: 28, l: 140 } }} height={560} />
@@ -98,7 +101,7 @@ export default function Generations() {
 
       {tab === 'breakouts' && (
         <>
-          <SectionHeader title="Révélations par édition" sub="Nombre d'athlètes ayant décroché leur premier podium" />
+          <SectionHeader title="Révélations par édition" sub="Athlètes sans podium avant 2020 ayant décroché leur première médaille" />
           <PlotlyChart data={boData} layout={{ margin: { t: 16, r: 52, b: 36, l: 48 } }} height={380} />
         </>
       )}
@@ -113,7 +116,7 @@ export default function Generations() {
 
       {tab === 'nations' && (
         <>
-          <SectionHeader title="Nouvelles nations médaillées" sub="Pays ayant décroché leur première médaille récemment" />
+          <SectionHeader title="Nouvelles nations médaillées" sub="Pays ayant décroché leur toute première médaille depuis 2016 — total remporté depuis" />
           <PlotlyChart data={nationsData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 16, r: 52, b: 28, l: 120 } }} height={440} />
         </>
       )}
