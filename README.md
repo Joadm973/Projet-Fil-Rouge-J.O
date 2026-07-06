@@ -1,7 +1,8 @@
 # 🏅 YPerf - Analyse des Performances Olympiques pour les JO 2028
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.29+-red.svg)](https://streamlit.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-19-61DAFB.svg)](https://react.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **Projet Fil Rouge - Bachelor 3 Ynov Informatique**  
@@ -23,7 +24,8 @@
 ### Prérequis
 
 - Python 3.10 ou supérieur
-- pip (gestionnaire de paquets Python)
+- Node.js 18 ou supérieur (avec npm)
+- Git
 
 ### Étapes d'installation
 
@@ -33,20 +35,24 @@ git clone https://github.com/Joadm973/Projet-Fil-Rouge-J.O.git
 cd Projet-Fil-Rouge-J.O
 ```
 
-2. **Créer un environnement virtuel**
+2. **Backend — créer un environnement virtuel et installer les dépendances**
 ```bash
-python -m venv venv
+python -m venv .venv
 
 # Windows
-venv\Scripts\activate
+.venv\Scripts\activate
 
 # Linux/Mac
-source venv/bin/activate
+source .venv/bin/activate
+
+pip install -r requirements.txt
 ```
 
-3. **Installer les dépendances**
+3. **Frontend — installer les dépendances**
 ```bash
-pip install -r requirements.txt
+cd frontend
+npm install
+cd ..
 ```
 
 4. **Placer le dataset**
@@ -56,13 +62,22 @@ Assurez-vous que le fichier olympics_dataset.csv est dans data/raw/
 
 ## 💻 Utilisation
 
-### Lancer l'application Streamlit
+### Lancer le backend (FastAPI)
 
 ```bash
-python -m streamlit run src/app/app.py
+.venv\Scripts\python -m uvicorn backend.main:app --port 8000 --reload
 ```
 
-L'application sera accessible à l'adresse : `http://localhost:8501`
+L'API est accessible à l'adresse : `http://localhost:8000` (documentation interactive sur `http://localhost:8000/docs`).
+
+### Lancer le frontend (React/Vite)
+
+```bash
+cd frontend
+npm run dev
+```
+
+L'application est accessible à l'adresse : `http://localhost:5173` (proxy `/api` → backend `:8000`).
 
 ### Explorer les notebooks
 
@@ -74,21 +89,30 @@ jupyter notebook notebooks/
 
 ```
 Projet-Fil-Rouge-J.O/
-├── src/                          # Code source
-│   ├── data/                     # Chargement et nettoyage des données
+├── backend/                      # API FastAPI
+│   ├── main.py                   # Point d'entrée, montage des routers, CORS
+│   ├── deps.py                   # Chargement du DataFrame en cache (get_df)
+│   └── routers/                  # Endpoints REST par domaine (home, exploration, athletes,
+│                                  #   predictions, annotations, generations, multisource)
+├── frontend/                     # Application React + Vite + TypeScript
+│   └── src/
+│       ├── pages/                # 7 pages (Home, Exploration, Athletes, Predictions,
+│                                  #   Annotations, Generations, Multisource)
+│       ├── components/           # Composants réutilisables (PlotlyChart, Sidebar, etc.)
+│       ├── hooks/                # Hooks React (React Query)
+│       └── lib/                  # Client API, config Plotly
+├── src/                          # Code source d'analyse et de modélisation (partagé)
+│   ├── data/                     # Chargement et nettoyage des données, World Bank API
 │   ├── analysis/                 # Analyses exploratoires et statistiques (χ², Gini, Pearson)
-│   ├── models/                   # Modèles ML (prédiction + évaluation)
-│   └── app/                      # Application Streamlit
-│       ├── views/                # Pages de l'application (home, exploration, athletes, predictions)
-│       └── components/           # Composants réutilisables
-├── notebooks/                    # Jupyter Notebooks
+│   ├── models/                   # Modèles ML, côtes, générations, records, annotations
+│   └── app/                      # Ancienne application Streamlit (legacy, non déployée)
+├── notebooks/                    # Jupyter Notebooks (démarche du projet)
 ├── data/
 │   ├── raw/                      # Données brutes
-│   └── processed/                # Données traitées
+│   └── processed/                # Données traitées / cache API
 ├── docs/                         # Documentation
 ├── tests/                        # Tests unitaires
-├── assets/                       # Images et ressources
-├── requirements.txt              # Dépendances Python
+├── requirements.txt              # Dépendances Python (backend)
 ├── config.py                     # Configuration du projet
 └── README.md
 ```
@@ -113,13 +137,13 @@ Le dataset `olympics_dataset.csv` contient les données historiques des Jeux Oly
 
 ## 🛠️ Technologies utilisées
 
-- **Python** - Langage principal
-- **Pandas & NumPy** - Manipulation des données
-- **Scikit-learn** - Machine Learning
-- **Matplotlib & Seaborn** - Visualisations statiques
-- **Plotly** - Visualisations interactives
-- **Streamlit** - Application web interactive
-- **Jupyter Notebook** - Analyses exploratoires
+- **Python & FastAPI** — API REST
+- **Pandas & NumPy** — Manipulation des données
+- **Scikit-learn** — Machine Learning
+- **React 19 + TypeScript + Vite** — Frontend SPA
+- **TanStack React Query** — Fetching et cache des données côté client
+- **Plotly.js** — Visualisations interactives
+- **Jupyter Notebook** — Analyses exploratoires
 
 ## 👥 Équipe
 

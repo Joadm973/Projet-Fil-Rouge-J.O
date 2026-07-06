@@ -2,24 +2,42 @@
 
 ## Architecture du projet
 
+L'application est composée de deux processus distincts : une **API FastAPI** (backend) qui expose les données et modèles, et une **SPA React/Vite** (frontend) qui les consomme via HTTP (`fetch` + TanStack React Query). Le code d'analyse et de modélisation (`src/`) est partagé et importé directement par les routers FastAPI.
+
 ```
 Projet-Fil-Rouge-J.O/
-├── config.py                     # Chemins, paramètres globaux, config Streamlit
-├── requirements.txt              # Dépendances Python
+├── config.py                     # Chemins, paramètres globaux
+├── requirements.txt              # Dépendances Python (backend + analyse)
 ├── data/
 │   ├── raw/                      # Données brutes (olympics_dataset.csv)
-│   └── processed/                # Fichiers CSV intermédiaires générés
-├── src/
-│   ├── data/
-│   │   ├── data_loader.py        # Lecture du CSV brut
-│   │   └── data_cleaner.py       # Nettoyage et feature engineering
-│   ├── analysis/
-│   │   ├── exploratory.py        # Agrégats métier (médailles par pays, athlètes, etc.)
-│   │   └── statistics.py         # Stats descriptives & inférentielles (χ², Gini, Pearson)
+│   └── processed/                # Cache World Bank API, fichiers intermédiaires
+├── backend/                      # API FastAPI
+│   ├── main.py                   # Point d'entrée, montage des routers, CORS
+│   ├── deps.py                   # get_df() — chargement + nettoyage en cache (lru_cache)
+│   └── routers/
+│       ├── home.py               # KPIs, médailles par édition, participation
+│       ├── exploration.py        # Top pays/sports, tendances, heatmap, choroplèthe
+│       ├── athletes.py           # Classement athlètes, détail, filtres
+│       ├── predictions.py        # Modèle ML 2028, côtes, domination, recommandations, timeline
+│       ├── annotations.py        # CRUD annotations utilisateurs
+│       ├── generations.py        # Nouveaux talents, breakouts, renouvellement, nouvelles nations
+│       └── multisource.py        # Fusion CSV × World Bank API
+├── frontend/                     # Application React + TypeScript + Vite
+│   ├── vite.config.ts            # Proxy /api → http://localhost:8000
+│   └── src/
+│       ├── pages/                # Home, Exploration, Athletes, Predictions, Annotations,
+│       │                         #   Generations, Multisource
+│       ├── components/           # PlotlyChart, Sidebar, Tabs, SectionHeader, InsightBox…
+│       ├── hooks/                # Hooks React Query
+│       └── lib/                  # Client API (fetchJSON, api), config Plotly (couleurs, marges)
+├── src/                          # Code source d'analyse et de modélisation (partagé)
 │   ├── data/
 │   │   ├── data_loader.py        # Lecture du CSV brut
 │   │   ├── data_cleaner.py       # Nettoyage et feature engineering
 │   │   └── api_fetcher.py        # World Bank API (population, PIB, région) + cache JSON
+│   ├── analysis/
+│   │   ├── exploratory.py        # Agrégats métier (médailles par pays, athlètes, etc.)
+│   │   └── statistics.py         # Stats descriptives & inférentielles (χ², Gini, Pearson)
 │   ├── models/
 │   │   ├── predictor.py          # Modèle de prédiction JO 2028 (nations actives)
 │   │   ├── evaluator.py          # Métriques & comparaison des modèles ML
@@ -27,17 +45,7 @@ Projet-Fil-Rouge-J.O/
 │   │   ├── records.py            # Timeline des records olympiques par édition
 │   │   ├── generations.py        # Détection nouvelles générations (débuts, breakouts, renouvellement)
 │   │   └── annotations.py        # CRUD annotations utilisateurs (stockage JSON local)
-│   └── app/
-│       ├── app.py                # Point d'entrée Streamlit
-│       ├── views/                # Pages de l'application
-│       │   ├── home.py
-│       │   ├── exploration.py
-│       │   ├── athletes.py
-│       │   ├── predictions.py    # Inclut onglets Côtes & Timeline
-│       │   ├── annotations.py    # Page annotations utilisateurs
-│       │   ├── generations.py    # Page nouvelles générations
-│       │   └── multisource.py    # Page analyse multi-sources
-│       └── components/           # Composants réutilisables (cards, style)
+│   └── app/                      # Ancienne application Streamlit (legacy, non déployée)
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
 │   ├── 02_data_cleaning.ipynb
@@ -45,7 +53,7 @@ Projet-Fil-Rouge-J.O/
 │   └── 04_modeling.ipynb
 ├── tests/
 │   ├── test_data.py
-└───   └── test_models.py
+│   └── test_models.py
 ```
 
 ## Dataset
@@ -68,6 +76,8 @@ Projet-Fil-Rouge-J.O/
 | `Event` | str | Épreuve précise |
 | `Medal` | str | `Gold` / `Silver` / `Bronze` / `No medal` |
 
+> Le dataset ne contient **aucune colonne d'âge, taille ou poids** — toute fonctionnalité basée sur ces attributs (ex. pyramide des âges) n'est pas réalisable avec ces données.
+
 ## Pipeline de données
 
 ```
@@ -76,16 +86,51 @@ olympics_dataset.csv
             └── data_cleaner.clean_data()
                     ├── Filtre : Season == "Summer"
                     ├── Suppression des doublons
+                    ├── Correction de ~30 noms d'athlètes corrompus dans le CSV source
                     ├── Fusion des NOC historiques :
                     │       GDR/FRG → GER, ROC → RUS, SCG → SRB, BOH → CZE
                     ├── Ajout colonne Has_Medal (0/1)
                     └── DataFrame prêt pour l'analyse
 ```
 
+Côté backend, `backend/deps.py::get_df()` appelle ce pipeline une seule fois par processus
+(`functools.lru_cache(maxsize=1)`). **Un changement dans `data_cleaner.py` ou dans le CSV
+nécessite un redémarrage du processus uvicorn** — `--reload` recharge le code mais pas
+nécessairement ce cache si un processus orphelin reste lié au port.
+
+## API FastAPI (`backend/`)
+
+Toutes les routes sont préfixées par `/api/<domaine>` et déclarées dans `backend/main.py`.
+CORS autorise `http://localhost:5173` et `http://localhost:3000`.
+
+| Router | Prefix | Endpoints principaux |
+|---|---|---|
+| `home` | `/api/home` | `kpis`, `medals-by-year`, `gender-participation`, `medals-by-country`, `participation`, `medals-by-sport` |
+| `exploration` | `/api/exploration` | `meta`, `top-countries`, `top-sports`, `trends`, `heatmap`, `choropleth` |
+| `athletes` | `/api/athletes` | `filters-meta`, `top`, `gender-medals`, `detail` |
+| `predictions` | `/api/predictions` | `predict`, `country-trend`, `athlete-ratings`, `dominance`, `recommendations`, `timeline-diversity` |
+| `annotations` | `/api/annotations` | `GET /`, `POST /`, `DELETE /{id}`, `targets` |
+| `generations` | `/api/generations` | `new-gen`, `breakouts`, `generation-shift`, `new-nations` |
+| `multisource` | `/api/multisource` | `overview`, `per-capita`, `scatter`, `by-region`, `region-trend`, `gdp-scatter`, `table` |
+
+`GET /api/health` renvoie `{"status": "ok"}` pour un check de disponibilité.
+
+## Frontend (`frontend/`)
+
+- **React 19 + TypeScript + Vite**, routage via `react-router-dom`.
+- **TanStack React Query** pour le fetching : chaque page déclare ses `useQuery` avec une
+  `queryKey` incluant les filtres actifs (période, genre, top N…), ce qui déclenche
+  automatiquement un refetch quand un filtre change.
+- **Plotly.js** (`react-plotly.js`) pour tous les graphiques, via le composant partagé
+  `components/PlotlyChart.tsx` et la config commune `lib/plotly.ts` (palette de couleurs,
+  marges par défaut).
+- Le proxy Vite (`vite.config.ts`) redirige `/api/*` vers `http://localhost:8000` en dev.
+
 ## Modèle de Machine Learning
 
 **Algorithmes :** Régression Linéaire, Ridge, Gradient Boosting, Régression Polynomiale (deg. 2)  
-**Fichiers :** `src/models/predictor.py` (modèle de référence), `src/app/views/predictions.py` (comparaison multi-modèles), `src/models/evaluator.py` (métriques)
+**Fichiers :** `src/models/predictor.py` (modèle de référence), `backend/routers/predictions.py`
+(exposition API du modèle sélectionné), `src/models/evaluator.py` (métriques)
 
 ### Fonctionnement
 
@@ -100,8 +145,7 @@ Un modèle indépendant est entraîné **par pays** :
 ### Évaluation
 
 `src/models/evaluator.py` fournit les métriques **MAE**, **RMSE** et **R²**, ainsi qu'une
-validation croisée temporelle (`TimeSeriesSplit`). L'onglet « Comparaison modèles » de
-l'application affiche ces scores pour comparer les algorithmes sur un pays donné.
+validation croisée temporelle (`TimeSeriesSplit`).
 
 **Paramètres ML** (définis dans `config.py`) :
 
@@ -117,30 +161,18 @@ l'application affiche ces scores pour comparer les algorithmes sur un pays donn�
 - La régression linéaire extrapole sans contrainte : les prédictions doivent être interprétées comme des tendances, pas des certitudes
 - Le modèle ne tient pas compte des changements de programme olympique (nouvelles disciplines) ni du contexte géopolitique
 
-## Navigation de l'application
-
-L'application utilise une navigation **manuelle** via `st.radio()` dans la sidebar.  
-Le dossier contenant les pages s'appelle `views/` (et non `pages/`) pour éviter la détection automatique multi-pages de Streamlit.
-
-| Page | Fichier | Description |
-|---|---|---|
-| Accueil | `views/home.py` | KPIs, médailles par édition, participation |
-| Exploration | `views/exploration.py` | Filtres, top pays, carte, évolution |
-| Athlètes | `views/athletes.py` | Top athlètes, détail médailles, tableau |
-| Prédictions 2028 | `views/predictions.py` | Modèle ML, projections + Côtes & Timeline (7 onglets) |
-| Annotations | `views/annotations.py` | Notes utilisateurs sur athlètes/pays/sports/éditions |
-| Nouvelles générations | `views/generations.py` | Talents 2016+, breakouts 2020+, renouvellement, nouvelles nations |
-| Multi-sources | `views/multisource.py` | Fusion CSV × World Bank API (per-capita, région, PIB) |
-
 ## Modules d'analyse complémentaires
 
 ### `src/models/ratings.py` — Côtes de dominance
 
 | Fonction | Description |
 |---|---|
-| `compute_sport_dominance(df)` | % de médailles par pays par sport depuis 2016 (HHI inclus) |
+| `compute_sport_dominance(df)` | % de médailles par pays par sport depuis 2016 (indice HHI inclus) |
 | `compute_athlete_ratings(df)` | Score pondéré Or=3/Argent=2/Bronze=1 + bonus régularité (+15%/édition) |
 | `generate_recommendations(df)` | Nations en progression, sports ouverts/dominés, spotlight France |
+
+Exposé côté API par `backend/routers/predictions.py` : `athlete-ratings` (`compute_athlete_ratings`),
+`dominance` (`compute_sport_dominance`), `recommendations` (`generate_recommendations`).
 
 ### `src/models/records.py` — Timeline
 
@@ -152,17 +184,17 @@ Le dossier contenant les pages s'appelle `views/` (et non `pages/`) pour éviter
 
 ### `src/models/generations.py` — Nouvelles générations
 
-| Fonction | Description |
-|---|---|
-| `detect_new_gen_athletes(df)` | Athlètes débutant en 2016+, classés par score pondéré |
-| `detect_breakout_athletes(df)` | Athlètes sans médaille avant 2020, percée récente |
-| `detect_generation_shift(df)` | Taux de renouvellement des top 10 dominants par sport |
-| `detect_new_medaling_nations(df)` | Pays remportant leur 1ère médaille depuis 2016 |
+| Fonction | Description | Colonnes retournées |
+|---|---|---|
+| `detect_new_gen_athletes(df)` | Athlètes débutant en 2016+, classés par score pondéré | `Name, Team, score, debut_year, …` |
+| `detect_breakout_athletes(df)` | Athlètes sans médaille avant 2020, percée récente | `Name, Team, debut_year, …` |
+| `detect_generation_shift(df)` | Taux de renouvellement des top 10 dominants par sport (2008–2016 vs 2020–2024) | `Sport, top_old_count, top_new_count, overlap, renewal_rate` |
+| `detect_new_medaling_nations(df)` | Pays remportant leur 1ère médaille depuis 2016 | `Team, debut_editions, …` |
 
 ### `src/models/annotations.py` — Annotations
 
 Stockage JSON dans `data/annotations.json`. CRUD complet :
-- `add_annotation(type, target, note, author, tags)` → crée et sauvegarde
+- `add_annotation(type, target, note, author, tags)` → crée et sauvegarde (champ `timestamp`)
 - `get_annotations(type, target)` → filtre par type/cible
 - `delete_annotation(id)` → suppression par UUID
 
@@ -183,7 +215,12 @@ Mapping NOC → ISO3 pour 100+ codes olympiques non-standard.
 | `ROOT_DIR` | Répertoire racine du projet |
 | `RAW_OLYMPICS_FILE` | Chemin vers le CSV brut |
 | `CLEANED_DATA_FILE` | Chemin vers le CSV nettoyé |
-| `APP_CONFIG` | Paramètres `set_page_config` Streamlit |
 | `COLORS` | Palette de couleurs (or, argent, bronze, primaire) |
 | `ML_CONFIG` | Paramètres du modèle ML |
 | `TARGET_YEAR` | Année cible des prédictions (2028) |
+
+## Application Streamlit (legacy)
+
+Une première version de l'interface a été construite avec Streamlit (`src/app/`). Elle reste
+présente dans le dépôt pour référence mais n'est plus maintenue ni déployée — l'interface
+active est l'application React (`frontend/`) servie par l'API FastAPI (`backend/`).
