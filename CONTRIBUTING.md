@@ -28,7 +28,7 @@ main
 | `feature/visualization` | Graphiques Plotly/Seaborn, cartes choroplèthes | Visualiser des données (coef. 3) |
 | `feature/modeling` | Modèles ML (régression, clustering), évaluation des métriques | Appliquer un modèle ML (coef. 4) |
 | `feature/predictions` | Prédictions JO 2028, simulations de scénarios | Prédire et recommander (coef. 4) |
-| `feature/streamlit-app` | Interface Streamlit interactive | Interface interactive (coef. 2) |
+| `feature/streamlit-app` | Interface Streamlit interactive (legacy — remplacée depuis par FastAPI + React, voir `docs/technical_doc.md`) | Interface interactive (coef. 2) |
 | `feature/documentation` | Docs techniques, guide utilisateur, installation | Documenter (coef. 2) |
 | `feature/notebooks` | Jupyter Notebooks (démarche, analyses, visualisations) | Livrable notebook |
 

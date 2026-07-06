@@ -144,9 +144,9 @@ Identifie les athlètes et nations émergents en vue de 2028.
 | Onglet | Description |
 |---|---|
 | Nouveaux talents | Athlètes dont la 1ère participation date de 2016 ou après, classés par score (Or=3pts, Argent=2pts, Bronze=1pt) |
-| Révélations | Athlètes sans médaille avant 2020, percée récente, par édition de débuts |
+| Révélations | Athlètes sans médaille avant 2020, comptés par édition de leur première médaille |
 | Renouvellement | Taux de renouvellement des athlètes dominants par discipline (2008–2016 vs 2020–2024) |
-| Nouvelles nations | Pays remportant leur 1ère médaille depuis 2016 |
+| Nouvelles nations | Pays remportant leur 1ère médaille depuis 2016, classés par total de médailles remportées |
 
 ---
 

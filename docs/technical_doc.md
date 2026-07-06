@@ -49,9 +49,12 @@ Projet-Fil-Rouge-J.O/
 │   ├── 01_data_exploration.ipynb
 │   ├── 02_data_cleaning.ipynb
 │   ├── 03_analysis.ipynb
-│   └── 04_modeling.ipynb
+│   ├── 04_modeling.ipynb
+│   └── 05_nouvelles_analyses.ipynb   # Côtes, générations, records, multi-sources
 ├── tests/
+│   ├── conftest.py                   # Fixture : mini-dataset synthétique
 │   ├── test_data.py
+│   ├── test_analysis.py
 │   └── test_models.py
 ```
 
@@ -86,11 +89,22 @@ olympics_dataset.csv
                     ├── Filtre : Season == "Summer"
                     ├── Suppression des doublons
                     ├── Correction de ~30 noms d'athlètes corrompus dans le CSV source
+                    ├── Harmonisation des noms « NOM Prénom » des éditions 2020+
+                    │       ("McKEON Emma" → "Emma Mckeon" — sinon les carrières
+                    │       sont scindées en deux identités entre 2016 et 2020)
                     ├── Fusion des NOC historiques :
                     │       GDR/FRG → GER, ROC → RUS, SCG → SRB, BOH → CZE
+                    ├── Standardisation des noms d'équipe : un NOC = un libellé unique
+                    │       (élimine les clubs 1904 "Vesper Boat Club" et les suffixes
+                    │       d'embarcation "United States-1" qui dupliquaient les pays)
                     ├── Ajout colonne Has_Medal (0/1)
                     └── DataFrame prêt pour l'analyse
 ```
+
+Le module expose aussi `is_ambiguous_athlete_name()` : certains noms tronqués du CSV
+source (« William Jr. », « John Jr. ») regroupent plusieurs athlètes réels sous un même
+libellé, sans réattribution possible. Ces noms sont **exclus des classements individuels**
+(côtes, top athlètes, générations) mais leurs médailles restent comptées au niveau pays.
 
 Côté backend, `backend/deps.py::get_df()` appelle ce pipeline une seule fois par processus
 (`functools.lru_cache(maxsize=1)`). **Un changement dans `data_cleaner.py` ou dans le CSV
@@ -106,8 +120,8 @@ CORS autorise les origines de développement locales (`http://localhost:5173`, `
 |---|---|---|
 | `home` | `/api/home` | `kpis`, `medals-by-year`, `gender-participation`, `medals-by-country`, `participation`, `medals-by-sport` |
 | `exploration` | `/api/exploration` | `meta`, `top-countries`, `top-sports`, `trends`, `heatmap`, `choropleth` |
-| `athletes` | `/api/athletes` | `filters-meta`, `top`, `gender-medals`, `detail` |
-| `predictions` | `/api/predictions` | `predict`, `country-trend`, `athlete-ratings`, `dominance`, `recommendations`, `timeline-diversity` |
+| `athletes` | `/api/athletes` | `filters-meta`, `top`, `gender-medals`, `detail`, `timeline` |
+| `predictions` | `/api/predictions` | `predict`, `country-trend`, `athlete-ratings`, `dominance`, `recommendations`, `editions`, `edition-summary`, `timeline-diversity` |
 | `annotations` | `/api/annotations` | `GET /`, `POST /`, `DELETE /{id}`, `targets` |
 | `generations` | `/api/generations` | `new-gen`, `breakouts`, `generation-shift`, `new-nations` |
 | `multisource` | `/api/multisource` | `overview`, `per-capita`, `scatter`, `by-region`, `region-trend`, `gdp-scatter`, `table` |
@@ -166,9 +180,9 @@ validation croisée temporelle (`TimeSeriesSplit`).
 
 | Fonction | Description |
 |---|---|
-| `compute_sport_dominance(df)` | % de médailles par pays par sport depuis 2016 (indice HHI inclus) |
-| `compute_athlete_ratings(df)` | Score pondéré Or=3/Argent=2/Bronze=1 + bonus régularité (+15%/édition) |
-| `generate_recommendations(df)` | Nations en progression, sports ouverts/dominés, spotlight France |
+| `compute_sport_dominance(df)` | % de médailles par pays par sport depuis 2016 |
+| `compute_athlete_ratings(df)` | Score pondéré Or=3/Argent=2/Bronze=1 + bonus régularité (+15%/édition), noms ambigus exclus |
+| `generate_recommendations(df)` | Nations en progression, sports ouverts/dominés (indice HHI), spotlight France |
 
 Exposé côté API par `backend/routers/predictions.py` : `athlete-ratings` (`compute_athlete_ratings`),
 `dominance` (`compute_sport_dominance`), `recommendations` (`generate_recommendations`).
@@ -185,10 +199,10 @@ Exposé côté API par `backend/routers/predictions.py` : `athlete-ratings` (`co
 
 | Fonction | Description | Colonnes retournées |
 |---|---|---|
-| `detect_new_gen_athletes(df)` | Athlètes débutant en 2016+, classés par score pondéré | `Name, Team, score, debut_year, …` |
-| `detect_breakout_athletes(df)` | Athlètes sans médaille avant 2020, percée récente | `Name, Team, debut_year, …` |
+| `detect_new_gen_athletes(df)` | Athlètes débutant en 2016+, classés par score pondéré | `Name, Team, Sport, debut_year, nb_editions, nb_medals, gold, silver, bronze, score` |
+| `detect_breakout_athletes(df)` | Athlètes sans médaille avant 2020, percée récente | `Name, Team, Sport, first_medal_year, medals_recent, gold, silver, bronze, score` |
 | `detect_generation_shift(df)` | Taux de renouvellement des top 10 dominants par sport (2008–2016 vs 2020–2024) | `Sport, top_old_count, top_new_count, overlap, renewal_rate` |
-| `detect_new_medaling_nations(df)` | Pays remportant leur 1ère médaille depuis 2016 | `Team, debut_editions, …` |
+| `detect_new_medaling_nations(df)` | Pays remportant leur 1ère médaille depuis 2016 | `NOC, Team, first_medal_year, medals_total, Sports` |
 
 ### `src/models/annotations.py` — Annotations
 
