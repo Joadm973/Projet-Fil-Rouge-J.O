@@ -1,9 +1,9 @@
 # 🏅 YPerf - Analyse des Performances Olympiques pour les JO 2028
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.139-009688.svg)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19-61DAFB.svg)](https://react.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Usage](https://img.shields.io/badge/Usage-P%C3%A9dagogique_Ynov_B3-green.svg)
 
 > **Projet Fil Rouge - Bachelor 3 Ynov Informatique**  
 > UF : Spécialité Data & IA
@@ -85,6 +85,21 @@ L'application est accessible à l'adresse : `http://localhost:5174` (proxy `/api
 jupyter notebook notebooks/
 ```
 
+### Lancer les tests unitaires
+
+```bash
+.venv\Scripts\python -m pytest tests/ -v
+```
+
+## 📚 Documentation
+
+| Document | Contenu |
+|---|---|
+| [docs/installation.md](docs/installation.md) | Guide d'installation pas à pas |
+| [docs/user_guide.md](docs/user_guide.md) | Manuel d'utilisation de l'application (pages, filtres, onglets) |
+| [docs/technical_doc.md](docs/technical_doc.md) | Architecture, pipeline de données, API, modèles ML |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Workflow Git de l'équipe (branches, conventions de commits) |
+
 ## 📁 Structure du projet
 
 ```
@@ -128,7 +143,7 @@ Le dataset `olympics_dataset.csv` contient les données historiques des Jeux Oly
 | Team | Équipe/Pays |
 | NOC | Code pays (3 lettres) |
 | Year | Année des JO |
-| Season | Saison (Summer/Winter) |
+| Season | Saison (`Summer` uniquement dans ce dataset) |
 | City | Ville hôte |
 | Sport | Sport |
 | Event | Épreuve |
