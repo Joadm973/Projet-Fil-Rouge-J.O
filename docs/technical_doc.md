@@ -18,7 +18,7 @@ Projet-Fil-Rouge-J.O/
 │       ├── home.py               # KPIs, médailles par édition, participation
 │       ├── exploration.py        # Top pays/sports, tendances, heatmap, choroplèthe
 │       ├── athletes.py           # Classement athlètes, détail, filtres
-│       ├── predictions.py        # Modèle ML 2028, côtes, domination, recommandations, timeline
+│       ├── predictions.py        # Modèle ML 2028, cotes, domination, recommandations, timeline
 │       ├── annotations.py        # CRUD annotations utilisateurs
 │       ├── generations.py        # Nouveaux talents, breakouts, nouvelles nations
 │       └── multisource.py        # Fusion CSV × World Bank API
@@ -40,7 +40,7 @@ Projet-Fil-Rouge-J.O/
 │   ├── models/
 │   │   ├── predictor.py          # Modèle de prédiction JO 2028 (nations actives)
 │   │   ├── evaluator.py          # Métriques & comparaison des modèles ML
-│   │   ├── ratings.py            # Côtes de dominance par discipline + recommandations 2028
+│   │   ├── ratings.py            # Cotes de dominance par discipline + recommandations 2028
 │   │   ├── records.py            # Timeline des records olympiques par édition
 │   │   ├── generations.py        # Détection nouvelles générations (débuts, breakouts, nouvelles nations)
 │   │   └── annotations.py        # CRUD annotations utilisateurs (stockage JSON local)
@@ -50,7 +50,7 @@ Projet-Fil-Rouge-J.O/
 │   ├── 02_data_cleaning.ipynb
 │   ├── 03_analysis.ipynb
 │   ├── 04_modeling.ipynb
-│   └── 05_nouvelles_analyses.ipynb   # Côtes, générations, records, multi-sources
+│   └── 05_nouvelles_analyses.ipynb   # Cotes, générations, records, multi-sources
 ├── tests/
 │   ├── conftest.py                   # Fixture : mini-dataset synthétique
 │   ├── test_data.py
@@ -104,7 +104,7 @@ olympics_dataset.csv
 Le module expose aussi `is_ambiguous_athlete_name()` : certains noms tronqués du CSV
 source (« William Jr. », « John Jr. ») regroupent plusieurs athlètes réels sous un même
 libellé, sans réattribution possible. Ces noms sont **exclus des classements individuels**
-(côtes, top athlètes, générations) mais leurs médailles restent comptées au niveau pays.
+(cotes, top athlètes, générations) mais leurs médailles restent comptées au niveau pays.
 
 Côté backend, `backend/deps.py::get_df()` appelle ce pipeline une seule fois par processus
 (`functools.lru_cache(maxsize=1)`). **Un changement dans `data_cleaner.py` ou dans le CSV
@@ -176,7 +176,7 @@ validation croisée temporelle (`TimeSeriesSplit`).
 
 ## Modules d'analyse complémentaires
 
-### `src/models/ratings.py` — Côtes de dominance
+### `src/models/ratings.py` — Cotes de dominance
 
 | Fonction | Description |
 |---|---|

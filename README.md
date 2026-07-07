@@ -118,7 +118,7 @@ Projet-Fil-Rouge-J.O/
 ├── src/                          # Code source d'analyse et de modélisation (partagé)
 │   ├── data/                     # Chargement et nettoyage des données, World Bank API
 │   ├── analysis/                 # Analyses exploratoires et statistiques (χ², Gini, Pearson)
-│   ├── models/                   # Modèles ML, côtes, générations, records, annotations
+│   ├── models/                   # Modèles ML, cotes, générations, records, annotations
 │   └── app/                      # Ancienne application Streamlit (legacy, non déployée)
 ├── notebooks/                    # Jupyter Notebooks (démarche du projet)
 ├── data/

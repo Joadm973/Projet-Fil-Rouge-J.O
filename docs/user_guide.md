@@ -26,7 +26,7 @@ La barre latérale gauche contient le menu de navigation. Cliquez sur une option
 | Accueil | Vue d'ensemble du projet et des données |
 | Exploration | Analyse interactive par pays, sport et année |
 | Athlètes | Palmarès et performances individuelles |
-| Prédictions 2028 | Prévisions des médailles pour Los Angeles 2028, côtes, domination pays |
+| Prédictions 2028 | Prévisions des médailles pour Los Angeles 2028, cotes, domination pays |
 | Annotations | Avis et notes personnelles sur athlètes, pays, sports, éditions |
 | Générations | Détection des talents émergents, nouvelles nations |
 | Multi-sources | Analyses enrichies avec données World Bank (population, PIB) |
@@ -99,7 +99,7 @@ Génère des prévisions de médailles pour les JO de Los Angeles 2028.
 4. Consulter les onglets :
    - **Classement 2028** : barres horizontales des médailles prédites
    - **Historique pays** : courbe historique + projection 2028 pour un pays sélectionné
-   - **Côtes athlètes** : score pondéré Or=3/Argent=2/Bronze=1 + bonus régularité
+   - **Cotes athlètes** : score pondéré Or=3/Argent=2/Bronze=1 + bonus régularité
    - **Domination pays** : part des médailles d'une discipline captée par un pays depuis 2016
    - **Recommandations** : nations en progression, top disciplines France
    - **Timeline** : diversité olympique (pays médaillés et disciplines) par édition

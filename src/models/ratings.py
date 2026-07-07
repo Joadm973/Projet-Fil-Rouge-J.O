@@ -1,4 +1,4 @@
-"""Système de notation (côtes) pour les athlètes et pays par discipline."""
+"""Système de notation (cotes) pour les athlètes et pays par discipline."""
 import pandas as pd
 
 from src.data.data_cleaner import is_ambiguous_athlete_name
@@ -38,9 +38,9 @@ def compute_sport_dominance(df: pd.DataFrame, recent_start: int = 2016) -> pd.Da
 
 
 def compute_athlete_ratings(df: pd.DataFrame, recent_start: int = 2016) -> pd.DataFrame:
-    """Calcule un score composite (côte) pour chaque athlète médaillé actif.
+    """Calcule un score composite (cote) pour chaque athlète médaillé actif.
 
-    Côte = score_pondéré × (1 + 0.15 × nb_éditions)
+    Cote = score_pondéré × (1 + 0.15 × nb_éditions)
     Or=3 pts, Argent=2 pts, Bronze=1 pt. Bonus par édition supplémentaire.
 
     Returns DataFrame: Name, Team, Sport, nb_medals, nb_editions, weighted_score, cote

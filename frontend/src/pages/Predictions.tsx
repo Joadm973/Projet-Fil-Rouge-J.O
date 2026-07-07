@@ -14,7 +14,7 @@ type Tab = 'classement' | 'historique' | 'cotes' | 'domination' | 'recommandatio
 const TABS = [
   { id: 'classement' as Tab,      label: 'Classement 2028' },
   { id: 'historique' as Tab,      label: 'Historique pays' },
-  { id: 'cotes' as Tab,           label: 'Côtes athlètes' },
+  { id: 'cotes' as Tab,           label: 'Cotes athlètes' },
   { id: 'domination' as Tab,      label: 'Domination pays' },
   { id: 'recommandations' as Tab, label: 'Recommandations' },
   { id: 'timeline' as Tab,        label: 'Timeline' },
@@ -165,7 +165,7 @@ export default function Predictions() {
 
       {tab === 'cotes' && (
         <>
-          <SectionHeader title="Côtes athlètes" sub="Score pondéré : Or=3 pts, Argent=2 pts, Bronze=1 pt (+régularité)" />
+          <SectionHeader title="Cotes athlètes" sub="Score pondéré : Or=3 pts, Argent=2 pts, Bronze=1 pt (+régularité)" />
           <PlotlyChart data={ratingsData} layout={{ yaxis: { categoryorder: 'total ascending' }, margin: { t: 20, r: 52, b: 28, l: 130 } }} height={500} />
           <Insight>Le score intègre le volume de médailles et la régularité entre éditions olympiques (+15% par édition supplémentaire).</Insight>
         </>

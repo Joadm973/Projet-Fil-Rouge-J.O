@@ -83,7 +83,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     # Harmoniser le format « NOM Prénom » des éditions 2020+ (ex. "McKEON Emma")
     # vers le format historique « Prénom Nom » ("Emma Mckeon"). Sans cela, la
     # carrière d'un athlète présent avant et après 2020 est scindée en deux
-    # identités distinctes (faux "breakouts", côtes sous-évaluées).
+    # identités distinctes (faux "breakouts", cotes sous-évaluées).
     recent = df["Year"] >= 2020
     df.loc[recent, "Name"] = df.loc[recent, "Name"].map(_reorder_reversed_name)
     # Fusionner Allemagne de l'Est (GDR) et de l'Ouest (FRG) avec l'Allemagne unifiée (GER)

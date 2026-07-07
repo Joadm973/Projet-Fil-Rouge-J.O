@@ -158,7 +158,7 @@ def show(df: pd.DataFrame):
     st.markdown(
         "Plusieurs algorithmes de Machine Learning entraînés sur l'**historique "
         "complet des médailles par pays** pour forecaster les résultats 2028. "
-        "Comparez les modèles, explorez les côtes par discipline, et lisez les "
+        "Comparez les modèles, explorez les cotes par discipline, et lisez les "
         "recommandations pour Los Angeles."
     )
 
@@ -189,7 +189,7 @@ def show(df: pd.DataFrame):
         "📈 Historique pays",
         "⚔️ Comparaison modèles",
         "🌍 Carte prédite",
-        "🎯 Côtes & Disciplines",
+        "🎯 Cotes & Disciplines",
         "💡 Recommandations",
         "⏱️ Timeline des records",
     ])
@@ -413,7 +413,7 @@ def show(df: pd.DataFrame):
     # TAB 5 — CÔTES & DISCIPLINES
     # ════════════════════════════════════════════════════════════════════
     with tab5:
-        section_header("🎯 Côtes de dominance par pays et discipline (2016–2024)")
+        section_header("🎯 Cotes de dominance par pays et discipline (2016–2024)")
 
         dom_df = _get_sport_dominance(df)
 
@@ -516,8 +516,8 @@ def show(df: pd.DataFrame):
 
         st.markdown("---")
 
-        # Côtes des athlètes
-        section_header("🏃 Côtes des athlètes actifs (2016–2024)")
+        # Cotes des athlètes
+        section_header("🏃 Cotes des athlètes actifs (2016–2024)")
 
         ath_df = _get_athlete_ratings(df)
 
@@ -543,7 +543,7 @@ def show(df: pd.DataFrame):
                         color_continuous_scale="Oranges",
                         hover_data=["Team", "Sport", "nb_medals", "nb_editions"],
                         text="cote",
-                        title="Top 15 athlètes par côte (score pondéré)",
+                        title="Top 15 athlètes par cote (score pondéré)",
                     )
                     fig_ath.update_traces(textposition="outside")
                     fig_ath.update_layout(
@@ -556,7 +556,7 @@ def show(df: pd.DataFrame):
                 else:
                     st.info("Aucun athlète ne correspond aux filtres sélectionnés.")
 
-            with st.expander("📋 Tableau complet des côtes athlètes"):
+            with st.expander("📋 Tableau complet des cotes athlètes"):
                 st.dataframe(
                     filtered_ath[
                         ["Name", "Team", "Sport", "nb_medals", "nb_editions", "weighted_score", "cote"]
@@ -566,7 +566,7 @@ def show(df: pd.DataFrame):
                 )
 
             insight(
-                "La <strong>côte</strong> combine le score pondéré des médailles "
+                "La <strong>cote</strong> combine le score pondéré des médailles "
                 "(Or=3 pts, Argent=2 pts, Bronze=1 pt) avec la régularité aux JO "
                 "(+15% par édition supplémentaire). Un score élevé indique un athlète "
                 "dominant sur plusieurs cycles olympiques."
