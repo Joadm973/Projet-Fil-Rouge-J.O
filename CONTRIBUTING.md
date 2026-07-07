@@ -4,16 +4,19 @@
 
 ```
 main
- └── develop
-      ├── feature/data-acquisition
-      ├── feature/data-processing
-      ├── feature/analysis
-      ├── feature/visualization
-      ├── feature/modeling
-      ├── feature/predictions
-      ├── feature/streamlit-app
-      ├── feature/documentation
-      └── feature/notebooks
+ ├── develop
+ │    ├── feature/data-acquisition
+ │    ├── feature/data-processing
+ │    ├── feature/analysis
+ │    ├── feature/visualization
+ │    ├── feature/modeling
+ │    ├── feature/predictions
+ │    ├── feature/streamlit-app
+ │    ├── feature/documentation
+ │    ├── feature/notebooks
+ │    ├── feature/finalisation-livrables
+ │    └── fix/*                          # corrections ciblées (NOC historiques, Pylint…)
+ └── new-front                           # migration FastAPI + React (phase finale)
 ```
 
 ## Description des branches
@@ -31,10 +34,14 @@ main
 | `feature/streamlit-app` | Interface Streamlit interactive (legacy — remplacée depuis par FastAPI + React, voir `docs/technical_doc.md`) | Interface interactive (coef. 2) |
 | `feature/documentation` | Docs techniques, guide utilisateur, installation | Documenter (coef. 2) |
 | `feature/notebooks` | Jupyter Notebooks (démarche, analyses, visualisations) | Livrable notebook |
+| `feature/finalisation-livrables` | Notebooks finaux, suite de tests, corrections avant rendu | Livrables |
+| `fix/*` | Corrections ciblées mergées en `--no-ff` (fusion NOC historiques, warnings Pylint…) | — |
+| `new-front` | Migration de l'interface Streamlit vers FastAPI + React | Interface interactive (coef. 2) |
 
 ## Conventions de commits
 
-Format : `type(scope): message court`
+Format : `type(scope): message court` — le `scope` est optionnel
+(les commits de la phase finale utilisent la forme courte `type: message`).
 
 | Type | Usage |
 |---|---|
@@ -103,10 +110,21 @@ git tag -a v1.0.0 -m "Version 1.0.0"
 git push origin main --tags
 ```
 
-## Règles
+## Règles (phase de développement principale)
 
 - **Ne jamais** committer directement sur `main`
 - **Toujours** passer par `develop` avant `main`
 - Chaque Pull Request doit être relue avant le merge
 - Un commit = une modification logique cohérente
 - Les branches `feature/*` sont supprimées après merge dans `develop`
+
+## Évolution du workflow (phase finale)
+
+Ce Git Flow a été suivi pendant toute la phase de construction (features et
+correctifs mergés en `--no-ff` dans `develop`, puis release vers `main` —
+l'historique des merges en témoigne). Après le merge de
+`feature/finalisation-livrables` et la migration de l'interface vers
+FastAPI + React (branche `new-front`), le projet est passé en **cycle court** :
+les correctifs de fin de projet sont commités directement sur `main` (binôme,
+relecture des commits a posteriori), et `develop` est gelée à ce point.
+Aucun tag de version n'a été posé ; la version soutenue est la tête de `main`.
